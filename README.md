@@ -6,6 +6,8 @@ This project was an university project at the Technische Hochschule Mittelhessen
 
 We were using an discovery iot node with an stm32l475. By studying the cortex m4 programming manual it was quite simple to create a custom rtos.
 
+It is called bee_os, because when the used stm was shutdown, it always stopped at a funny memory location.
+
 ## Import library
 
 - load realtime_library as project to workspace
