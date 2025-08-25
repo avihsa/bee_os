@@ -1,0 +1,20 @@
+/**
+**************************************************
+* @file muster.h
+* @author Max Mustermann
+* @version v1.0
+* @date 31.03.22
+* @brief: Module for using the periphery xyz
+**************************************************
+*/
+#ifndef MUSTER_MUSTER_H_
+#define MUSTER_MUSTER_H_
+/* Includes */
+#include "stm32f4xx.h"
+/* Public Preprocessor defines */
+/* Public Preprocessor macros */
+/* Public type definitions */
+/* Public functions (prototypes) */
+void muster_init(void);
+void muster_calc_sum(void);
+#endif /* MUSTER_MUSTER_H_ */

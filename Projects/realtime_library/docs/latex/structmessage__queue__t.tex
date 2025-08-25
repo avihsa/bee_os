@@ -1,0 +1,98 @@
+\doxysection{message\+\_\+queue\+\_\+t Struct Reference}
+\hypertarget{structmessage__queue__t}{}\label{structmessage__queue__t}\index{message\_queue\_t@{message\_queue\_t}}
+
+
+{\ttfamily \#include $<$message\+\_\+queue.\+h$>$}
+
+
+
+Collaboration diagram for message\+\_\+queue\+\_\+t\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structmessage__queue__t__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structmessage__queue__t_a4baa9892cf26b8f8e7f8b543d5884656}{message\+\_\+queue\+\_\+identifier}}
+\begin{DoxyCompactList}\small\item\em message queues identifier \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structmessage__queue__t_a3417a625e31684ac6e854f963037078b}{qcb}}
+\begin{DoxyCompactList}\small\item\em message queues control block \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structmessage__queue__t_a32adb002bd2939d1ad38bb4385d5acb7}{receiving\+\_\+task\+\_\+list}}
+\begin{DoxyCompactList}\small\item\em linked list for storing blocked receiving tasks \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structmessage__queue__t_a6005a7d3f1fa1707920743fa2efe0869}{sending\+\_\+task\+\_\+list}}
+\begin{DoxyCompactList}\small\item\em linked list for storing blocked sending tasks \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00077}{77}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structmessage__queue__t_a4baa9892cf26b8f8e7f8b543d5884656}\label{structmessage__queue__t_a4baa9892cf26b8f8e7f8b543d5884656} 
+\index{message\_queue\_t@{message\_queue\_t}!message\_queue\_identifier@{message\_queue\_identifier}}
+\index{message\_queue\_identifier@{message\_queue\_identifier}!message\_queue\_t@{message\_queue\_t}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_identifier}{message\_queue\_identifier}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t}}\texorpdfstring{$\ast$}{*} message\+\_\+queue\+\_\+identifier}
+
+
+
+message queues identifier 
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00078}{78}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{structmessage__queue__t_a3417a625e31684ac6e854f963037078b}\label{structmessage__queue__t_a3417a625e31684ac6e854f963037078b} 
+\index{message\_queue\_t@{message\_queue\_t}!qcb@{qcb}}
+\index{qcb@{qcb}!message\_queue\_t@{message\_queue\_t}}
+\doxysubsubsection{\texorpdfstring{qcb}{qcb}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structqueue__t}{queue\+\_\+t}}\texorpdfstring{$\ast$}{*} qcb}
+
+
+
+message queues control block 
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00079}{79}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{structmessage__queue__t_a32adb002bd2939d1ad38bb4385d5acb7}\label{structmessage__queue__t_a32adb002bd2939d1ad38bb4385d5acb7} 
+\index{message\_queue\_t@{message\_queue\_t}!receiving\_task\_list@{receiving\_task\_list}}
+\index{receiving\_task\_list@{receiving\_task\_list}!message\_queue\_t@{message\_queue\_t}}
+\doxysubsubsection{\texorpdfstring{receiving\_task\_list}{receiving\_task\_list}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}}\texorpdfstring{$\ast$}{*} receiving\+\_\+task\+\_\+list}
+
+
+
+linked list for storing blocked receiving tasks 
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00080}{80}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{structmessage__queue__t_a6005a7d3f1fa1707920743fa2efe0869}\label{structmessage__queue__t_a6005a7d3f1fa1707920743fa2efe0869} 
+\index{message\_queue\_t@{message\_queue\_t}!sending\_task\_list@{sending\_task\_list}}
+\index{sending\_task\_list@{sending\_task\_list}!message\_queue\_t@{message\_queue\_t}}
+\doxysubsubsection{\texorpdfstring{sending\_task\_list}{sending\_task\_list}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}}\texorpdfstring{$\ast$}{*} sending\+\_\+task\+\_\+list}
+
+
+
+linked list for storing blocked sending tasks 
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00081}{81}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/kernel/\mbox{\hyperlink{message__queue_8h}{message\+\_\+queue.\+h}}\end{DoxyCompactItemize}

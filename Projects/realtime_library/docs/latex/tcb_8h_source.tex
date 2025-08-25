@@ -1,0 +1,46 @@
+\doxysection{tcb.\+h}
+\hypertarget{tcb_8h_source}{}\label{tcb_8h_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/tcb.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/tcb.h}}
+\mbox{\hyperlink{tcb_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00002}00002\ \textcolor{comment}{\ *\ tcb.h}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00003}00003\ \textcolor{comment}{\ *\ \ Task\ control\ block}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00004}00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Mar\ 31,\ 2025}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00005}00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ David}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ DOS\_INC\_TCB\_H\_}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ DOS\_INC\_TCB\_H\_}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00014}\mbox{\hyperlink{tcb_8h_a8441e64e8343c3ee18dbc771bfb92c24}{00014}}\ \textcolor{preprocessor}{\#define\ TCB\_TASK\_STACK\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ 128u\ )\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00017}\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{00017}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00019}00019\ \ \ \ \ \textcolor{comment}{//\ TODO:\ For\ the\ future}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00020}\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a25f1eb0ebaef4580ce8a964e8dffac10}{00020}}\ \ \ \ \ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a25f1eb0ebaef4580ce8a964e8dffac10}{TaskState\_Created}}\ =\ 0U,\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//\ General\ task\ states\ during\ normal\ operation}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00023}\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53}{00023}}\ \ \ \ \ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53}{TaskState\_Ready}},\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00024}\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570ace7df1fea4c86c0a61fad5a3ddc599bc}{00024}}\ \ \ \ \ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570ace7df1fea4c86c0a61fad5a3ddc599bc}{TaskState\_Running}},\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00025}\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a}{00025}}\ \ \ \ \ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a}{TaskState\_Blocked}},\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00027}00027\ \ \ \ \ \textcolor{comment}{//\ TODO:\ For\ the\ future...}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00028}\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570ad8710cc7a70896664f0fd14eb6636dc4}{00028}}\ \ \ \ \ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570ad8710cc7a70896664f0fd14eb6636dc4}{TaskState\_Deleted}},\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00029}\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a9394e302e84f3a380e68aa59958cf6d0}{00029}}\ \ \ \ \ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a9394e302e84f3a380e68aa59958cf6d0}{TaskState\_MAX\_STATE}},\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00030}00030\ \}\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\_eTastStates\_t}};}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00033}\mbox{\hyperlink{structTCB__sctTCB__t}{00033}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00034}00034\ \{}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00035}\mbox{\hyperlink{structTCB__sctTCB__t_aa03dce5563127a2b677f99a8e03cb589}{00035}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structTCB__sctTCB__t_aa03dce5563127a2b677f99a8e03cb589}{u8TaskId}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00036}\mbox{\hyperlink{structTCB__sctTCB__t_a1886aeca2b23b10a487cc3c40186cd7d}{00036}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structTCB__sctTCB__t_a1886aeca2b23b10a487cc3c40186cd7d}{u8TaskPrio}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00037}\mbox{\hyperlink{structTCB__sctTCB__t_ab010baa4ac75ac6c7af73de0da2774d0}{00037}}\ \ \ \ \ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\_eTastStates\_t}}\ \mbox{\hyperlink{structTCB__sctTCB__t_ab010baa4ac75ac6c7af73de0da2774d0}{eTaskState}};\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00039}\mbox{\hyperlink{structTCB__sctTCB__t_ab54c29a405d16d6101712d41862a636f}{00039}}\ \ \ \ \ uint32\_t\ au32TaskStack[\mbox{\hyperlink{tcb_8h_a8441e64e8343c3ee18dbc771bfb92c24}{TCB\_TASK\_STACK\_SIZE}}];\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00040}\mbox{\hyperlink{structTCB__sctTCB__t_a550895f7309b451760ea7240eecf068e}{00040}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structTCB__sctTCB__t_a550895f7309b451760ea7240eecf068e}{u32TaskSP}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00041}00041\ \}\ \mbox{\hyperlink{structTCB__sctTCB__t}{TCB\_sctTCB\_t}};}
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{tcb_8h_source_l00043}00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ DOS\_INC\_TCB\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

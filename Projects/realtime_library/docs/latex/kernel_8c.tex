@@ -1,0 +1,499 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/src/kernel/kernel.c File Reference}
+\hypertarget{kernel_8c}{}\label{kernel_8c}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/kernel.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/kernel.c}}
+
+
+\+: Module for using the periphery xyz  
+
+
+{\ttfamily \#include $<$kernel/kernel.\+h$>$}\newline
+{\ttfamily \#include $<$utils/dictionary.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}utils/support.\+h"{}}\newline
+{\ttfamily \#include "{}kernel/semaphore.\+h"{}}\newline
+Include dependency graph for kernel.\+c\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{kernel_8c_ae03fc6b45b1014f2f29a72e531a67ca9}{kernel\+\_\+start\+\_\+task}} (linked\+\_\+list\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}priority\+\_\+group, linked\+\_\+list\+\_\+element\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element, task\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task, TCB\+\_\+e\+Tast\+States\+\_\+t task\+\_\+state)
+\item 
+int \mbox{\hyperlink{kernel_8c_a58407b02ce952d936f4d94f7bfc0636b}{kernel\+\_\+swap\+\_\+task}} (linked\+\_\+list\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}priority\+\_\+group, linked\+\_\+list\+\_\+element\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element, task\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\item 
+int \mbox{\hyperlink{kernel_8c_abd2b46b5fc357aee15a022e0cbaa5ce7}{kernel\+\_\+set\+\_\+status}} (Kernel\+\_\+\+Status\+\_\+e status)
+\item 
+int \mbox{\hyperlink{kernel_8c_a1a653c8f85dcfd8a49f46b36a27e300c}{kernel\+\_\+set\+\_\+stack\+\_\+pointer}} (void)
+\item 
+void \mbox{\hyperlink{kernel_8c_ac0574125de4d9f0106c455266d2f56a6}{kernel\+\_\+toggle\+\_\+critical\+\_\+section}} (void)
+\begin{DoxyCompactList}\small\item\em Toggle a critical section to prevent a task switch. @info It allows atomic operations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{kernel_8c_aecc1d7602ec2800fcdc0d31d35a7a379}{kernel\+\_\+set\+\_\+system\+\_\+functions}} (void)
+\item 
+int \mbox{\hyperlink{kernel_8c_aeb95093a1c30d6092c51af21056af81f}{kernel\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the kernel and prepares required structures. Call this function first before any kernel usage. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{kernel_8c_aee2d2ea668c39df165290b763190546c}{kernel\+\_\+deinit}} (void)
+\item 
+int \mbox{\hyperlink{kernel_8c_ac14549c6c6aeec9c69da8a39dc4cd7ae}{kernel\+\_\+add\+\_\+task}} (int(\texorpdfstring{$\ast$}{*}task\+\_\+main)(void), uint8\+\_\+t u8\+\_\+task\+\_\+id, uint8\+\_\+t u8\+\_\+task\+\_\+priority, size\+\_\+t time\+\_\+quantum)
+\begin{DoxyCompactList}\small\item\em Inserts a new task to be executed on kernel start. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{kernel_8c_ac68dc481aa6c96dd4e3a4d5d813d5eb4}{kernel\+\_\+start}} (void)
+\begin{DoxyCompactList}\small\item\em It will start the kernel with the previous added tasks. It is able to start multiple tasks, if the system supports it. If the system does not support parallel tasks, it will start the firt task and will never return. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{kernel_8c_a078567849ae32fe12476fb5b91af92fb}{kernel\+\_\+message\+\_\+queue\+\_\+create}} (message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue\+\_\+identifier, char \texorpdfstring{$\ast$}{*}name, size\+\_\+t queue\+\_\+size, size\+\_\+t element\+\_\+size)
+\item 
+int \mbox{\hyperlink{kernel_8c_a8f8b80ebbb3072b7f709e0feff467082}{kernel\+\_\+message\+\_\+queue\+\_\+delete}} (message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue\+\_\+identifier)
+\item 
+int \mbox{\hyperlink{kernel_8c_ae679dd328e5f2250fb9182ecaafe1eb6}{kernel\+\_\+message\+\_\+queue\+\_\+send}} (message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue\+\_\+identifier, void \texorpdfstring{$\ast$}{*}message, size\+\_\+t element\+\_\+size)
+\item 
+int \mbox{\hyperlink{kernel_8c_a3cae2f31fb7d524c1d65b9d62d9cd88c}{kernel\+\_\+message\+\_\+queue\+\_\+receive}} (message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue\+\_\+identifier, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message)
+\item 
+int \mbox{\hyperlink{kernel_8c_a842b37362b69eaf7ceafa2122ccea3ff}{kernel\+\_\+semaphore\+\_\+create}} (size\+\_\+t \texorpdfstring{$\ast$}{*}id)
+\begin{DoxyCompactList}\small\item\em Creates a semaphore to block other tasks from entering a protected section. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{kernel_8c_a61e4703a62311ed52256cf6aae00bda6}{kernel\+\_\+semaphore\+\_\+acquire}} (size\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Acquire a semaphore to enter a critical section. The task will try to acquire the semaphore and will be blocked until it was successful. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{kernel_8c_a2b2cfb5839da5e8574e1e6cf2e9e88a4}{kernel\+\_\+semaphore\+\_\+release}} (size\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Release a semaphore to exit a critical section. On every release a task will be moved to its corresponding priority group. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{kernel_8c_a4f64b03286e23919da7e8244af50073c}{kernel\+\_\+semaphore\+\_\+is\+\_\+available}} (size\+\_\+t id)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dictionary\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}{g\+\_\+prioritized\+\_\+tasks}}
+\item 
+linked\+\_\+list\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a6e3a882f432c89fd5599f82167877100}{g\+\_\+delayed\+\_\+tasks}} = NULL
+\item 
+dictionary\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_afc007d23bf7c517682f1316b5737552a}{g\+\_\+message\+\_\+queue\+\_\+list}} = NULL
+\item 
+size\+\_\+t \mbox{\hyperlink{kernel_8c_a56123615f2ddd1773bbcde4488096ab4}{g\+\_\+message\+\_\+queue\+\_\+ids}} = 0
+\item 
+task\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\+\_\+running\+\_\+task\+\_\+current}}
+\item 
+task\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\+\_\+running\+\_\+task\+\_\+next}}
+\item 
+linked\+\_\+list\+\_\+element\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_abcc480b7b7582c338785f57cd0f59cf5}{g\+\_\+linked\+\_\+list\+\_\+current\+\_\+running\+\_\+task}}
+\item 
+dictionary\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a18a398451b2dd94649e809bf3b1a0a56}{g\+\_\+semaphore\+\_\+list}} = NULL
+\item 
+size\+\_\+t \mbox{\hyperlink{kernel_8c_af63543f7a4980913510095ef737e2178}{g\+\_\+semaphore\+\_\+ids}} = 0
+\item 
+Kernel\+\_\+\+Status\+\_\+e \mbox{\hyperlink{kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\+\_\+kernel\+\_\+status}}
+\item 
+linked\+\_\+list\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\+\_\+priority\+\_\+group\+\_\+current}}
+\item 
+bool \mbox{\hyperlink{kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}{g\+\_\+kernel\+\_\+critical\+\_\+section\+\_\+active}} = false
+\item 
+linked\+\_\+list\+\_\+element\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\+\_\+linked\+\_\+list\+\_\+task\+\_\+iterator}}
+\item 
+linked\+\_\+list\+\_\+element\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\+\_\+linked\+\_\+list\+\_\+task\+\_\+iterator\+\_\+next}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for using the periphery xyz 
+
+\begin{DoxyAuthor}{Author}
+Sergej Ellenschläger, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Apr 17, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  GPIO: PA1-PA5, PG13, PG15
+  ADC: ADC1
+==================================================
+  ### Usage ###
+  (#) Call 'muster_init()' to initialize the
+  module and all the necessary peripheries
+  (#) Call 'muster_calc_sum(a, b)' to calculate
+  the sum of a and b
+  ...
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{kernel_8c_ac14549c6c6aeec9c69da8a39dc4cd7ae}\label{kernel_8c_ac14549c6c6aeec9c69da8a39dc4cd7ae} 
+\index{kernel.c@{kernel.c}!kernel\_add\_task@{kernel\_add\_task}}
+\index{kernel\_add\_task@{kernel\_add\_task}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_add\_task()}{kernel\_add\_task()}}
+{\footnotesize\ttfamily int kernel\+\_\+add\+\_\+task (\begin{DoxyParamCaption}\item[{int(\texorpdfstring{$\ast$}{*})(void)}]{task\+\_\+main,  }\item[{uint8\+\_\+t}]{u8\+\_\+task\+\_\+id,  }\item[{uint8\+\_\+t}]{u8\+\_\+task\+\_\+priority,  }\item[{size\+\_\+t}]{time\+\_\+quantum }\end{DoxyParamCaption})}
+
+
+
+Inserts a new task to be executed on kernel start. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+main} & is a function pointer to the task function \\
+\hline
+{\em u8\+\_\+task\+\_\+id} & is an uint8\+\_\+t to set the task id \\
+\hline
+{\em u8\+\_\+task\+\_\+priority} & is an uint8\+\_\+t to indicate in which priority goup it shall be inserted in the prioritized task list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info the return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00135}{135}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{kernel_8c_aee2d2ea668c39df165290b763190546c}\label{kernel_8c_aee2d2ea668c39df165290b763190546c} 
+\index{kernel.c@{kernel.c}!kernel\_deinit@{kernel\_deinit}}
+\index{kernel\_deinit@{kernel\_deinit}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_deinit()}{kernel\_deinit()}}
+{\footnotesize\ttfamily int kernel\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00121}{121}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+\Hypertarget{kernel_8c_aeb95093a1c30d6092c51af21056af81f}\label{kernel_8c_aeb95093a1c30d6092c51af21056af81f} 
+\index{kernel.c@{kernel.c}!kernel\_init@{kernel\_init}}
+\index{kernel\_init@{kernel\_init}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_init()}{kernel\_init()}}
+{\footnotesize\ttfamily int kernel\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the kernel and prepares required structures. Call this function first before any kernel usage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info the return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00073}{73}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{kernel_8c_a078567849ae32fe12476fb5b91af92fb}\label{kernel_8c_a078567849ae32fe12476fb5b91af92fb} 
+\index{kernel.c@{kernel.c}!kernel\_message\_queue\_create@{kernel\_message\_queue\_create}}
+\index{kernel\_message\_queue\_create@{kernel\_message\_queue\_create}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_message\_queue\_create()}{kernel\_message\_queue\_create()}}
+{\footnotesize\ttfamily int kernel\+\_\+message\+\_\+queue\+\_\+create (\begin{DoxyParamCaption}\item[{message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue\+\_\+identifier,  }\item[{char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{size\+\_\+t}]{queue\+\_\+size,  }\item[{size\+\_\+t}]{element\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00218}{218}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 3
+\Hypertarget{kernel_8c_a8f8b80ebbb3072b7f709e0feff467082}\label{kernel_8c_a8f8b80ebbb3072b7f709e0feff467082} 
+\index{kernel.c@{kernel.c}!kernel\_message\_queue\_delete@{kernel\_message\_queue\_delete}}
+\index{kernel\_message\_queue\_delete@{kernel\_message\_queue\_delete}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_message\_queue\_delete()}{kernel\_message\_queue\_delete()}}
+{\footnotesize\ttfamily int kernel\+\_\+message\+\_\+queue\+\_\+delete (\begin{DoxyParamCaption}\item[{message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue\+\_\+identifier }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00251}{251}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 4
+\Hypertarget{kernel_8c_a3cae2f31fb7d524c1d65b9d62d9cd88c}\label{kernel_8c_a3cae2f31fb7d524c1d65b9d62d9cd88c} 
+\index{kernel.c@{kernel.c}!kernel\_message\_queue\_receive@{kernel\_message\_queue\_receive}}
+\index{kernel\_message\_queue\_receive@{kernel\_message\_queue\_receive}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_message\_queue\_receive()}{kernel\_message\_queue\_receive()}}
+{\footnotesize\ttfamily int kernel\+\_\+message\+\_\+queue\+\_\+receive (\begin{DoxyParamCaption}\item[{message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue\+\_\+identifier,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00302}{302}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 5
+\Hypertarget{kernel_8c_ae679dd328e5f2250fb9182ecaafe1eb6}\label{kernel_8c_ae679dd328e5f2250fb9182ecaafe1eb6} 
+\index{kernel.c@{kernel.c}!kernel\_message\_queue\_send@{kernel\_message\_queue\_send}}
+\index{kernel\_message\_queue\_send@{kernel\_message\_queue\_send}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_message\_queue\_send()}{kernel\_message\_queue\_send()}}
+{\footnotesize\ttfamily int kernel\+\_\+message\+\_\+queue\+\_\+send (\begin{DoxyParamCaption}\item[{message\+\_\+queue\+\_\+identifier\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue\+\_\+identifier,  }\item[{void \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t}]{element\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00281}{281}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{kernel_8c_a61e4703a62311ed52256cf6aae00bda6}\label{kernel_8c_a61e4703a62311ed52256cf6aae00bda6} 
+\index{kernel.c@{kernel.c}!kernel\_semaphore\_acquire@{kernel\_semaphore\_acquire}}
+\index{kernel\_semaphore\_acquire@{kernel\_semaphore\_acquire}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_semaphore\_acquire()}{kernel\_semaphore\_acquire()}}
+{\footnotesize\ttfamily int kernel\+\_\+semaphore\+\_\+acquire (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Acquire a semaphore to enter a critical section. The task will try to acquire the semaphore and will be blocked until it was successful. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & is size\+\_\+t, which is used as a key for fast access. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error and the message\+\_\+queue\+\_\+identifier will be set to null @info the return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00375}{375}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 7
+\Hypertarget{kernel_8c_a842b37362b69eaf7ceafa2122ccea3ff}\label{kernel_8c_a842b37362b69eaf7ceafa2122ccea3ff} 
+\index{kernel.c@{kernel.c}!kernel\_semaphore\_create@{kernel\_semaphore\_create}}
+\index{kernel\_semaphore\_create@{kernel\_semaphore\_create}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_semaphore\_create()}{kernel\_semaphore\_create()}}
+{\footnotesize\ttfamily int kernel\+\_\+semaphore\+\_\+create (\begin{DoxyParamCaption}\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{id }\end{DoxyParamCaption})}
+
+
+
+Creates a semaphore to block other tasks from entering a protected section. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & is a pointer of size\+\_\+t, which is used as a key for fast access. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error and the message\+\_\+queue\+\_\+identifier will be set to null @info the return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00341}{341}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 8
+\Hypertarget{kernel_8c_a4f64b03286e23919da7e8244af50073c}\label{kernel_8c_a4f64b03286e23919da7e8244af50073c} 
+\index{kernel.c@{kernel.c}!kernel\_semaphore\_is\_available@{kernel\_semaphore\_is\_available}}
+\index{kernel\_semaphore\_is\_available@{kernel\_semaphore\_is\_available}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_semaphore\_is\_available()}{kernel\_semaphore\_is\_available()}}
+{\footnotesize\ttfamily int kernel\+\_\+semaphore\+\_\+is\+\_\+available (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00481}{481}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 9
+\Hypertarget{kernel_8c_a2b2cfb5839da5e8574e1e6cf2e9e88a4}\label{kernel_8c_a2b2cfb5839da5e8574e1e6cf2e9e88a4} 
+\index{kernel.c@{kernel.c}!kernel\_semaphore\_release@{kernel\_semaphore\_release}}
+\index{kernel\_semaphore\_release@{kernel\_semaphore\_release}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_semaphore\_release()}{kernel\_semaphore\_release()}}
+{\footnotesize\ttfamily int kernel\+\_\+semaphore\+\_\+release (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Release a semaphore to exit a critical section. On every release a task will be moved to its corresponding priority group. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & is size\+\_\+t, which is used as a key for fast access. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error and the message\+\_\+queue\+\_\+identifier will be set to null @info the return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00423}{423}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 10
+\Hypertarget{kernel_8c_a1a653c8f85dcfd8a49f46b36a27e300c}\label{kernel_8c_a1a653c8f85dcfd8a49f46b36a27e300c} 
+\index{kernel.c@{kernel.c}!kernel\_set\_stack\_pointer@{kernel\_set\_stack\_pointer}}
+\index{kernel\_set\_stack\_pointer@{kernel\_set\_stack\_pointer}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_set\_stack\_pointer()}{kernel\_set\_stack\_pointer()}}
+{\footnotesize\ttfamily int kernel\+\_\+set\+\_\+stack\+\_\+pointer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+Here is the caller graph for this function\+:
+% FIG 11
+\Hypertarget{kernel_8c_abd2b46b5fc357aee15a022e0cbaa5ce7}\label{kernel_8c_abd2b46b5fc357aee15a022e0cbaa5ce7} 
+\index{kernel.c@{kernel.c}!kernel\_set\_status@{kernel\_set\_status}}
+\index{kernel\_set\_status@{kernel\_set\_status}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_set\_status()}{kernel\_set\_status()}}
+{\footnotesize\ttfamily int kernel\+\_\+set\+\_\+status (\begin{DoxyParamCaption}\item[{Kernel\+\_\+\+Status\+\_\+e}]{status }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+Here is the caller graph for this function\+:
+% FIG 12
+\Hypertarget{kernel_8c_aecc1d7602ec2800fcdc0d31d35a7a379}\label{kernel_8c_aecc1d7602ec2800fcdc0d31d35a7a379} 
+\index{kernel.c@{kernel.c}!kernel\_set\_system\_functions@{kernel\_set\_system\_functions}}
+\index{kernel\_set\_system\_functions@{kernel\_set\_system\_functions}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_set\_system\_functions()}{kernel\_set\_system\_functions()}}
+{\footnotesize\ttfamily void kernel\+\_\+set\+\_\+system\+\_\+functions (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+Here is the caller graph for this function\+:
+% FIG 13
+\Hypertarget{kernel_8c_ac68dc481aa6c96dd4e3a4d5d813d5eb4}\label{kernel_8c_ac68dc481aa6c96dd4e3a4d5d813d5eb4} 
+\index{kernel.c@{kernel.c}!kernel\_start@{kernel\_start}}
+\index{kernel\_start@{kernel\_start}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_start()}{kernel\_start()}}
+{\footnotesize\ttfamily int kernel\+\_\+start (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+It will start the kernel with the previous added tasks. It is able to start multiple tasks, if the system supports it. If the system does not support parallel tasks, it will start the firt task and will never return. 
+
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info the return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00168}{168}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the call graph for this function\+:
+% FIG 14
+\Hypertarget{kernel_8c_ae03fc6b45b1014f2f29a72e531a67ca9}\label{kernel_8c_ae03fc6b45b1014f2f29a72e531a67ca9} 
+\index{kernel.c@{kernel.c}!kernel\_start\_task@{kernel\_start\_task}}
+\index{kernel\_start\_task@{kernel\_start\_task}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_start\_task()}{kernel\_start\_task()}}
+{\footnotesize\ttfamily int kernel\+\_\+start\+\_\+task (\begin{DoxyParamCaption}\item[{linked\+\_\+list\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{priority\+\_\+group,  }\item[{linked\+\_\+list\+\_\+element\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element,  }\item[{task\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task,  }\item[{TCB\+\_\+e\+Tast\+States\+\_\+t}]{task\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+Here is the caller graph for this function\+:
+% FIG 15
+\Hypertarget{kernel_8c_a58407b02ce952d936f4d94f7bfc0636b}\label{kernel_8c_a58407b02ce952d936f4d94f7bfc0636b} 
+\index{kernel.c@{kernel.c}!kernel\_swap\_task@{kernel\_swap\_task}}
+\index{kernel\_swap\_task@{kernel\_swap\_task}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_swap\_task()}{kernel\_swap\_task()}}
+{\footnotesize\ttfamily int kernel\+\_\+swap\+\_\+task (\begin{DoxyParamCaption}\item[{linked\+\_\+list\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{priority\+\_\+group,  }\item[{linked\+\_\+list\+\_\+element\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element,  }\item[{task\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+Here is the caller graph for this function\+:
+% FIG 16
+\Hypertarget{kernel_8c_ac0574125de4d9f0106c455266d2f56a6}\label{kernel_8c_ac0574125de4d9f0106c455266d2f56a6} 
+\index{kernel.c@{kernel.c}!kernel\_toggle\_critical\_section@{kernel\_toggle\_critical\_section}}
+\index{kernel\_toggle\_critical\_section@{kernel\_toggle\_critical\_section}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{kernel\_toggle\_critical\_section()}{kernel\_toggle\_critical\_section()}}
+{\footnotesize\ttfamily void kernel\+\_\+toggle\+\_\+critical\+\_\+section (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Toggle a critical section to prevent a task switch. @info It allows atomic operations. 
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00505}{505}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+Here is the caller graph for this function\+:
+% FIG 17
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{kernel_8c_a6e3a882f432c89fd5599f82167877100}\label{kernel_8c_a6e3a882f432c89fd5599f82167877100} 
+\index{kernel.c@{kernel.c}!g\_delayed\_tasks@{g\_delayed\_tasks}}
+\index{g\_delayed\_tasks@{g\_delayed\_tasks}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_delayed\_tasks}{g\_delayed\_tasks}}
+{\footnotesize\ttfamily linked\+\_\+list\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+delayed\+\_\+tasks = NULL}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00037}{37}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+\Hypertarget{kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}\label{kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a} 
+\index{kernel.c@{kernel.c}!g\_kernel\_critical\_section\_active@{g\_kernel\_critical\_section\_active}}
+\index{g\_kernel\_critical\_section\_active@{g\_kernel\_critical\_section\_active}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_kernel\_critical\_section\_active}{g\_kernel\_critical\_section\_active}}
+{\footnotesize\ttfamily bool g\+\_\+kernel\+\_\+critical\+\_\+section\+\_\+active = false}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00047}{47}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+\Hypertarget{kernel_8c_ab7526169fb1376f757c464e93703a83e}\label{kernel_8c_ab7526169fb1376f757c464e93703a83e} 
+\index{kernel.c@{kernel.c}!g\_kernel\_status@{g\_kernel\_status}}
+\index{g\_kernel\_status@{g\_kernel\_status}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_kernel\_status}{g\_kernel\_status}}
+{\footnotesize\ttfamily Kernel\+\_\+\+Status\+\_\+e g\+\_\+kernel\+\_\+status\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_abcc480b7b7582c338785f57cd0f59cf5}\label{kernel_8c_abcc480b7b7582c338785f57cd0f59cf5} 
+\index{kernel.c@{kernel.c}!g\_linked\_list\_current\_running\_task@{g\_linked\_list\_current\_running\_task}}
+\index{g\_linked\_list\_current\_running\_task@{g\_linked\_list\_current\_running\_task}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_linked\_list\_current\_running\_task}{g\_linked\_list\_current\_running\_task}}
+{\footnotesize\ttfamily linked\+\_\+list\+\_\+element\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+linked\+\_\+list\+\_\+current\+\_\+running\+\_\+task\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_a1ca4314a6412565954da7439e0aa13cc}\label{kernel_8c_a1ca4314a6412565954da7439e0aa13cc} 
+\index{kernel.c@{kernel.c}!g\_linked\_list\_task\_iterator@{g\_linked\_list\_task\_iterator}}
+\index{g\_linked\_list\_task\_iterator@{g\_linked\_list\_task\_iterator}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_linked\_list\_task\_iterator}{g\_linked\_list\_task\_iterator}}
+{\footnotesize\ttfamily linked\+\_\+list\+\_\+element\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+linked\+\_\+list\+\_\+task\+\_\+iterator\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_a0af8b83c448299a32985cf85b970a9be}\label{kernel_8c_a0af8b83c448299a32985cf85b970a9be} 
+\index{kernel.c@{kernel.c}!g\_linked\_list\_task\_iterator\_next@{g\_linked\_list\_task\_iterator\_next}}
+\index{g\_linked\_list\_task\_iterator\_next@{g\_linked\_list\_task\_iterator\_next}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_linked\_list\_task\_iterator\_next}{g\_linked\_list\_task\_iterator\_next}}
+{\footnotesize\ttfamily linked\+\_\+list\+\_\+element\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+linked\+\_\+list\+\_\+task\+\_\+iterator\+\_\+next\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_a56123615f2ddd1773bbcde4488096ab4}\label{kernel_8c_a56123615f2ddd1773bbcde4488096ab4} 
+\index{kernel.c@{kernel.c}!g\_message\_queue\_ids@{g\_message\_queue\_ids}}
+\index{g\_message\_queue\_ids@{g\_message\_queue\_ids}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_message\_queue\_ids}{g\_message\_queue\_ids}}
+{\footnotesize\ttfamily size\+\_\+t g\+\_\+message\+\_\+queue\+\_\+ids = 0}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00039}{39}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+\Hypertarget{kernel_8c_afc007d23bf7c517682f1316b5737552a}\label{kernel_8c_afc007d23bf7c517682f1316b5737552a} 
+\index{kernel.c@{kernel.c}!g\_message\_queue\_list@{g\_message\_queue\_list}}
+\index{g\_message\_queue\_list@{g\_message\_queue\_list}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_message\_queue\_list}{g\_message\_queue\_list}}
+{\footnotesize\ttfamily dictionary\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+message\+\_\+queue\+\_\+list = NULL}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00038}{38}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+\Hypertarget{kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}\label{kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3} 
+\index{kernel.c@{kernel.c}!g\_prioritized\_tasks@{g\_prioritized\_tasks}}
+\index{g\_prioritized\_tasks@{g\_prioritized\_tasks}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_prioritized\_tasks}{g\_prioritized\_tasks}}
+{\footnotesize\ttfamily dictionary\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+prioritized\+\_\+tasks\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}\label{kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928} 
+\index{kernel.c@{kernel.c}!g\_priority\_group\_current@{g\_priority\_group\_current}}
+\index{g\_priority\_group\_current@{g\_priority\_group\_current}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_priority\_group\_current}{g\_priority\_group\_current}}
+{\footnotesize\ttfamily linked\+\_\+list\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+priority\+\_\+group\+\_\+current\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}\label{kernel_8c_a5cd10a094ccc1303513ef222e35bfec4} 
+\index{kernel.c@{kernel.c}!g\_running\_task\_current@{g\_running\_task\_current}}
+\index{g\_running\_task\_current@{g\_running\_task\_current}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_running\_task\_current}{g\_running\_task\_current}}
+{\footnotesize\ttfamily task\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+running\+\_\+task\+\_\+current\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_a7901950415e33fca551eaf4d1653ed13}\label{kernel_8c_a7901950415e33fca551eaf4d1653ed13} 
+\index{kernel.c@{kernel.c}!g\_running\_task\_next@{g\_running\_task\_next}}
+\index{g\_running\_task\_next@{g\_running\_task\_next}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_running\_task\_next}{g\_running\_task\_next}}
+{\footnotesize\ttfamily task\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+running\+\_\+task\+\_\+next\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{kernel_8c_af63543f7a4980913510095ef737e2178}\label{kernel_8c_af63543f7a4980913510095ef737e2178} 
+\index{kernel.c@{kernel.c}!g\_semaphore\_ids@{g\_semaphore\_ids}}
+\index{g\_semaphore\_ids@{g\_semaphore\_ids}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_semaphore\_ids}{g\_semaphore\_ids}}
+{\footnotesize\ttfamily size\+\_\+t g\+\_\+semaphore\+\_\+ids = 0}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00044}{44}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+
+\Hypertarget{kernel_8c_a18a398451b2dd94649e809bf3b1a0a56}\label{kernel_8c_a18a398451b2dd94649e809bf3b1a0a56} 
+\index{kernel.c@{kernel.c}!g\_semaphore\_list@{g\_semaphore\_list}}
+\index{g\_semaphore\_list@{g\_semaphore\_list}!kernel.c@{kernel.c}}
+\doxysubsubsection{\texorpdfstring{g\_semaphore\_list}{g\_semaphore\_list}}
+{\footnotesize\ttfamily dictionary\+\_\+t\texorpdfstring{$\ast$}{*} g\+\_\+semaphore\+\_\+list = NULL}
+
+
+
+Definition at line \mbox{\hyperlink{kernel_8c_source_l00043}{43}} of file \mbox{\hyperlink{kernel_8c_source}{kernel.\+c}}.
+

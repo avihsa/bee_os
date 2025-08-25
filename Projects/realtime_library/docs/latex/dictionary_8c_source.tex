@@ -1,0 +1,109 @@
+\doxysection{dictionary.\+c}
+\hypertarget{dictionary_8c_source}{}\label{dictionary_8c_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/utils/dictionary.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/utils/dictionary.c}}
+\mbox{\hyperlink{dictionary_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00026}00026\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dictionary_8h}{utils/dictionary.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00029}00029\ \textcolor{comment}{/*\ Preprocessor\ defines\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00030}00030\ \textcolor{comment}{/*\ Preprocessor\ macros\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00031}00031\ \textcolor{comment}{/*\ Module\ intern\ type\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00032}00032\ \textcolor{comment}{/*\ Static\ module\ variables\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00033}00033\ \textcolor{comment}{/*\ Static\ module\ functions\ (prototypes)\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00034}00034\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8c_a19eef19081bf62ad4920c0056fb5dc33}{dictionary\_checking}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary);}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00036}00036\ \textcolor{comment}{/*\ Public\ functions\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00045}\mbox{\hyperlink{dictionary_8c_a004a569e92c8b61b43e2c1aeb9635c10}{00045}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8c_a004a569e92c8b61b43e2c1aeb9635c10}{dictionary\_create}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00046}00046\ \ \ \ \ (*dictionary)\ =\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}));}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{if}\ (dictionary\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_a107482c80b098cb41a88116f4c6ba643}{DICTIONARY\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00049}00049\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00052}00052\ \ \ \ \ (*dictionary)-\/>size\ \ =\ size;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00053}00053\ \ \ \ \ (*dictionary)-\/>data\ =\ malloc((*dictionary)-\/>size*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*dictionary)-\/>data==NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_abebbae06e28184929694ae59221072f8}{DICTIONARY\_DATA\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i<(*dictionary)-\/>size;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ (*dictionary)-\/>data[i]\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00064}00064\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00065}00065\ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00068}\mbox{\hyperlink{dictionary_8c_ae6bc6def8de33ff78ef6ed35754cde34}{00068}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8c_ae6bc6def8de33ff78ef6ed35754cde34}{dictionary\_delete}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00070}00070\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{dictionary_8c_a19eef19081bf62ad4920c0056fb5dc33}{dictionary\_checking}}(dictionary);}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{if}\ (status!=\mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00076}00076\ \ \ \ \ free((*dictionary)-\/>data);}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00077}00077\ \ \ \ \ (*dictionary)-\/>data\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00078}00078\ \ \ \ \ free((*dictionary));}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00079}00079\ \ \ \ \ (*dictionary)\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00094}\mbox{\hyperlink{dictionary_8c_aa2e04eccac802b9fc8101d518979b733}{00094}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8c_aa2e04eccac802b9fc8101d518979b733}{dictionary\_add}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary,\ \textcolor{keywordtype}{size\_t}\ key,\ \textcolor{keywordtype}{void}\ **value)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00096}00096\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{dictionary_8c_a19eef19081bf62ad4920c0056fb5dc33}{dictionary\_checking}}(dictionary);}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (status!=\mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (key\ >=\ (*dictionary)-\/>size)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_a1ce4ed414f1229c7e89a962b70e2e31b}{DICTIONARY\_OVERFLOW}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00107}00107\ \ \ \ \ (*dictionary)-\/>data[key]\ =\ *value;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00110}00110\ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00120}\mbox{\hyperlink{dictionary_8c_ac502288081c3e531a135c1aa7e46bdce}{00120}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8c_ac502288081c3e531a135c1aa7e46bdce}{dictionary\_get}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary,\ \textcolor{keywordtype}{size\_t}\ key,\ \textcolor{keywordtype}{void}\ **value)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00122}00122\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{dictionary_8c_a19eef19081bf62ad4920c0056fb5dc33}{dictionary\_checking}}(dictionary);}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{if}\ (status!=\mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00126}00126\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00130}00130\ \ \ \ \ (*value)\ =\ (*dictionary)-\/>data[key];}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00132}00132\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*value)==NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_a45d937bcd1f52e7b2107dfa7a8d703c7}{DICTIONARY\_VALUE\_IS\_NULL}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00134}00134\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00137}00137\ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00139}00139\ \textcolor{comment}{/*\ Static\ module\ functions\ (implementation)\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00142}\mbox{\hyperlink{dictionary_8c_a19eef19081bf62ad4920c0056fb5dc33}{00142}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8c_a19eef19081bf62ad4920c0056fb5dc33}{dictionary\_checking}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*dictionary)\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_a107482c80b098cb41a88116f4c6ba643}{DICTIONARY\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00146}00146\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((*dictionary)-\/>data\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_abebbae06e28184929694ae59221072f8}{DICTIONARY\_DATA\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00149}00149\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00151}00151\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8c_source_l00152}00152\ \}}
+
+\end{DoxyCode}

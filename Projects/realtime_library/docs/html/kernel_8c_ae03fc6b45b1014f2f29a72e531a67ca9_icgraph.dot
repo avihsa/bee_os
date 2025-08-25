@@ -1,0 +1,11 @@
+digraph "kernel_start_task"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="kernel_start_task",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="kernel_start",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$kernel_8c.html#ac68dc481aa6c96dd4e3a4d5d813d5eb4",tooltip="It will start the kernel with the previous added tasks. It is able to start multiple tasks,..."];
+}

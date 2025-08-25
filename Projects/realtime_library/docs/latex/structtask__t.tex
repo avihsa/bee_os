@@ -1,0 +1,247 @@
+\doxysection{task\+\_\+t Struct Reference}
+\hypertarget{structtask__t}{}\label{structtask__t}\index{task\_t@{task\_t}}
+
+
+control information for a task  
+
+
+
+
+{\ttfamily \#include $<$task.\+h$>$}
+
+
+
+Collaboration diagram for task\+\_\+t\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structtask__t__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structTCB__sctTCB__t}{TCB\+\_\+sct\+TCB\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structtask__t_a1fb5ad058d827429ec22745171fcd22b}{task\+\_\+data}}
+\begin{DoxyCompactList}\small\item\em tasks data \end{DoxyCompactList}\item 
+size\+\_\+t(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structtask__t_aac779f34435b0ebc113dad6c9a2ca738}{task\+\_\+main}} )(void)
+\begin{DoxyCompactList}\small\item\em function pointer to the task \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structtask__t_ad71a0f2a2ca2992dfb95871802874673}{time\+\_\+quantum}}
+\begin{DoxyCompactList}\small\item\em max time quantum \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structtask__t_ad5050a747bac8c6fb50911822011e7f5}{time\+\_\+quantum\+\_\+remaining}}
+\begin{DoxyCompactList}\small\item\em remaining time quantum \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structtask__t_a9824c1365d26881a21fc8400749b4db0}{cause}}
+\begin{DoxyCompactList}\small\item\em segger information, if activated \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{structtask__t_ad1758973357aa32cd3c60a266dc024a7}{task\+\_\+name}} \mbox{[}32\mbox{]}
+\begin{DoxyCompactList}\small\item\em tasks name \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structtask__t_a44bbc6e0565f3bf548d4deeeaa294247}{message}}
+\begin{DoxyCompactList}\small\item\em stored message from a message queue \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structtask__t_a4fc2623a3eb487b0620a8e5bebc9a8c9}{message\+\_\+set}}
+\begin{DoxyCompactList}\small\item\em indicated, whether a message was set \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structtask__t_a8db1884c2715f8ec274fe811f5f1fe59}{delta\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em tasks delta time, if blocked and stored in a separate waiting list \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structevent__register__t}{event\+\_\+register\+\_\+t}} \mbox{\hyperlink{structtask__t_a21c3a4ee7d6c63fdfaec962ed9bedcf4}{event\+\_\+register}}
+\begin{DoxyCompactList}\small\item\em tasks event register \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structtask__t_a067b2eb2540e3ef6262bcc57a52034d8}{blocked\+\_\+timeout\+\_\+list}}
+\begin{DoxyCompactList}\small\item\em shows in which waiting list the task was stored, if receiving events \end{DoxyCompactList}\item 
+\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structtask__t_ab93d4d26491a69f1f649b94abb7e0c15}{blocked\+\_\+timeout\+\_\+list\+\_\+element}}
+\begin{DoxyCompactList}\small\item\em is the linked list element in a separate waiting list, if receiving events \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structtask__t_a9488fe0f991bb398e88d2a2379d0ba40}{return\+\_\+value}}
+\begin{DoxyCompactList}\small\item\em tasks exit code \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+control information for a task 
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00058}{58}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structtask__t_a067b2eb2540e3ef6262bcc57a52034d8}\label{structtask__t_a067b2eb2540e3ef6262bcc57a52034d8} 
+\index{task\_t@{task\_t}!blocked\_timeout\_list@{blocked\_timeout\_list}}
+\index{blocked\_timeout\_list@{blocked\_timeout\_list}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{blocked\_timeout\_list}{blocked\_timeout\_list}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}}\texorpdfstring{$\ast$}{*} blocked\+\_\+timeout\+\_\+list}
+
+
+
+shows in which waiting list the task was stored, if receiving events 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00070}{70}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_ab93d4d26491a69f1f649b94abb7e0c15}\label{structtask__t_ab93d4d26491a69f1f649b94abb7e0c15} 
+\index{task\_t@{task\_t}!blocked\_timeout\_list\_element@{blocked\_timeout\_list\_element}}
+\index{blocked\_timeout\_list\_element@{blocked\_timeout\_list\_element}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{blocked\_timeout\_list\_element}{blocked\_timeout\_list\_element}}
+{\footnotesize\ttfamily \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}}\texorpdfstring{$\ast$}{*} blocked\+\_\+timeout\+\_\+list\+\_\+element}
+
+
+
+is the linked list element in a separate waiting list, if receiving events 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00071}{71}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_a9824c1365d26881a21fc8400749b4db0}\label{structtask__t_a9824c1365d26881a21fc8400749b4db0} 
+\index{task\_t@{task\_t}!cause@{cause}}
+\index{cause@{cause}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{cause}{cause}}
+{\footnotesize\ttfamily size\+\_\+t cause}
+
+
+
+segger information, if activated 
+
+tasks blocked cause 
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00064}{64}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_a8db1884c2715f8ec274fe811f5f1fe59}\label{structtask__t_a8db1884c2715f8ec274fe811f5f1fe59} 
+\index{task\_t@{task\_t}!delta\_time@{delta\_time}}
+\index{delta\_time@{delta\_time}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{delta\_time}{delta\_time}}
+{\footnotesize\ttfamily size\+\_\+t delta\+\_\+time}
+
+
+
+tasks delta time, if blocked and stored in a separate waiting list 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00068}{68}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_a21c3a4ee7d6c63fdfaec962ed9bedcf4}\label{structtask__t_a21c3a4ee7d6c63fdfaec962ed9bedcf4} 
+\index{task\_t@{task\_t}!event\_register@{event\_register}}
+\index{event\_register@{event\_register}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{event\_register}{event\_register}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structevent__register__t}{event\+\_\+register\+\_\+t}} event\+\_\+register}
+
+
+
+tasks event register 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00069}{69}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_a44bbc6e0565f3bf548d4deeeaa294247}\label{structtask__t_a44bbc6e0565f3bf548d4deeeaa294247} 
+\index{task\_t@{task\_t}!message@{message}}
+\index{message@{message}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{message}{message}}
+{\footnotesize\ttfamily void\texorpdfstring{$\ast$}{*} message}
+
+
+
+stored message from a message queue 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00066}{66}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_a4fc2623a3eb487b0620a8e5bebc9a8c9}\label{structtask__t_a4fc2623a3eb487b0620a8e5bebc9a8c9} 
+\index{task\_t@{task\_t}!message\_set@{message\_set}}
+\index{message\_set@{message\_set}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{message\_set}{message\_set}}
+{\footnotesize\ttfamily bool message\+\_\+set}
+
+
+
+indicated, whether a message was set 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00067}{67}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_a9488fe0f991bb398e88d2a2379d0ba40}\label{structtask__t_a9488fe0f991bb398e88d2a2379d0ba40} 
+\index{task\_t@{task\_t}!return\_value@{return\_value}}
+\index{return\_value@{return\_value}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{return\_value}{return\_value}}
+{\footnotesize\ttfamily size\+\_\+t return\+\_\+value}
+
+
+
+tasks exit code 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00072}{72}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_a1fb5ad058d827429ec22745171fcd22b}\label{structtask__t_a1fb5ad058d827429ec22745171fcd22b} 
+\index{task\_t@{task\_t}!task\_data@{task\_data}}
+\index{task\_data@{task\_data}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{task\_data}{task\_data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structTCB__sctTCB__t}{TCB\+\_\+sct\+TCB\+\_\+t}}\texorpdfstring{$\ast$}{*} task\+\_\+data}
+
+
+
+tasks data 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00059}{59}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_aac779f34435b0ebc113dad6c9a2ca738}\label{structtask__t_aac779f34435b0ebc113dad6c9a2ca738} 
+\index{task\_t@{task\_t}!task\_main@{task\_main}}
+\index{task\_main@{task\_main}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{task\_main}{task\_main}}
+{\footnotesize\ttfamily size\+\_\+t(\texorpdfstring{$\ast$}{*} task\+\_\+main) (void)}
+
+
+
+function pointer to the task 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00060}{60}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_ad1758973357aa32cd3c60a266dc024a7}\label{structtask__t_ad1758973357aa32cd3c60a266dc024a7} 
+\index{task\_t@{task\_t}!task\_name@{task\_name}}
+\index{task\_name@{task\_name}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{task\_name}{task\_name}}
+{\footnotesize\ttfamily char task\+\_\+name\mbox{[}32\mbox{]}}
+
+
+
+tasks name 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00065}{65}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_ad71a0f2a2ca2992dfb95871802874673}\label{structtask__t_ad71a0f2a2ca2992dfb95871802874673} 
+\index{task\_t@{task\_t}!time\_quantum@{time\_quantum}}
+\index{time\_quantum@{time\_quantum}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{time\_quantum}{time\_quantum}}
+{\footnotesize\ttfamily size\+\_\+t time\+\_\+quantum}
+
+
+
+max time quantum 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00061}{61}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+\Hypertarget{structtask__t_ad5050a747bac8c6fb50911822011e7f5}\label{structtask__t_ad5050a747bac8c6fb50911822011e7f5} 
+\index{task\_t@{task\_t}!time\_quantum\_remaining@{time\_quantum\_remaining}}
+\index{time\_quantum\_remaining@{time\_quantum\_remaining}!task\_t@{task\_t}}
+\doxysubsubsection{\texorpdfstring{time\_quantum\_remaining}{time\_quantum\_remaining}}
+{\footnotesize\ttfamily size\+\_\+t time\+\_\+quantum\+\_\+remaining}
+
+
+
+remaining time quantum 
+
+
+
+Definition at line \mbox{\hyperlink{task_8h_source_l00062}{62}} of file \mbox{\hyperlink{task_8h_source}{task.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/kernel/\mbox{\hyperlink{task_8h}{task.\+h}}\end{DoxyCompactItemize}

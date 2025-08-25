@@ -1,0 +1,56 @@
+\doxysection{support.\+h}
+\hypertarget{support_8h_source}{}\label{support_8h_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/support.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/support.h}}
+\mbox{\hyperlink{support_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00036}\mbox{\hyperlink{support_8h_a6df1d22fb5f09eccc23b9f399670cfd7}{00036}}\ \textcolor{preprocessor}{\#define\ STRINGIFY(x)\ \ \ \ \#x}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00038}00038\ \textcolor{comment}{//\ sub\_component\_status\ =\ subcomponent,\ register\ =\ where\ to\ store\ status,\ component\_status\ =\ component\ itself}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00039}\mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{00039}}\ \textcolor{preprocessor}{\#define\ ERROR\_INFO(sub\_component\_status,\ component\_register,\ component\_status)\ (((sub\_component\_status)\ <<\ (component\_register))\ |\ (component\_status))}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00041}00041\ \textcolor{comment}{//\#define\ SEGGER}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00043}00043\ \textcolor{preprocessor}{\#ifdef\ SEGGER}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00044}00044\ \textcolor{comment}{//\ Segger\ SysView}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00045}00045\ \textcolor{preprocessor}{\#include\ "{}SEGGER\_SYSVIEW.h"{}}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00046}00046\ \textcolor{preprocessor}{\#include\ "{}SEGGER\_SYSVIEW\_Conf.h"{}}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00047}00047\ \textcolor{comment}{//\ Functions}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00048}00048\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_RecordEnterISR}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00049}00049\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_RecordExitISR}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00050}00050\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_CONF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_Conf}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00051}00051\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_START\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_Start}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00052}00052\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_SEND\_TASK\_INFO(Info)\ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_SendTaskInfo(Info)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00053}00053\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_CREATE(pTask)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_OnTaskCreate((unsigned)(pTask))}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00054}00054\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_START\_READY(pTask)\ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_OnTaskStartReady((unsigned)(pTask))}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00055}00055\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_START\_EXEC(pTask)\ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_OnTaskStartExec((unsigned)(pTask))}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00056}00056\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_STOP\_READY(pTask,\ cause)\ \ \ \ SEGGER\_SYSVIEW\_OnTaskStopReady((unsigned)(pTask),\ (cause))}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00057}00057\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_OnTaskStopExec}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00058}00058\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_OnIdle}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00060}00060\ \textcolor{preprocessor}{\#define\ SEGGER\_SET\_STACKPOINTER(task)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (task)-\/>info.StackUsage\ =\ (\ (task)-\/>info.StackBase\ -\/\ (task)-\/>task\_data-\/>u32TaskSP\ )\ /\ 4}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00062}00062\ \textcolor{comment}{//\ Types}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00063}00063\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASKINFO\_DECLARE(info)\ \ \ \ \ \ \ \ \ \ \ SEGGER\_SYSVIEW\_TASKINFO\ info}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00066}00066\ \textcolor{preprocessor}{\#else\ \ \ }\textcolor{comment}{//\ Segger\ inactive}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00067}00067\ \textcolor{comment}{//\ Functions}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00068}\mbox{\hyperlink{support_8h_ab4d8ddabf7d851175e7e7b8a0cf3d990}{00068}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR()}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00069}\mbox{\hyperlink{support_8h_a50d98ba78cf211d4aa5d65c7e9d4a32f}{00069}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR()}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00070}\mbox{\hyperlink{support_8h_a775fecdce3011cb8f574fdffe84940cd}{00070}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_CONF()}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00071}\mbox{\hyperlink{support_8h_a45a3e1c95496c820ade7d2246ff56d8a}{00071}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_START()}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00072}\mbox{\hyperlink{support_8h_a451f7006e115ad81bb10056010d60ed2}{00072}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_SEND\_TASK\_INFO(Info)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00073}\mbox{\hyperlink{support_8h_a14a52206bf582d942c85e39fda4c7d7f}{00073}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_CREATE(pTask)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00074}\mbox{\hyperlink{support_8h_aefb033c0dcb8c484c9b062decb600db1}{00074}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_START\_READY(pTask)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00075}\mbox{\hyperlink{support_8h_a49f3e0b91489968a236620e6585bbc4c}{00075}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_START\_EXEC(pTask)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00076}\mbox{\hyperlink{support_8h_aa2940551d5df6aa394be335a4e88921a}{00076}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_STOP\_READY(pTask,\ cause)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00077}\mbox{\hyperlink{support_8h_a8ed4fdfeb8390c37ad8f692c4b65533e}{00077}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC(pTask)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00078}\mbox{\hyperlink{support_8h_a831ee55321681dbb10b927350a3306ba}{00078}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE()}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00080}\mbox{\hyperlink{support_8h_a8a2bd3d919f89a3ad867a3304282a6c1}{00080}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SET\_STACKPOINTER(task)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00082}00082\ \textcolor{comment}{//\ Types}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00083}\mbox{\hyperlink{support_8h_a7dbe6bf2ffe620f7477225d3eb6f09e5}{00083}}\ \textcolor{preprocessor}{\#define\ SEGGER\_SYSVIEW\_TASKINFO\_DECLARE(info)}}
+\DoxyCodeLine{\Hypertarget{support_8h_source_l00084}00084\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

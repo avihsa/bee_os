@@ -1,0 +1,341 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/src/utils/queue.c File Reference}
+\hypertarget{queue_8c}{}\label{queue_8c}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/utils/queue.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/utils/queue.c}}
+
+
+\+: Module for creating and using queues.  
+
+
+{\ttfamily \#include "{}utils/queue.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for queue.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{queue_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{queue_8c_aecf9808026639fc79ee6fe2eb07648b7}{queue\+\_\+create}} (\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}queue, size\+\_\+t queue\+\_\+size, size\+\_\+t element\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Creates a queue by its size and expected element size. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{queue_8c_abf48187bca1ed7880dd1026805564159}{queue\+\_\+delete}} (\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}queue)
+\begin{DoxyCompactList}\small\item\em Deletes a queue. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{queue_8c_a426a95ba49b994cd29278dc361dba5e1}{queue\+\_\+push\+\_\+front}} (\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}queue, void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}}, size\+\_\+t element\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Store data in a queue and the head advances. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{queue_8c_a0070240d710fb922bcd20de7e8913bb3}{queue\+\_\+push\+\_\+back}} (\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}queue, void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}}, size\+\_\+t element\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Store data in a queue and the tail decrements. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{queue_8c_a616336fd81fef2a9acf4e4aa2784592c}{queue\+\_\+read}} (\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}queue, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}})
+\begin{DoxyCompactList}\small\item\em Read data from a queue and the tail advances. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{queue_8c_adfad9c8321db7f1dcb188b03762ecbcb}{queue\+\_\+peek}} (\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}queue, void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}})
+\begin{DoxyCompactList}\small\item\em Allows to peek on the next element without advancing the tail. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{queue_8c_a31eefde6e1da913661a56a92d15ce506}{queue\+\_\+checking}} (\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}queue)
+\begin{DoxyCompactList}\small\item\em Checks whether a queue is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for creating and using queues. 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Apr 20, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  None
+==================================================
+  ### Usage ###
+  (#) Call 'queue_create' to create a queue.
+  (#) Call 'queue_delete' to delete a queue.
+  (#) Call 'queue_push_front' to store a new element at the head
+        and to use a queue as a fifo.
+  (#) Call 'queue_push_back' to store a new element at the tail
+        and to use a queue as a lifo.
+  (#) Call 'queue_read' to read an element.
+  (#) Call 'queue_peek' to peek an element.
+==================================================
+\end{DoxyVerb}
+
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Apr 20, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  None
+==================================================
+  ### Usage ###
+  (#) Call 'queue_create' to create a queue.
+  (#) Call 'queue_delete' to delete a queue.
+  (#) Call 'queue_write_back' to store a new element at the head
+      and to use a queue as a fifo.
+  (#) Call 'queue_write_front' to store a new element at the tail
+      and to use a queue as a lifo.
+  (#) Call 'queue_read' to read an element.
+  (#) Call 'queue_peek' to peek an element.
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{queue_8c_a31eefde6e1da913661a56a92d15ce506}\label{queue_8c_a31eefde6e1da913661a56a92d15ce506} 
+\index{queue.c@{queue.c}!queue\_checking@{queue\_checking}}
+\index{queue\_checking@{queue\_checking}!queue.c@{queue.c}}
+\doxysubsubsection{\texorpdfstring{queue\_checking()}{queue\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t queue\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{queue }\end{DoxyParamCaption})}
+
+
+
+Checks whether a queue is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & is a queue pointer of pointer, which shall be checked for irregular structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info check for this error\+: QUEUE\+\_\+\+IS\+\_\+\+NULL\+: queue is null QUEUE\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: queue has no data memory 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00273}{273}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{queue_8c_a31eefde6e1da913661a56a92d15ce506_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{queue_8c_aecf9808026639fc79ee6fe2eb07648b7}\label{queue_8c_aecf9808026639fc79ee6fe2eb07648b7} 
+\index{queue.c@{queue.c}!queue\_create@{queue\_create}}
+\index{queue\_create@{queue\_create}!queue.c@{queue.c}}
+\doxysubsubsection{\texorpdfstring{queue\_create()}{queue\_create()}}
+{\footnotesize\ttfamily size\+\_\+t queue\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{queue,  }\item[{size\+\_\+t}]{queue\+\_\+size,  }\item[{size\+\_\+t}]{element\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Creates a queue by its size and expected element size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & is a \doxylink{structqueue__t}{queue\+\_\+t} pointer of pointer to be initialized as a queue \\
+\hline
+{\em queue\+\_\+size} & is the amount of data to be stored \\
+\hline
+{\em element\+\_\+size} & is the expected data size of an element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for these errors\+: QUEUE\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for queue QUEUE\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for data array 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00047}{47}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{queue_8c_aecf9808026639fc79ee6fe2eb07648b7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{queue_8c_abf48187bca1ed7880dd1026805564159}\label{queue_8c_abf48187bca1ed7880dd1026805564159} 
+\index{queue.c@{queue.c}!queue\_delete@{queue\_delete}}
+\index{queue\_delete@{queue\_delete}!queue.c@{queue.c}}
+\doxysubsubsection{\texorpdfstring{queue\_delete()}{queue\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t queue\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{queue }\end{DoxyParamCaption})}
+
+
+
+Deletes a queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & is a \doxylink{structqueue__t}{queue\+\_\+t} pointer of pointer, which shall be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for these errors\+: QUEUE\+\_\+\+IS\+\_\+\+NULL\+: queue is null QUEUE\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: queue has no data memory 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00090}{90}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{queue_8c_abf48187bca1ed7880dd1026805564159_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{queue_8c_abf48187bca1ed7880dd1026805564159_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{queue_8c_adfad9c8321db7f1dcb188b03762ecbcb}\label{queue_8c_adfad9c8321db7f1dcb188b03762ecbcb} 
+\index{queue.c@{queue.c}!queue\_peek@{queue\_peek}}
+\index{queue\_peek@{queue\_peek}!queue.c@{queue.c}}
+\doxysubsubsection{\texorpdfstring{queue\_peek()}{queue\_peek()}}
+{\footnotesize\ttfamily size\+\_\+t queue\+\_\+peek (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{queue,  }\item[{void \texorpdfstring{$\ast$}{*}}]{element }\end{DoxyParamCaption})}
+
+
+
+Allows to peek on the next element without advancing the tail. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & is a queue pointer of pointer, where a new element shall be peeked \\
+\hline
+{\em element} & is a pointer to data, which should be peeked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error element is NULL and check for this error\+: QUEUE\+\_\+\+IS\+\_\+\+NULL\+: queue is null QUEUE\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: queue has no data memory unable to copy to output content 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00245}{245}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{queue_8c_adfad9c8321db7f1dcb188b03762ecbcb_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{queue_8c_a0070240d710fb922bcd20de7e8913bb3}\label{queue_8c_a0070240d710fb922bcd20de7e8913bb3} 
+\index{queue.c@{queue.c}!queue\_push\_back@{queue\_push\_back}}
+\index{queue\_push\_back@{queue\_push\_back}!queue.c@{queue.c}}
+\doxysubsubsection{\texorpdfstring{queue\_push\_back()}{queue\_push\_back()}}
+{\footnotesize\ttfamily size\+\_\+t queue\+\_\+push\+\_\+back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{queue,  }\item[{void \texorpdfstring{$\ast$}{*}}]{element,  }\item[{size\+\_\+t}]{element\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Store data in a queue and the tail decrements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & is a \doxylink{structqueue__t}{queue\+\_\+t} pointer of pointer, where a new element shall be stored \\
+\hline
+{\em element} & is a pointer to data, which should be stored \\
+\hline
+{\em element\+\_\+size} & is the amount of data to be stored, if it deviates from the initialization size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: QUEUE\+\_\+\+IS\+\_\+\+NULL\+: queue is null QUEUE\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: queue has no data memory QUEUE\+\_\+\+PREVENTED\+\_\+\+OVERRITE\+: prevented overqrite of unread data QUEUE\+\_\+\+COPY\+\_\+\+ERROR\+: unable to copy queue element content 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00165}{165}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{queue_8c_a0070240d710fb922bcd20de7e8913bb3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{queue_8c_a0070240d710fb922bcd20de7e8913bb3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{queue_8c_a426a95ba49b994cd29278dc361dba5e1}\label{queue_8c_a426a95ba49b994cd29278dc361dba5e1} 
+\index{queue.c@{queue.c}!queue\_push\_front@{queue\_push\_front}}
+\index{queue\_push\_front@{queue\_push\_front}!queue.c@{queue.c}}
+\doxysubsubsection{\texorpdfstring{queue\_push\_front()}{queue\_push\_front()}}
+{\footnotesize\ttfamily size\+\_\+t queue\+\_\+push\+\_\+front (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{queue,  }\item[{void \texorpdfstring{$\ast$}{*}}]{element,  }\item[{size\+\_\+t}]{element\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Store data in a queue and the head advances. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & is a \doxylink{structqueue__t}{queue\+\_\+t} pointer of pointer, where a new element shall be stored \\
+\hline
+{\em element} & is a pointer to data, which should be stored \\
+\hline
+{\em element\+\_\+size} & is the amount of data to be stored, if it deviates from the initialization size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: QUEUE\+\_\+\+IS\+\_\+\+NULL\+: queue is null QUEUE\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: queue has no data memory QUEUE\+\_\+\+PREVENTED\+\_\+\+OVERRITE\+: prevented overqrite of unread data QUEUE\+\_\+\+COPY\+\_\+\+ERROR\+: unable to copy queue element content 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00125}{125}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{queue_8c_a426a95ba49b994cd29278dc361dba5e1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{queue_8c_a426a95ba49b994cd29278dc361dba5e1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{queue_8c_a616336fd81fef2a9acf4e4aa2784592c}\label{queue_8c_a616336fd81fef2a9acf4e4aa2784592c} 
+\index{queue.c@{queue.c}!queue\_read@{queue\_read}}
+\index{queue\_read@{queue\_read}!queue.c@{queue.c}}
+\doxysubsubsection{\texorpdfstring{queue\_read()}{queue\_read()}}
+{\footnotesize\ttfamily size\+\_\+t queue\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqueue__t}{queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{queue,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{element }\end{DoxyParamCaption})}
+
+
+
+Read data from a queue and the tail advances. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & is a \doxylink{structqueue__t}{queue\+\_\+t} pointer of pointer, where a new element shall be read \\
+\hline
+{\em element} & is a pointer of pointer to data, which should be assigned \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error element is NULL and check for this error\+: QUEUE\+\_\+\+IS\+\_\+\+NULL\+: queue is null QUEUE\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: queue has no data memory QUEUE\+\_\+\+NO\+\_\+\+ELEMENT\+: prevented overqrite of unread data QUEUE\+\_\+\+COPY\+\_\+\+ERROR\+: unable to copy to output content 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00206}{206}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{queue_8c_a616336fd81fef2a9acf4e4aa2784592c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{queue_8c_a616336fd81fef2a9acf4e4aa2784592c_icgraph}
+\end{center}
+\end{figure}

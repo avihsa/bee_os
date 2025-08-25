@@ -1,0 +1,56 @@
+\doxysection{semaphore.\+h}
+\hypertarget{semaphore_8h_source}{}\label{semaphore_8h_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/semaphore.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/semaphore.h}}
+\mbox{\hyperlink{semaphore_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00036}00036\ \textcolor{preprocessor}{\#ifndef\ KERNEL\_SEMAPHORE\_H\_}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00037}00037\ \textcolor{preprocessor}{\#define\ KERNEL\_SEMAPHORE\_H\_}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00038}00038\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00039}00039\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00040}00040\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00042}00042\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{linked__list_8h}{utils/linked\_list.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00043}00043\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{task_8h}{kernel/task.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00045}00045\ \textcolor{comment}{/*\ Public\ Preprocessor\ defines\ */}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00046}\mbox{\hyperlink{semaphore_8h_ac23e043f8f6298da52cd02e08ee7a60a}{00046}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00047}\mbox{\hyperlink{semaphore_8h_ad784f65bb2ce5692e9b4bc32b91b725e}{00047}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_NO\_MEMORY\ \ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00048}\mbox{\hyperlink{semaphore_8h_a4f55194fa0cf1c54967f7ac6cfb87468}{00048}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_NO\_TOKENS\ \ \ \ \ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00049}\mbox{\hyperlink{semaphore_8h_a8dffa210e0497006a0ff830eff31bb07}{00049}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_NO\_WAITING\_LIST\ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00050}\mbox{\hyperlink{semaphore_8h_ad146a55c3e0da2c62faa7e68e8180a49}{00050}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_UNABLE\_TO\_ACQUIRE\ \ \ \ \ 4}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00051}\mbox{\hyperlink{semaphore_8h_ac99d15cd7c17b321b8e58c155148792a}{00051}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_REACHED\_MAX\_TOKENS\ \ \ \ 5}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00052}\mbox{\hyperlink{semaphore_8h_a2473c5b4a4c6a83caf38f0c7887266ca}{00052}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_TOKENS\_OVERFLOW\ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00053}\mbox{\hyperlink{semaphore_8h_a3c8363e8a339d746fc573f04652b0aa7}{00053}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_UNABLE\_TO\_RELEASE\ \ \ \ \ 7}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00055}\mbox{\hyperlink{semaphore_8h_ac8548e0a8d5143cc7b1e137b5140ad61}{00055}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_LENGTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00056}\mbox{\hyperlink{semaphore_8h_a90aa613fb9dd5ad368a25b974dcacd4c}{00056}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_BINARY\_TOKEN\ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00058}\mbox{\hyperlink{semaphore_8h_af3cf4a39dc2a7db7ea058f8d6b6478ab}{00058}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_LINKED\_LIST\_ERROR\_REGISTER\ SEMAPHORE\_LENGTH}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00059}\mbox{\hyperlink{semaphore_8h_a9016e4372d48856aeb80df3e71d7096f}{00059}}\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_TOKEN\_AVAILABILITY\_ERROR\_REGISTER\ 2}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00061}00061\ \textcolor{comment}{/*\ Public\ Preprocessor\ macros\ */}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00062}00062\ \textcolor{comment}{/*\ Public\ type\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00065}\mbox{\hyperlink{structsemaphore__t}{00065}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00066}\mbox{\hyperlink{structsemaphore__t_a3670f4bed50c88882ceba330ffeb095c}{00066}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsemaphore__t_a3670f4bed50c88882ceba330ffeb095c}{id}};}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00067}\mbox{\hyperlink{structsemaphore__t_ac64adfb626483f60893f1086ff914810}{00067}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsemaphore__t_ac64adfb626483f60893f1086ff914810}{token}};}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00068}\mbox{\hyperlink{structsemaphore__t_ac51b0c13da42f923f99646a9bf3ea7db}{00068}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsemaphore__t_ac51b0c13da42f923f99646a9bf3ea7db}{max\_token}};}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00069}\mbox{\hyperlink{structsemaphore__t_aa4aae50c92749c22526a9deab83c485b}{00069}}\ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ *\mbox{\hyperlink{structsemaphore__t_aa4aae50c92749c22526a9deab83c485b}{task\_waiting\_list}};}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00070}00070\ \}\ \mbox{\hyperlink{structsemaphore__t}{semaphore\_t}};}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00073}00073\ \textcolor{comment}{/*\ Public\ functions\ (prototypes)\ */}}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00074}00074\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_a946c03546b3b583d68e3886f3f1773df}{semaphore\_create}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore,\ \textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{size\_t}\ token);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00075}00075\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_aa7f90041bb84a47eea9c15fd496d72a5}{semaphore\_delete}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00076}00076\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_ae192b4355be68c3e15a5063225ce018b}{semaphore\_acquire}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore,\ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **running\_task\_list,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **running\_task\_element,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00077}00077\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_aa571a1fad2e37f0b14b99260cd63f2c8}{semaphore\_release}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **\mbox{\hyperlink{structelement}{element}},\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00078}00078\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_a04e62eb1d82d269d299397ca7ef9c979}{semaphore\_acquire\_non\_blocking}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00079}00079\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_a8d50f46b59e703b91b4651f901fc0ac0}{semaphore\_release\_non\_blocking}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00080}00080\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_a0ac7e334a27eb11a5705859c03cffe85}{semaphore\_is\_available}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00081}00081\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_a38be7377895b2476b10b7b17a2aecdb4}{semaphore\_flush}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00083}00083\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{semaphore_8h_a5c45e2883e64a1e6512693b16d1f0052}{semaphore\_checking}}(\mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ **semaphore);}
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{semaphore_8h_source_l00085}00085\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ KERNEL\_SEMAPHORE\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

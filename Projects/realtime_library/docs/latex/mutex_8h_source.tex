@@ -1,0 +1,47 @@
+\doxysection{mutex.\+h}
+\hypertarget{mutex_8h_source}{}\label{mutex_8h_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/mutex.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/mutex.h}}
+\mbox{\hyperlink{mutex_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00025}00025\ \textcolor{preprocessor}{\#ifndef\ KERNEL\_MUTEX\_H\_}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00026}00026\ \textcolor{preprocessor}{\#define\ KERNEL\_MUTEX\_H\_}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00027}00027\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{semaphore_8h}{kernel/semaphore.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00031}00031\ \textcolor{comment}{/*\ Public\ Preprocessor\ defines\ */}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00033}\mbox{\hyperlink{mutex_8h_abd065826c65695d65aacfbd95883be57}{00033}}\ \textcolor{preprocessor}{\#define\ MUTEX\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00034}\mbox{\hyperlink{mutex_8h_ab711f21d3d7a3619bdca97c0ef94b480}{00034}}\ \textcolor{preprocessor}{\#define\ MUTEX\_NO\_MEMORY\ \ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00035}\mbox{\hyperlink{mutex_8h_a71395f7081afb81fe30a50ae2bf2aaf5}{00035}}\ \textcolor{preprocessor}{\#define\ MUTEX\_NO\_SEMAPHORE\ \ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00036}\mbox{\hyperlink{mutex_8h_ac9a6fddfe78daacf3cf499bb4eee5923}{00036}}\ \textcolor{preprocessor}{\#define\ MUTEX\_NO\_OWNER\_TASK\ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00037}\mbox{\hyperlink{mutex_8h_a9fc97bd466dc838516f9d7b102715792}{00037}}\ \textcolor{preprocessor}{\#define\ MUTEX\_UNABLE\_TO\_DELETE\ \ \ \ \ \ 4}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00038}\mbox{\hyperlink{mutex_8h_a1eaa5a88781007f3e475e105d9738ce9}{00038}}\ \textcolor{preprocessor}{\#define\ MUTEX\_IRREGULAR\_STRUCTURE\ \ \ 5}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00039}\mbox{\hyperlink{mutex_8h_a3943342c11c8d0eb46e2a50b753634d0}{00039}}\ \textcolor{preprocessor}{\#define\ MUTEX\_UNABLE\_TO\_ACQUIRE\ \ \ \ \ 6}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00040}\mbox{\hyperlink{mutex_8h_aa3dd132f3e7e9f883f5a5fd6364f1dab}{00040}}\ \textcolor{preprocessor}{\#define\ MUTEX\_UNABLE\_TO\_RELEASE\ \ \ \ \ 7}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00041}\mbox{\hyperlink{mutex_8h_a315158a164b52a187fff01a5942bb68b}{00041}}\ \textcolor{preprocessor}{\#define\ MUTEX\_OWNED\_BY\_OTHER\_TASK\ \ \ 8}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00043}\mbox{\hyperlink{mutex_8h_add75938c47e6b044fce7b92f0205f1dc}{00043}}\ \textcolor{preprocessor}{\#define\ MUTEX\_LENGTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00045}\mbox{\hyperlink{mutex_8h_acbae34f3f664af830903276046418d5b}{00045}}\ \textcolor{preprocessor}{\#define\ MUTEX\_SEMAPHORE\_ERROR\_REGISTER\ \ MUTEX\_LENGTH}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00047}00047\ \textcolor{comment}{/*\ Public\ Preprocessor\ macros\ */}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00048}00048\ \textcolor{comment}{/*\ Public\ type\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00051}\mbox{\hyperlink{structmutex__t}{00051}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00052}\mbox{\hyperlink{structmutex__t_a1f98447d6499761302bced3bffa03c12}{00052}}\ \ \ \ \ \mbox{\hyperlink{structsemaphore__t}{semaphore\_t}}\ *\mbox{\hyperlink{structmutex__t_a1f98447d6499761302bced3bffa03c12}{binary\_semaphore}};}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00053}\mbox{\hyperlink{structmutex__t_a4cbaf1b1b9ad513ced9f57bb92c88823}{00053}}\ \ \ \ \ \mbox{\hyperlink{structtask__t}{task\_t}}\ *\mbox{\hyperlink{structmutex__t_a4cbaf1b1b9ad513ced9f57bb92c88823}{owner}};}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00054}\mbox{\hyperlink{structmutex__t_ab6acf02187698d3c24bf4aca6f29fc2b}{00054}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structmutex__t_ab6acf02187698d3c24bf4aca6f29fc2b}{lock\_count}};}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00055}00055\ \}\ \mbox{\hyperlink{structmutex__t}{mutex\_t}};}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00057}00057\ \textcolor{comment}{/*\ Public\ functions\ (prototypes)\ */}}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00058}00058\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{mutex_8h_a9c2d6b9468d5acde3766668563fba4a4}{mutex\_create}}(\mbox{\hyperlink{structmutex__t}{mutex\_t}}\ **mutex,\ \textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00059}00059\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{mutex_8h_ad2cceaf0d82159fb4994b157bbe0ba42}{mutex\_delete}}(\mbox{\hyperlink{structmutex__t}{mutex\_t}}\ **mutex);}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00060}00060\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{mutex_8h_afc9945ec990447198a76c8507eec17c3}{mutex\_acquire}}(\mbox{\hyperlink{structmutex__t}{mutex\_t}}\ **mutex,\ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **running\_task\_list,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **running\_task\_element,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00061}00061\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{mutex_8h_a0ff8eddf876f3efbd8f5ccce5a81f5ea}{mutex\_release}}(\mbox{\hyperlink{structmutex__t}{mutex\_t}}\ **mutex,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **\mbox{\hyperlink{structelement}{element}},\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00062}00062\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{mutex_8h_ad6c9e2dbb456757b716aabd6fe299500}{mutex\_acquire\_non\_blocking}}(\mbox{\hyperlink{structmutex__t}{mutex\_t}}\ **mutex,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00063}00063\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{mutex_8h_aa4559e7319ba40eaf91999b6b713e46c}{mutex\_release\_non\_blocking}}(\mbox{\hyperlink{structmutex__t}{mutex\_t}}\ **mutex,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{mutex_8h_source_l00065}00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ KERNEL\_MUTEX\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

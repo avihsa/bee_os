@@ -1,0 +1,19 @@
+digraph "kernel_add_task"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="kernel_add_task",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Inserts a new task to be executed on kernel start."];
+  Node1 -> Node2 [id="edge6_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="dictionary_get",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dictionary_8c.html#ad721acd2a33430698d9d6ef7c7491381",tooltip="Reads the value of a specified entry in the dictionary."];
+  Node2 -> Node3 [id="edge7_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="dictionary_checking",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dictionary_8c.html#a9dca73eba5d9f022498c8e272bdd8967",tooltip=" "];
+  Node1 -> Node4 [id="edge8_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="linked_list_push_front",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$linked__list_8c.html#a3ae44a29bf9f3266ebc1ea7ce10fde4c",tooltip="Adds a new element to the start of the linked list."];
+  Node4 -> Node5 [id="edge9_Node000004_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="linked_list_checking",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$linked__list_8c.html#a2cc9b43d05cc24319b49627ba8f8a96a",tooltip="Checks whether a linked_list is valid. @info check for this error: QUEUE_IS_NULL: queue is null QUEUE..."];
+  Node1 -> Node6 [id="edge10_Node000001_Node000006",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="task_create",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$task_8c.html#a3d1c16c380c2bfbbe0ced345497c9c48",tooltip="Initializes the module and all the necessary periphery."];
+}

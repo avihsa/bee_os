@@ -1,0 +1,278 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/utils/dictionary.h File Reference}
+\hypertarget{dictionary_8h}{}\label{dictionary_8h}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/dictionary.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/dictionary.h}}
+
+
+\+: Module for creating and using dictionaries  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for dictionary.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{dictionary_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dictionary_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{dictionary_8h_a107482c80b098cb41a88116f4c6ba643}{DICTIONARY\+\_\+\+NO\+\_\+\+MEMORY}}~1
+\item 
+\#define \mbox{\hyperlink{dictionary_8h_abebbae06e28184929694ae59221072f8}{DICTIONARY\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY}}~2
+\item 
+\#define \mbox{\hyperlink{dictionary_8h_a1ce4ed414f1229c7e89a962b70e2e31b}{DICTIONARY\+\_\+\+OVERFLOW}}~3
+\item 
+\#define \mbox{\hyperlink{dictionary_8h_a45d937bcd1f52e7b2107dfa7a8d703c7}{DICTIONARY\+\_\+\+VALUE\+\_\+\+IS\+\_\+\+NULL}}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{dictionary_8h_a004a569e92c8b61b43e2c1aeb9635c10}{dictionary\+\_\+create}} (\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dictionary, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Creates an empty dictionary with the given size. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{dictionary_8h_aa2e04eccac802b9fc8101d518979b733}{dictionary\+\_\+add}} (\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dictionary, size\+\_\+t key, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Adds or overwrites an entry to the dictionary. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{dictionary_8h_ac502288081c3e531a135c1aa7e46bdce}{dictionary\+\_\+get}} (\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dictionary, size\+\_\+t key, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Reads the value of a specified entry in the dictionary. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{dictionary_8h_ae6bc6def8de33ff78ef6ed35754cde34}{dictionary\+\_\+delete}} (\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dictionary)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for creating and using dictionaries 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Apr 21, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  None
+==================================================
+  ### Usage ###
+  (#) Call 'dictionary_create' to create a dictionary
+  (#) Call 'dictionary_add' to add an entry to the dictionary
+  (#) Call 'dictionary_get' to get an entry from the dictionary
+  (#) Call 'dictionary_delete' to delete a dictionary
+  (#) All functions call 'dictionary_checking' to validate
+      proper dictionary structure. Refer to this function
+      for potential error codes not documented in each
+      function.
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{dictionary_8h_source}{dictionary.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{dictionary_8h_abebbae06e28184929694ae59221072f8}\label{dictionary_8h_abebbae06e28184929694ae59221072f8} 
+\index{dictionary.h@{dictionary.h}!DICTIONARY\_DATA\_NO\_MEMORY@{DICTIONARY\_DATA\_NO\_MEMORY}}
+\index{DICTIONARY\_DATA\_NO\_MEMORY@{DICTIONARY\_DATA\_NO\_MEMORY}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{DICTIONARY\_DATA\_NO\_MEMORY}{DICTIONARY\_DATA\_NO\_MEMORY}}
+{\footnotesize\ttfamily \#define DICTIONARY\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY~2}
+
+
+
+Definition at line \mbox{\hyperlink{dictionary_8h_source_l00035}{35}} of file \mbox{\hyperlink{dictionary_8h_source}{dictionary.\+h}}.
+
+\Hypertarget{dictionary_8h_a107482c80b098cb41a88116f4c6ba643}\label{dictionary_8h_a107482c80b098cb41a88116f4c6ba643} 
+\index{dictionary.h@{dictionary.h}!DICTIONARY\_NO\_MEMORY@{DICTIONARY\_NO\_MEMORY}}
+\index{DICTIONARY\_NO\_MEMORY@{DICTIONARY\_NO\_MEMORY}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{DICTIONARY\_NO\_MEMORY}{DICTIONARY\_NO\_MEMORY}}
+{\footnotesize\ttfamily \#define DICTIONARY\+\_\+\+NO\+\_\+\+MEMORY~1}
+
+
+
+Definition at line \mbox{\hyperlink{dictionary_8h_source_l00034}{34}} of file \mbox{\hyperlink{dictionary_8h_source}{dictionary.\+h}}.
+
+\Hypertarget{dictionary_8h_a1ce4ed414f1229c7e89a962b70e2e31b}\label{dictionary_8h_a1ce4ed414f1229c7e89a962b70e2e31b} 
+\index{dictionary.h@{dictionary.h}!DICTIONARY\_OVERFLOW@{DICTIONARY\_OVERFLOW}}
+\index{DICTIONARY\_OVERFLOW@{DICTIONARY\_OVERFLOW}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{DICTIONARY\_OVERFLOW}{DICTIONARY\_OVERFLOW}}
+{\footnotesize\ttfamily \#define DICTIONARY\+\_\+\+OVERFLOW~3}
+
+
+
+Definition at line \mbox{\hyperlink{dictionary_8h_source_l00036}{36}} of file \mbox{\hyperlink{dictionary_8h_source}{dictionary.\+h}}.
+
+\Hypertarget{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}\label{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae} 
+\index{dictionary.h@{dictionary.h}!DICTIONARY\_SUCCESS@{DICTIONARY\_SUCCESS}}
+\index{DICTIONARY\_SUCCESS@{DICTIONARY\_SUCCESS}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{DICTIONARY\_SUCCESS}{DICTIONARY\_SUCCESS}}
+{\footnotesize\ttfamily \#define DICTIONARY\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{dictionary_8h_source_l00033}{33}} of file \mbox{\hyperlink{dictionary_8h_source}{dictionary.\+h}}.
+
+\Hypertarget{dictionary_8h_a45d937bcd1f52e7b2107dfa7a8d703c7}\label{dictionary_8h_a45d937bcd1f52e7b2107dfa7a8d703c7} 
+\index{dictionary.h@{dictionary.h}!DICTIONARY\_VALUE\_IS\_NULL@{DICTIONARY\_VALUE\_IS\_NULL}}
+\index{DICTIONARY\_VALUE\_IS\_NULL@{DICTIONARY\_VALUE\_IS\_NULL}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{DICTIONARY\_VALUE\_IS\_NULL}{DICTIONARY\_VALUE\_IS\_NULL}}
+{\footnotesize\ttfamily \#define DICTIONARY\+\_\+\+VALUE\+\_\+\+IS\+\_\+\+NULL~4}
+
+
+
+Definition at line \mbox{\hyperlink{dictionary_8h_source_l00037}{37}} of file \mbox{\hyperlink{dictionary_8h_source}{dictionary.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{dictionary_8h_aa2e04eccac802b9fc8101d518979b733}\label{dictionary_8h_aa2e04eccac802b9fc8101d518979b733} 
+\index{dictionary.h@{dictionary.h}!dictionary\_add@{dictionary\_add}}
+\index{dictionary\_add@{dictionary\_add}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{dictionary\_add()}{dictionary\_add()}}
+{\footnotesize\ttfamily size\+\_\+t dictionary\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dictionary,  }\item[{size\+\_\+t}]{key,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+
+
+
+Adds or overwrites an entry to the dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dictionary} & is pointer to the dictionary to be added to \\
+\hline
+{\em key} & is the index value of the newly created entry \\
+\hline
+{\em value} & is the value of the newly created entry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: DICTIONARY\+\_\+\+OVERFLOW\+: unable to create new entry, key is out of bounds for max size 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{dictionary_8c_source_l00094}{94}} of file \mbox{\hyperlink{dictionary_8c_source}{dictionary.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{dictionary_8h_aa2e04eccac802b9fc8101d518979b733_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{dictionary_8h_aa2e04eccac802b9fc8101d518979b733_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{dictionary_8h_a004a569e92c8b61b43e2c1aeb9635c10}\label{dictionary_8h_a004a569e92c8b61b43e2c1aeb9635c10} 
+\index{dictionary.h@{dictionary.h}!dictionary\_create@{dictionary\_create}}
+\index{dictionary\_create@{dictionary\_create}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{dictionary\_create()}{dictionary\_create()}}
+{\footnotesize\ttfamily size\+\_\+t dictionary\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dictionary,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Creates an empty dictionary with the given size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dictionary} & is a pointer to the newly created dictionary \\
+\hline
+{\em size} & is the maximum permitted size of the dictionary \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: DICTIONARY\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for dictionary 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{dictionary_8c_source_l00045}{45}} of file \mbox{\hyperlink{dictionary_8c_source}{dictionary.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{dictionary_8h_a004a569e92c8b61b43e2c1aeb9635c10_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{dictionary_8h_ae6bc6def8de33ff78ef6ed35754cde34}\label{dictionary_8h_ae6bc6def8de33ff78ef6ed35754cde34} 
+\index{dictionary.h@{dictionary.h}!dictionary\_delete@{dictionary\_delete}}
+\index{dictionary\_delete@{dictionary\_delete}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{dictionary\_delete()}{dictionary\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t dictionary\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dictionary }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dictionary_8c_source_l00068}{68}} of file \mbox{\hyperlink{dictionary_8c_source}{dictionary.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{dictionary_8h_ae6bc6def8de33ff78ef6ed35754cde34_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{dictionary_8h_ae6bc6def8de33ff78ef6ed35754cde34_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{dictionary_8h_ac502288081c3e531a135c1aa7e46bdce}\label{dictionary_8h_ac502288081c3e531a135c1aa7e46bdce} 
+\index{dictionary.h@{dictionary.h}!dictionary\_get@{dictionary\_get}}
+\index{dictionary\_get@{dictionary\_get}!dictionary.h@{dictionary.h}}
+\doxysubsubsection{\texorpdfstring{dictionary\_get()}{dictionary\_get()}}
+{\footnotesize\ttfamily size\+\_\+t dictionary\+\_\+get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdictionary__t}{dictionary\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dictionary,  }\item[{size\+\_\+t}]{key,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{value }\end{DoxyParamCaption})}
+
+
+
+Reads the value of a specified entry in the dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dictionary} & is a pointer to the dictionary to be read from \\
+\hline
+{\em key} & is the index value of the entry to read \\
+\hline
+{\em value} & is a pointer to data memory expecting the data of the read entry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info Currently no error cases. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{dictionary_8c_source_l00120}{120}} of file \mbox{\hyperlink{dictionary_8c_source}{dictionary.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{dictionary_8h_ac502288081c3e531a135c1aa7e46bdce_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dictionary_8h_ac502288081c3e531a135c1aa7e46bdce_icgraph}
+\end{center}
+\end{figure}

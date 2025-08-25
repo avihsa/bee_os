@@ -1,0 +1,243 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/utils/support.h File Reference}
+\hypertarget{support_8h}{}\label{support_8h}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/support.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/support.h}}
+
+
+\+: Module for useful macros  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{support_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{support_8h_a6df1d22fb5f09eccc23b9f399670cfd7}{STRINGIFY}}(x)~\#x
+\item 
+\#define \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\+\_\+\+INFO}}(sub\+\_\+component\+\_\+status,  component\+\_\+register,  component\+\_\+status)~(((sub\+\_\+component\+\_\+status) $<$$<$ (component\+\_\+register)) \texorpdfstring{$\vert$}{|} (component\+\_\+status))
+\item 
+\#define \mbox{\hyperlink{support_8h_ab4d8ddabf7d851175e7e7b8a0cf3d990}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+RECORD\+\_\+\+ENTER\+\_\+\+ISR}}()
+\item 
+\#define \mbox{\hyperlink{support_8h_a50d98ba78cf211d4aa5d65c7e9d4a32f}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+RECORD\+\_\+\+EXIT\+\_\+\+ISR}}()
+\item 
+\#define \mbox{\hyperlink{support_8h_a775fecdce3011cb8f574fdffe84940cd}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+CONF}}()
+\item 
+\#define \mbox{\hyperlink{support_8h_a45a3e1c95496c820ade7d2246ff56d8a}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+START}}()
+\item 
+\#define \mbox{\hyperlink{support_8h_a451f7006e115ad81bb10056010d60ed2}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+SEND\+\_\+\+TASK\+\_\+\+INFO}}(Info)
+\item 
+\#define \mbox{\hyperlink{support_8h_a14a52206bf582d942c85e39fda4c7d7f}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+CREATE}}(p\+Task)
+\item 
+\#define \mbox{\hyperlink{support_8h_aefb033c0dcb8c484c9b062decb600db1}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+START\+\_\+\+READY}}(p\+Task)
+\item 
+\#define \mbox{\hyperlink{support_8h_a49f3e0b91489968a236620e6585bbc4c}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+START\+\_\+\+EXEC}}(p\+Task)
+\item 
+\#define \mbox{\hyperlink{support_8h_aa2940551d5df6aa394be335a4e88921a}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+STOP\+\_\+\+READY}}(p\+Task,  cause)
+\item 
+\#define \mbox{\hyperlink{support_8h_a8ed4fdfeb8390c37ad8f692c4b65533e}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+STOP\+\_\+\+EXEC}}(p\+Task)
+\item 
+\#define \mbox{\hyperlink{support_8h_a831ee55321681dbb10b927350a3306ba}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+SYSTEM\+\_\+\+IDLE}}()
+\item 
+\#define \mbox{\hyperlink{support_8h_a8a2bd3d919f89a3ad867a3304282a6c1}{SEGGER\+\_\+\+SET\+\_\+\+STACKPOINTER}}(task)
+\item 
+\#define \mbox{\hyperlink{support_8h_a7dbe6bf2ffe620f7477225d3eb6f09e5}{SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASKINFO\+\_\+\+DECLARE}}(info)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for useful macros 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+May 9, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  None
+==================================================
+  ### Usage ###
+  (#) Does not contain any functions, only defines!
+  (#) Use STRINGIFY to generate a string from any
+      given type.
+  (#) Use ERROR_INFO to generate a combined error code
+      from given status and subcomponent status
+  (#) Use the different SEGGER contained defines to
+      be able to record the control flow in SEGGER
+      System View. Further info on the different
+      functions called through these defines can be
+      found in the SEGGER User Manual,
+      with the exception of:
+      SEGGER_SET_STACKPOINTER:
+          calculates and sets the current stack
+          usage to record it for System View.
+      SEGGER_SYSVIEW_TASKINFO_DECLARE:
+          adds the SEGGER_SYSVIEW_TASKINFO component
+          to the task_t structure.
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{support_8h_ac4761c739aba1968a75152accb369dc2}\label{support_8h_ac4761c739aba1968a75152accb369dc2} 
+\index{support.h@{support.h}!ERROR\_INFO@{ERROR\_INFO}}
+\index{ERROR\_INFO@{ERROR\_INFO}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_INFO}{ERROR\_INFO}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+INFO(\begin{DoxyParamCaption}\item[{}]{sub\+\_\+component\+\_\+status,  }\item[{}]{component\+\_\+register,  }\item[{}]{component\+\_\+status }\end{DoxyParamCaption})~(((sub\+\_\+component\+\_\+status) $<$$<$ (component\+\_\+register)) \texorpdfstring{$\vert$}{|} (component\+\_\+status))}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00039}{39}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a8a2bd3d919f89a3ad867a3304282a6c1}\label{support_8h_a8a2bd3d919f89a3ad867a3304282a6c1} 
+\index{support.h@{support.h}!SEGGER\_SET\_STACKPOINTER@{SEGGER\_SET\_STACKPOINTER}}
+\index{SEGGER\_SET\_STACKPOINTER@{SEGGER\_SET\_STACKPOINTER}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SET\_STACKPOINTER}{SEGGER\_SET\_STACKPOINTER}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SET\+\_\+\+STACKPOINTER(\begin{DoxyParamCaption}\item[{}]{task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00080}{80}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a775fecdce3011cb8f574fdffe84940cd}\label{support_8h_a775fecdce3011cb8f574fdffe84940cd} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_CONF@{SEGGER\_SYSVIEW\_CONF}}
+\index{SEGGER\_SYSVIEW\_CONF@{SEGGER\_SYSVIEW\_CONF}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_CONF}{SEGGER\_SYSVIEW\_CONF}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+CONF(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00070}{70}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_ab4d8ddabf7d851175e7e7b8a0cf3d990}\label{support_8h_ab4d8ddabf7d851175e7e7b8a0cf3d990} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR@{SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR}}
+\index{SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR@{SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR}{SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+RECORD\+\_\+\+ENTER\+\_\+\+ISR(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00068}{68}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a50d98ba78cf211d4aa5d65c7e9d4a32f}\label{support_8h_a50d98ba78cf211d4aa5d65c7e9d4a32f} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR@{SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR}}
+\index{SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR@{SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR}{SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+RECORD\+\_\+\+EXIT\+\_\+\+ISR(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00069}{69}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a451f7006e115ad81bb10056010d60ed2}\label{support_8h_a451f7006e115ad81bb10056010d60ed2} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_SEND\_TASK\_INFO@{SEGGER\_SYSVIEW\_SEND\_TASK\_INFO}}
+\index{SEGGER\_SYSVIEW\_SEND\_TASK\_INFO@{SEGGER\_SYSVIEW\_SEND\_TASK\_INFO}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_SEND\_TASK\_INFO}{SEGGER\_SYSVIEW\_SEND\_TASK\_INFO}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+SEND\+\_\+\+TASK\+\_\+\+INFO(\begin{DoxyParamCaption}\item[{}]{Info }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00072}{72}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a45a3e1c95496c820ade7d2246ff56d8a}\label{support_8h_a45a3e1c95496c820ade7d2246ff56d8a} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_START@{SEGGER\_SYSVIEW\_START}}
+\index{SEGGER\_SYSVIEW\_START@{SEGGER\_SYSVIEW\_START}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_START}{SEGGER\_SYSVIEW\_START}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+START(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00071}{71}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a14a52206bf582d942c85e39fda4c7d7f}\label{support_8h_a14a52206bf582d942c85e39fda4c7d7f} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_TASK\_CREATE@{SEGGER\_SYSVIEW\_TASK\_CREATE}}
+\index{SEGGER\_SYSVIEW\_TASK\_CREATE@{SEGGER\_SYSVIEW\_TASK\_CREATE}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_TASK\_CREATE}{SEGGER\_SYSVIEW\_TASK\_CREATE}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+CREATE(\begin{DoxyParamCaption}\item[{}]{p\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00073}{73}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a49f3e0b91489968a236620e6585bbc4c}\label{support_8h_a49f3e0b91489968a236620e6585bbc4c} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_TASK\_START\_EXEC@{SEGGER\_SYSVIEW\_TASK\_START\_EXEC}}
+\index{SEGGER\_SYSVIEW\_TASK\_START\_EXEC@{SEGGER\_SYSVIEW\_TASK\_START\_EXEC}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_TASK\_START\_EXEC}{SEGGER\_SYSVIEW\_TASK\_START\_EXEC}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+START\+\_\+\+EXEC(\begin{DoxyParamCaption}\item[{}]{p\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00075}{75}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_aefb033c0dcb8c484c9b062decb600db1}\label{support_8h_aefb033c0dcb8c484c9b062decb600db1} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_TASK\_START\_READY@{SEGGER\_SYSVIEW\_TASK\_START\_READY}}
+\index{SEGGER\_SYSVIEW\_TASK\_START\_READY@{SEGGER\_SYSVIEW\_TASK\_START\_READY}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_TASK\_START\_READY}{SEGGER\_SYSVIEW\_TASK\_START\_READY}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+START\+\_\+\+READY(\begin{DoxyParamCaption}\item[{}]{p\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00074}{74}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a8ed4fdfeb8390c37ad8f692c4b65533e}\label{support_8h_a8ed4fdfeb8390c37ad8f692c4b65533e} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC@{SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC}}
+\index{SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC@{SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC}{SEGGER\_SYSVIEW\_TASK\_STOP\_EXEC}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+STOP\+\_\+\+EXEC(\begin{DoxyParamCaption}\item[{}]{p\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00077}{77}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_aa2940551d5df6aa394be335a4e88921a}\label{support_8h_aa2940551d5df6aa394be335a4e88921a} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_TASK\_STOP\_READY@{SEGGER\_SYSVIEW\_TASK\_STOP\_READY}}
+\index{SEGGER\_SYSVIEW\_TASK\_STOP\_READY@{SEGGER\_SYSVIEW\_TASK\_STOP\_READY}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_TASK\_STOP\_READY}{SEGGER\_SYSVIEW\_TASK\_STOP\_READY}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+STOP\+\_\+\+READY(\begin{DoxyParamCaption}\item[{}]{p\+Task,  }\item[{}]{cause }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00076}{76}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a831ee55321681dbb10b927350a3306ba}\label{support_8h_a831ee55321681dbb10b927350a3306ba} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE@{SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE}}
+\index{SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE@{SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE}{SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASK\+\_\+\+SYSTEM\+\_\+\+IDLE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00078}{78}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a7dbe6bf2ffe620f7477225d3eb6f09e5}\label{support_8h_a7dbe6bf2ffe620f7477225d3eb6f09e5} 
+\index{support.h@{support.h}!SEGGER\_SYSVIEW\_TASKINFO\_DECLARE@{SEGGER\_SYSVIEW\_TASKINFO\_DECLARE}}
+\index{SEGGER\_SYSVIEW\_TASKINFO\_DECLARE@{SEGGER\_SYSVIEW\_TASKINFO\_DECLARE}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_SYSVIEW\_TASKINFO\_DECLARE}{SEGGER\_SYSVIEW\_TASKINFO\_DECLARE}}
+{\footnotesize\ttfamily \#define SEGGER\+\_\+\+SYSVIEW\+\_\+\+TASKINFO\+\_\+\+DECLARE(\begin{DoxyParamCaption}\item[{}]{info }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00083}{83}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+
+\Hypertarget{support_8h_a6df1d22fb5f09eccc23b9f399670cfd7}\label{support_8h_a6df1d22fb5f09eccc23b9f399670cfd7} 
+\index{support.h@{support.h}!STRINGIFY@{STRINGIFY}}
+\index{STRINGIFY@{STRINGIFY}!support.h@{support.h}}
+\doxysubsubsection{\texorpdfstring{STRINGIFY}{STRINGIFY}}
+{\footnotesize\ttfamily \#define STRINGIFY(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~\#x}
+
+
+
+Definition at line \mbox{\hyperlink{support_8h_source_l00036}{36}} of file \mbox{\hyperlink{support_8h_source}{support.\+h}}.
+

@@ -1,0 +1,109 @@
+\doxysection{TCB\+\_\+sct\+TCB\+\_\+t Struct Reference}
+\hypertarget{structTCB__sctTCB__t}{}\label{structTCB__sctTCB__t}\index{TCB\_sctTCB\_t@{TCB\_sctTCB\_t}}
+
+
+Structure for the task control block (TCB)  
+
+
+
+
+{\ttfamily \#include $<$tcb.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structTCB__sctTCB__t_aa03dce5563127a2b677f99a8e03cb589}{u8\+Task\+Id}}
+\begin{DoxyCompactList}\small\item\em Identification of a task. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{structTCB__sctTCB__t_a1886aeca2b23b10a487cc3c40186cd7d}{u8\+Task\+Prio}}
+\begin{DoxyCompactList}\small\item\em priority of the task \end{DoxyCompactList}\item 
+\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\+\_\+e\+Tast\+States\+\_\+t}} \mbox{\hyperlink{structTCB__sctTCB__t_ab010baa4ac75ac6c7af73de0da2774d0}{e\+Task\+State}}
+\begin{DoxyCompactList}\small\item\em the tasks state \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{structTCB__sctTCB__t_ab54c29a405d16d6101712d41862a636f}{au32\+Task\+Stack}} \mbox{[}(128u)\mbox{]}
+\begin{DoxyCompactList}\small\item\em Tasks stack. We will push our registers R4-\/\+R11 on the stack because Pend\+SV pushes the rest of the registers on the stack too. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{structTCB__sctTCB__t_a550895f7309b451760ea7240eecf068e}{u32\+Task\+SP}}
+\begin{DoxyCompactList}\small\item\em To store the current stack pointer. As an alternative, we could use an index \textquotesingle{}u8\+Idx\+SP\textquotesingle{} which points to the current cell on the stack. The address the corresponds to \&au32\+Task\+Stack\mbox{[}u8\+Idx\+SP\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure for the task control block (TCB) 
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00033}{33}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structTCB__sctTCB__t_ab54c29a405d16d6101712d41862a636f}\label{structTCB__sctTCB__t_ab54c29a405d16d6101712d41862a636f} 
+\index{TCB\_sctTCB\_t@{TCB\_sctTCB\_t}!au32TaskStack@{au32TaskStack}}
+\index{au32TaskStack@{au32TaskStack}!TCB\_sctTCB\_t@{TCB\_sctTCB\_t}}
+\doxysubsubsection{\texorpdfstring{au32TaskStack}{au32TaskStack}}
+{\footnotesize\ttfamily uint32\+\_\+t au32\+Task\+Stack\mbox{[}(128u)\mbox{]}}
+
+
+
+Tasks stack. We will push our registers R4-\/\+R11 on the stack because Pend\+SV pushes the rest of the registers on the stack too. 
+
+
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00039}{39}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
+\Hypertarget{structTCB__sctTCB__t_ab010baa4ac75ac6c7af73de0da2774d0}\label{structTCB__sctTCB__t_ab010baa4ac75ac6c7af73de0da2774d0} 
+\index{TCB\_sctTCB\_t@{TCB\_sctTCB\_t}!eTaskState@{eTaskState}}
+\index{eTaskState@{eTaskState}!TCB\_sctTCB\_t@{TCB\_sctTCB\_t}}
+\doxysubsubsection{\texorpdfstring{eTaskState}{eTaskState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\+\_\+e\+Tast\+States\+\_\+t}} e\+Task\+State}
+
+
+
+the tasks state 
+
+
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00037}{37}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
+\Hypertarget{structTCB__sctTCB__t_a550895f7309b451760ea7240eecf068e}\label{structTCB__sctTCB__t_a550895f7309b451760ea7240eecf068e} 
+\index{TCB\_sctTCB\_t@{TCB\_sctTCB\_t}!u32TaskSP@{u32TaskSP}}
+\index{u32TaskSP@{u32TaskSP}!TCB\_sctTCB\_t@{TCB\_sctTCB\_t}}
+\doxysubsubsection{\texorpdfstring{u32TaskSP}{u32TaskSP}}
+{\footnotesize\ttfamily uint32\+\_\+t u32\+Task\+SP}
+
+
+
+To store the current stack pointer. As an alternative, we could use an index \textquotesingle{}u8\+Idx\+SP\textquotesingle{} which points to the current cell on the stack. The address the corresponds to \&au32\+Task\+Stack\mbox{[}u8\+Idx\+SP\mbox{]}. 
+
+
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00040}{40}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
+\Hypertarget{structTCB__sctTCB__t_aa03dce5563127a2b677f99a8e03cb589}\label{structTCB__sctTCB__t_aa03dce5563127a2b677f99a8e03cb589} 
+\index{TCB\_sctTCB\_t@{TCB\_sctTCB\_t}!u8TaskId@{u8TaskId}}
+\index{u8TaskId@{u8TaskId}!TCB\_sctTCB\_t@{TCB\_sctTCB\_t}}
+\doxysubsubsection{\texorpdfstring{u8TaskId}{u8TaskId}}
+{\footnotesize\ttfamily uint8\+\_\+t u8\+Task\+Id}
+
+
+
+Identification of a task. 
+
+
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00035}{35}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
+\Hypertarget{structTCB__sctTCB__t_a1886aeca2b23b10a487cc3c40186cd7d}\label{structTCB__sctTCB__t_a1886aeca2b23b10a487cc3c40186cd7d} 
+\index{TCB\_sctTCB\_t@{TCB\_sctTCB\_t}!u8TaskPrio@{u8TaskPrio}}
+\index{u8TaskPrio@{u8TaskPrio}!TCB\_sctTCB\_t@{TCB\_sctTCB\_t}}
+\doxysubsubsection{\texorpdfstring{u8TaskPrio}{u8TaskPrio}}
+{\footnotesize\ttfamily uint8\+\_\+t u8\+Task\+Prio}
+
+
+
+priority of the task 
+
+
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00036}{36}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/kernel/\mbox{\hyperlink{tcb_8h}{tcb.\+h}}\end{DoxyCompactItemize}

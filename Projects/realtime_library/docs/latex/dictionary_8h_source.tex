@@ -1,0 +1,31 @@
+\doxysection{dictionary.\+h}
+\hypertarget{dictionary_8h_source}{}\label{dictionary_8h_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/dictionary.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/dictionary.h}}
+\mbox{\hyperlink{dictionary_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00027}00027\ \textcolor{preprocessor}{\#ifndef\ UTILS\_DICTIONARY\_DICTIONARY\_H\_}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00028}00028\ \textcolor{preprocessor}{\#define\ UTILS\_DICTIONARY\_DICTIONARY\_H\_}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00029}00029\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00030}00030\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00031}00031\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00032}00032\ \textcolor{comment}{/*\ Public\ Preprocessor\ defines\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00033}\mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{00033}}\ \textcolor{preprocessor}{\#define\ DICTIONARY\_SUCCESS\ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00034}\mbox{\hyperlink{dictionary_8h_a107482c80b098cb41a88116f4c6ba643}{00034}}\ \textcolor{preprocessor}{\#define\ DICTIONARY\_NO\_MEMORY\ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00035}\mbox{\hyperlink{dictionary_8h_abebbae06e28184929694ae59221072f8}{00035}}\ \textcolor{preprocessor}{\#define\ DICTIONARY\_DATA\_NO\_MEMORY\ \ \ 2}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00036}\mbox{\hyperlink{dictionary_8h_a1ce4ed414f1229c7e89a962b70e2e31b}{00036}}\ \textcolor{preprocessor}{\#define\ DICTIONARY\_OVERFLOW\ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00037}\mbox{\hyperlink{dictionary_8h_a45d937bcd1f52e7b2107dfa7a8d703c7}{00037}}\ \textcolor{preprocessor}{\#define\ DICTIONARY\_VALUE\_IS\_NULL\ \ \ \ 4}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00038}00038\ \textcolor{comment}{/*\ Public\ Preprocessor\ macros\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00039}00039\ \textcolor{comment}{/*\ Public\ type\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00042}\mbox{\hyperlink{structdictionary__t}{00042}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00043}\mbox{\hyperlink{structdictionary__t_af00cdd742d205932a8309628d39efd5e}{00043}}\ \ \ \ \ \textcolor{keywordtype}{void}\ **\mbox{\hyperlink{structdictionary__t_af00cdd742d205932a8309628d39efd5e}{data}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00044}\mbox{\hyperlink{structdictionary__t_a854352f53b148adc24983a58a1866d66}{00044}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structdictionary__t_a854352f53b148adc24983a58a1866d66}{size}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00045}00045\ \}\ \mbox{\hyperlink{structdictionary__t}{dictionary\_t}};}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00046}00046\ \textcolor{comment}{/*\ Public\ functions\ (prototypes)\ */}}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00047}00047\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8h_a004a569e92c8b61b43e2c1aeb9635c10}{dictionary\_create}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00048}00048\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8h_aa2e04eccac802b9fc8101d518979b733}{dictionary\_add}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary,\ \textcolor{keywordtype}{size\_t}\ key,\ \textcolor{keywordtype}{void}\ **value);}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00049}00049\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8h_ac502288081c3e531a135c1aa7e46bdce}{dictionary\_get}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary,\ \textcolor{keywordtype}{size\_t}\ key,\ \textcolor{keywordtype}{void}\ **value);}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00050}00050\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{dictionary_8h_ae6bc6def8de33ff78ef6ed35754cde34}{dictionary\_delete}}(\mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ **dictionary);}
+\DoxyCodeLine{\Hypertarget{dictionary_8h_source_l00051}00051\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ UTILS\_DICTIONARY\_DICTIONARY\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

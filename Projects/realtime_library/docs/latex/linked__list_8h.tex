@@ -1,0 +1,731 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/utils/linked\+\_\+list.h File Reference}
+\hypertarget{linked__list_8h}{}\label{linked__list_8h}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/linked\_list.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/utils/linked\_list.h}}
+
+
+\+: Module for creating and using a linked lists  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for linked\+\_\+list.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{linked__list_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structelement}{element}}
+\item 
+struct \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\+\_\+\+LIST\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce}{LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_a715ee695b06de7d60ddbee9fcf073326}{LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+MEMORY}}~1
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_a9464fc9d0e5132f8c8ea12f083b8d977}{LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+NO\+\_\+\+MEMORY}}~2
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_ac5c7be801ce06a03f4203716e38d592e}{LINKED\+\_\+\+LIST\+\_\+\+IRREGULAR\+\_\+\+STRUCTURE}}~3
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_a44e0310d0c1b3e27cdd8aaf24d151326}{LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+ELEMENT}}~4
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_aec9a76866a7040d471faa40693d51b01}{LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+IS\+\_\+\+NULL}}~5
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_a06bdf13c91120c4679a0817957dffc34}{LINKED\+\_\+\+LIST\+\_\+\+SOURCE\+\_\+\+IS\+\_\+\+EMPTY}}~6
+\item 
+\#define \mbox{\hyperlink{linked__list_8h_aec306bdd8f7eb23518e6b50869e74243}{LINKED\+\_\+\+LIST\+\_\+\+LENGTH}}~3
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structelement}{element}} \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_ab84dc67b6f40f1f88c3b516453c0115e}{linked\+\_\+list\+\_\+create}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list)
+\begin{DoxyCompactList}\small\item\em Creates an empty linked list with no elements. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a157221397716f9d0d15a22242168d6d5}{linked\+\_\+list\+\_\+delete}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list)
+\begin{DoxyCompactList}\small\item\em Deletes a linked list including all of its elements. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a662665a6582d64dd51944761e8734513}{linked\+\_\+list\+\_\+push\+\_\+back}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Pushes a new data element to the end of the linked list. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a654d7eeff8a471e7bd46d7b6cdbcce46}{linked\+\_\+list\+\_\+pop\+\_\+front}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Pops data from the beginning of the linked list. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a7f37448c072984184d9c01df1fe6c473}{linked\+\_\+list\+\_\+pop\+\_\+back}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Pops data from the end of the linked list. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a33ada9c56ab9e6913088e439cc7cc5bb}{linked\+\_\+list\+\_\+push\+\_\+front}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Pushes a new data element to the beginning of the linked list. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a053903e57173e3bae503e9281be188c8}{linked\+\_\+list\+\_\+insert\+\_\+after}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Adds a new element after a specified element of the linked list. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a8d31d5289f5662e182f27f2e9dded40c}{linked\+\_\+list\+\_\+pop\+\_\+inner}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Removes an element from a linked list. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a675d3ea9d5c7b8305486c56b9dfd7925}{linked\+\_\+list\+\_\+peek\+\_\+back}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Returns the given lists tails data without destroying the element. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a2702c739a8aea4b12cdb348aecd87a89}{linked\+\_\+list\+\_\+transfer}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+destination, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+source, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element)
+\begin{DoxyCompactList}\small\item\em Transfers a linked list element from source to destinations head. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_ab75388c1349483ec16b0e2d64f794f2c}{linked\+\_\+list\+\_\+transfer\+\_\+after}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+destination, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element\+\_\+destination\+\_\+after, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+source, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element\+\_\+moving)
+\begin{DoxyCompactList}\small\item\em Transfers a linked list element from source to destinations head. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_a00841e8f45c8c8ae67d894e1a90d3dcb}{linked\+\_\+list\+\_\+move\+\_\+linked\+\_\+list\+\_\+after}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+destination, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+source)
+\begin{DoxyCompactList}\small\item\em Transfers a linked list element from source to destinations head. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_af649002ac74929cfefc3b45488b4e459}{linked\+\_\+list\+\_\+checking}} (\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list)
+\begin{DoxyCompactList}\small\item\em Checks whether a linked list is valid. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{linked__list_8h_accffb9a333558a87871e3836486be7b8}{linked\+\_\+list\+\_\+element\+\_\+checking}} (\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}linked\+\_\+list\+\_\+element)
+\begin{DoxyCompactList}\small\item\em Checks whether a linked list element is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for creating and using a linked lists 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Apr 21, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  System Memory
+==================================================
+  ### Usage ###
+  (#) Call 'linked_list_create' to create a linked list
+  (#) Call 'linked_list_delete' to delete a linked list
+  (#) Call 'linked_list_push_back' to push an element to
+      the end of a linked list
+  (#) Call 'linked_list_pop_front' to pop the first element
+      of a linked list
+  (#) Call 'linked_list_pop_back' to pop the last element
+      of a linked list
+  (#) Call 'linked_list_push_front' to push an element to
+      the start of a linked list
+  (#) Call 'linked_list_insert_after' to insert a new element
+      after another specified element
+  (#) Call 'linked_list_pop_inner' to pop a specified element
+  (#) Call 'linked_list_peek_back' to read the last element
+      of a linked list
+  (#) Call 'linked_list_transfer' to transfer an element from
+      one linked list to another
+  (#) Call 'linked_list_transfer_after' to transfer an element from
+      one linked list to another after another specified element
+  (#) Call 'linked_list_move_linked_list_after' to move all elements
+      of a linked list to the end of another linked list
+  (#) All functions call 'linked_list_checking' to validate
+      proper linked list structure. Refer to this function
+      for potential error codes not documented in each
+      function.
+  (#) All functions call 'linked_list_element_checking' to validate
+      proper linked list element structure. Refer to this function
+      for potential error codes not documented in each
+      function.
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{linked__list_8h_aec9a76866a7040d471faa40693d51b01}\label{linked__list_8h_aec9a76866a7040d471faa40693d51b01} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_ELEMENT\_IS\_NULL@{LINKED\_LIST\_ELEMENT\_IS\_NULL}}
+\index{LINKED\_LIST\_ELEMENT\_IS\_NULL@{LINKED\_LIST\_ELEMENT\_IS\_NULL}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_ELEMENT\_IS\_NULL}{LINKED\_LIST\_ELEMENT\_IS\_NULL}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+IS\+\_\+\+NULL~5}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00060}{60}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_a9464fc9d0e5132f8c8ea12f083b8d977}\label{linked__list_8h_a9464fc9d0e5132f8c8ea12f083b8d977} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_ELEMENT\_NO\_MEMORY@{LINKED\_LIST\_ELEMENT\_NO\_MEMORY}}
+\index{LINKED\_LIST\_ELEMENT\_NO\_MEMORY@{LINKED\_LIST\_ELEMENT\_NO\_MEMORY}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_ELEMENT\_NO\_MEMORY}{LINKED\_LIST\_ELEMENT\_NO\_MEMORY}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+NO\+\_\+\+MEMORY~2}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00057}{57}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce}\label{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_ELEMENT\_SUCCESS@{LINKED\_LIST\_ELEMENT\_SUCCESS}}
+\index{LINKED\_LIST\_ELEMENT\_SUCCESS@{LINKED\_LIST\_ELEMENT\_SUCCESS}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_ELEMENT\_SUCCESS}{LINKED\_LIST\_ELEMENT\_SUCCESS}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00055}{55}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_ac5c7be801ce06a03f4203716e38d592e}\label{linked__list_8h_ac5c7be801ce06a03f4203716e38d592e} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_IRREGULAR\_STRUCTURE@{LINKED\_LIST\_IRREGULAR\_STRUCTURE}}
+\index{LINKED\_LIST\_IRREGULAR\_STRUCTURE@{LINKED\_LIST\_IRREGULAR\_STRUCTURE}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_IRREGULAR\_STRUCTURE}{LINKED\_LIST\_IRREGULAR\_STRUCTURE}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+IRREGULAR\+\_\+\+STRUCTURE~3}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00058}{58}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_aec306bdd8f7eb23518e6b50869e74243}\label{linked__list_8h_aec306bdd8f7eb23518e6b50869e74243} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_LENGTH@{LINKED\_LIST\_LENGTH}}
+\index{LINKED\_LIST\_LENGTH@{LINKED\_LIST\_LENGTH}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_LENGTH}{LINKED\_LIST\_LENGTH}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+LENGTH~3}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00064}{64}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_a44e0310d0c1b3e27cdd8aaf24d151326}\label{linked__list_8h_a44e0310d0c1b3e27cdd8aaf24d151326} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_NO\_ELEMENT@{LINKED\_LIST\_NO\_ELEMENT}}
+\index{LINKED\_LIST\_NO\_ELEMENT@{LINKED\_LIST\_NO\_ELEMENT}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_NO\_ELEMENT}{LINKED\_LIST\_NO\_ELEMENT}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+ELEMENT~4}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00059}{59}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_a715ee695b06de7d60ddbee9fcf073326}\label{linked__list_8h_a715ee695b06de7d60ddbee9fcf073326} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_NO\_MEMORY@{LINKED\_LIST\_NO\_MEMORY}}
+\index{LINKED\_LIST\_NO\_MEMORY@{LINKED\_LIST\_NO\_MEMORY}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_NO\_MEMORY}{LINKED\_LIST\_NO\_MEMORY}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+MEMORY~1}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00056}{56}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_a06bdf13c91120c4679a0817957dffc34}\label{linked__list_8h_a06bdf13c91120c4679a0817957dffc34} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_SOURCE\_IS\_EMPTY@{LINKED\_LIST\_SOURCE\_IS\_EMPTY}}
+\index{LINKED\_LIST\_SOURCE\_IS\_EMPTY@{LINKED\_LIST\_SOURCE\_IS\_EMPTY}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_SOURCE\_IS\_EMPTY}{LINKED\_LIST\_SOURCE\_IS\_EMPTY}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+SOURCE\+\_\+\+IS\+\_\+\+EMPTY~6}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00061}{61}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+\Hypertarget{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}\label{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2} 
+\index{linked\_list.h@{linked\_list.h}!LINKED\_LIST\_SUCCESS@{LINKED\_LIST\_SUCCESS}}
+\index{LINKED\_LIST\_SUCCESS@{LINKED\_LIST\_SUCCESS}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{LINKED\_LIST\_SUCCESS}{LINKED\_LIST\_SUCCESS}}
+{\footnotesize\ttfamily \#define LINKED\+\_\+\+LIST\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{linked__list_8h_source_l00054}{54}} of file \mbox{\hyperlink{linked__list_8h_source}{linked\+\_\+list.\+h}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}\label{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_element\_t@{linked\_list\_element\_t}}
+\index{linked\_list\_element\_t@{linked\_list\_element\_t}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_element\_t}{linked\_list\_element\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structelement}{element}} \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}}}
+
+control information for a linked list element 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{linked__list_8h_af649002ac74929cfefc3b45488b4e459}\label{linked__list_8h_af649002ac74929cfefc3b45488b4e459} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_checking@{linked\_list\_checking}}
+\index{linked\_list\_checking@{linked\_list\_checking}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_checking()}{linked\_list\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list }\end{DoxyParamCaption})}
+
+
+
+Checks whether a linked list is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer to be checked on @info check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+MEMORY\+: linked list is invalid \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00675}{675}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_af649002ac74929cfefc3b45488b4e459_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_ab84dc67b6f40f1f88c3b516453c0115e}\label{linked__list_8h_ab84dc67b6f40f1f88c3b516453c0115e} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_create@{linked\_list\_create}}
+\index{linked\_list\_create@{linked\_list\_create}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_create()}{linked\_list\_create()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list }\end{DoxyParamCaption})}
+
+
+
+Creates an empty linked list with no elements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer to assign the new linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for linked list 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00068}{68}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_ab84dc67b6f40f1f88c3b516453c0115e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a157221397716f9d0d15a22242168d6d5}\label{linked__list_8h_a157221397716f9d0d15a22242168d6d5} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_delete@{linked\_list\_delete}}
+\index{linked\_list\_delete@{linked\_list\_delete}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_delete()}{linked\_list\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list }\end{DoxyParamCaption})}
+
+
+
+Deletes a linked list including all of its elements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer, which shall be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+IRREGULAR\+\_\+\+STRUCTURE\+: unable to fully delete list, no path from head to tail 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00091}{91}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{linked__list_8h_a157221397716f9d0d15a22242168d6d5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a157221397716f9d0d15a22242168d6d5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_accffb9a333558a87871e3836486be7b8}\label{linked__list_8h_accffb9a333558a87871e3836486be7b8} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_element\_checking@{linked\_list\_element\_checking}}
+\index{linked\_list\_element\_checking@{linked\_list\_element\_checking}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_element\_checking()}{linked\_list\_element\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+element\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+Checks whether a linked list element is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer to be checked on @info check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+NO\+\_\+\+MEMORY\+: linked list element is invalid \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00692}{692}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_accffb9a333558a87871e3836486be7b8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a053903e57173e3bae503e9281be188c8}\label{linked__list_8h_a053903e57173e3bae503e9281be188c8} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_insert\_after@{linked\_list\_insert\_after}}
+\index{linked\_list\_insert\_after@{linked\_list\_insert\_after}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_insert\_after()}{linked\_list\_insert\_after()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+insert\+\_\+after (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Adds a new element after a specified element of the linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer, where a new linked list element is added \\
+\hline
+{\em linked\+\_\+list\+\_\+element} & is a linked\+\_\+list\+\_\+element pointer of pointer after which it shall be added \\
+\hline
+{\em data} & is a void pointer of pointer to the data of the newly added element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for new linked list element 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00304}{304}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a053903e57173e3bae503e9281be188c8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a00841e8f45c8c8ae67d894e1a90d3dcb}\label{linked__list_8h_a00841e8f45c8c8ae67d894e1a90d3dcb} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_move\_linked\_list\_after@{linked\_list\_move\_linked\_list\_after}}
+\index{linked\_list\_move\_linked\_list\_after@{linked\_list\_move\_linked\_list\_after}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_move\_linked\_list\_after()}{linked\_list\_move\_linked\_list\_after()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+move\+\_\+linked\+\_\+list\+\_\+after (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+destination,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+source }\end{DoxyParamCaption})}
+
+
+
+Transfers a linked list element from source to destinations head. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list\+\_\+destination} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where all elements shall be inserted at destinations head \\
+\hline
+{\em linked\+\_\+list\+\_\+source} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where all elements shall be removed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00624}{624}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a00841e8f45c8c8ae67d894e1a90d3dcb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a00841e8f45c8c8ae67d894e1a90d3dcb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a675d3ea9d5c7b8305486c56b9dfd7925}\label{linked__list_8h_a675d3ea9d5c7b8305486c56b9dfd7925} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_peek\_back@{linked\_list\_peek\_back}}
+\index{linked\_list\_peek\_back@{linked\_list\_peek\_back}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_peek\_back()}{linked\_list\_peek\_back()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+peek\+\_\+back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Returns the given lists tails data without destroying the element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where an element is being peeked \\
+\hline
+{\em data} & is a void pointer of pointer to the tails data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+IS\+\_\+\+NULL\+: unable to peek back 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00403}{403}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a675d3ea9d5c7b8305486c56b9dfd7925_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a7f37448c072984184d9c01df1fe6c473}\label{linked__list_8h_a7f37448c072984184d9c01df1fe6c473} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_pop\_back@{linked\_list\_pop\_back}}
+\index{linked\_list\_pop\_back@{linked\_list\_pop\_back}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_pop\_back()}{linked\_list\_pop\_back()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+pop\+\_\+back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Pops data from the end of the linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer, where a data element is being removed \\
+\hline
+{\em data} & is a void pointer of pointer to the data, which shall be removed from a linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+ELEMENT\+: unable to pop a requested element 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00217}{217}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{linked__list_8h_a7f37448c072984184d9c01df1fe6c473_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a7f37448c072984184d9c01df1fe6c473_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a654d7eeff8a471e7bd46d7b6cdbcce46}\label{linked__list_8h_a654d7eeff8a471e7bd46d7b6cdbcce46} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_pop\_front@{linked\_list\_pop\_front}}
+\index{linked\_list\_pop\_front@{linked\_list\_pop\_front}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_pop\_front()}{linked\_list\_pop\_front()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+pop\+\_\+front (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Pops data from the beginning of the linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer, where a data element is being removed \\
+\hline
+{\em data} & is a void pointer of pointer to the data, which shall be removed from a linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+ELEMENT\+: unable to pop a data element 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00171}{171}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{linked__list_8h_a654d7eeff8a471e7bd46d7b6cdbcce46_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a654d7eeff8a471e7bd46d7b6cdbcce46_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a8d31d5289f5662e182f27f2e9dded40c}\label{linked__list_8h_a8d31d5289f5662e182f27f2e9dded40c} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_pop\_inner@{linked\_list\_pop\_inner}}
+\index{linked\_list\_pop\_inner@{linked\_list\_pop\_inner}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_pop\_inner()}{linked\_list\_pop\_inner()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+pop\+\_\+inner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Removes an element from a linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where an element is being removed \\
+\hline
+{\em linked\+\_\+list\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer, which shall be removed \\
+\hline
+{\em data} & is a void pointer of pointer to the data, which shall be removed from a linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+NO\+\_\+\+ELEMENT\+: unable to pop a requested element LINKED\+\_\+\+LIST\+\_\+\+IRREGULAR\+\_\+\+STRUCTURE\+: no path from head to tail 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00344}{344}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a8d31d5289f5662e182f27f2e9dded40c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a662665a6582d64dd51944761e8734513}\label{linked__list_8h_a662665a6582d64dd51944761e8734513} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_push\_back@{linked\_list\_push\_back}}
+\index{linked\_list\_push\_back@{linked\_list\_push\_back}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_push\_back()}{linked\_list\_push\_back()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+push\+\_\+back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Pushes a new data element to the end of the linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer, where a new linked list element is added \\
+\hline
+{\em data} & is a void pointer of pointer to the data, which shall be added in a linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for new linked list element 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00129}{129}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a662665a6582d64dd51944761e8734513_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a33ada9c56ab9e6913088e439cc7cc5bb}\label{linked__list_8h_a33ada9c56ab9e6913088e439cc7cc5bb} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_push\_front@{linked\_list\_push\_front}}
+\index{linked\_list\_push\_front@{linked\_list\_push\_front}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_push\_front()}{linked\_list\_push\_front()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+push\+\_\+front (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Pushes a new data element to the beginning of the linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list} & is a linked\+\_\+list pointer of pointer, where a new linked list element is added \\
+\hline
+{\em data} & is a void pointer of pointer to the data, which shall be added in a linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for this error\+: LINKED\+\_\+\+LIST\+\_\+\+ELEMENT\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for new linked list element 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00261}{261}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a33ada9c56ab9e6913088e439cc7cc5bb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{linked__list_8h_a33ada9c56ab9e6913088e439cc7cc5bb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_a2702c739a8aea4b12cdb348aecd87a89}\label{linked__list_8h_a2702c739a8aea4b12cdb348aecd87a89} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_transfer@{linked\_list\_transfer}}
+\index{linked\_list\_transfer@{linked\_list\_transfer}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_transfer()}{linked\_list\_transfer()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+transfer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+destination,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+source,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+Transfers a linked list element from source to destinations head. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list\+\_\+destination} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where an element shall be inserted at destinations head \\
+\hline
+{\em linked\+\_\+list\+\_\+source} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where an element shall be removed \\
+\hline
+{\em linked\+\_\+list\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer which shall be transfered \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00429}{429}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{linked__list_8h_a2702c739a8aea4b12cdb348aecd87a89_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linked__list_8h_a2702c739a8aea4b12cdb348aecd87a89_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{linked__list_8h_ab75388c1349483ec16b0e2d64f794f2c}\label{linked__list_8h_ab75388c1349483ec16b0e2d64f794f2c} 
+\index{linked\_list.h@{linked\_list.h}!linked\_list\_transfer\_after@{linked\_list\_transfer\_after}}
+\index{linked\_list\_transfer\_after@{linked\_list\_transfer\_after}!linked\_list.h@{linked\_list.h}}
+\doxysubsubsection{\texorpdfstring{linked\_list\_transfer\_after()}{linked\_list\_transfer\_after()}}
+{\footnotesize\ttfamily size\+\_\+t linked\+\_\+list\+\_\+transfer\+\_\+after (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+destination,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element\+\_\+destination\+\_\+after,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+source,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{linked\+\_\+list\+\_\+element\+\_\+moving }\end{DoxyParamCaption})}
+
+
+
+Transfers a linked list element from source to destinations head. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linked\+\_\+list\+\_\+destination} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where an element shall be inserted at destinations head \\
+\hline
+{\em linked\+\_\+list\+\_\+element\+\_\+destination\+\_\+after} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer where the moving element shall be transferred after \\
+\hline
+{\em linked\+\_\+list\+\_\+source} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer where an element shall be removed \\
+\hline
+{\em linked\+\_\+list\+\_\+element\+\_\+moving} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer which shall be transfered \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{linked__list_8c_source_l00519}{519}} of file \mbox{\hyperlink{linked__list_8c_source}{linked\+\_\+list.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{linked__list_8h_ab75388c1349483ec16b0e2d64f794f2c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{linked__list_8h_ab75388c1349483ec16b0e2d64f794f2c_icgraph}
+\end{center}
+\end{figure}

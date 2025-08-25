@@ -1,0 +1,362 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/src/kernel/message\+\_\+queue.c File Reference}
+\hypertarget{message__queue_8c}{}\label{message__queue_8c}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/message\_queue.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/message\_queue.c}}
+
+
+\+: Module for creating using a message queue  
+
+
+{\ttfamily \#include $<$kernel/message\+\_\+queue.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}utils/linked\+\_\+list.\+h"{}}\newline
+{\ttfamily \#include "{}utils/support.\+h"{}}\newline
+Include dependency graph for message\+\_\+queue.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}{message\+\_\+queue\+\_\+checking}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue)
+\begin{DoxyCompactList}\small\item\em Checks whether a message queue is valid. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8c_a2308f343d4d76ed9932c92224e2e10c5}{message\+\_\+queue\+\_\+create}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, size\+\_\+t message\+\_\+queue\+\_\+size, size\+\_\+t element\+\_\+size, size\+\_\+t id, char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Creates a message queue by its size, expected element size, id and name. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8c_a051e749f70d8ab8b4a8ed34fdb6b44d3}{message\+\_\+queue\+\_\+delete}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue)
+\begin{DoxyCompactList}\small\item\em Deletes a message queue. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8c_adad5b1beada3120a6e8639f95979b38d}{message\+\_\+queue\+\_\+send}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}}, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task, void \texorpdfstring{$\ast$}{*}message, size\+\_\+t element\+\_\+size, bool urgent)
+\begin{DoxyCompactList}\small\item\em Sends a message to a task without blocking. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8c_a24a7ea0a1b2abb026b78348df2fcb2bb}{message\+\_\+queue\+\_\+send\+\_\+blocking}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sender\+\_\+element, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}receiver\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}receiver\+\_\+task, void \texorpdfstring{$\ast$}{*}message, size\+\_\+t element\+\_\+size, bool urgent)
+\begin{DoxyCompactList}\small\item\em Sends a message to a task. The task can be blocked by insertion to the sending waiting list. Sending a message can fail, which will need a retry. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8c_aaede9925afd52fbc4445d73517ddf2b5}{message\+\_\+queue\+\_\+receive}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}receiver\+\_\+task, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sender\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sender\+\_\+task, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message)
+\begin{DoxyCompactList}\small\item\em Receive a message. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8c_ae66a349dddbf73ee44edf7a25fee1682}{message\+\_\+queue\+\_\+identifier\+\_\+checking}} (\mbox{\hyperlink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue\+\_\+identifier)
+\begin{DoxyCompactList}\small\item\em Checks whether a queue identifier is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for creating using a message queue 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Apr 20, 2025 \begin{DoxyVerb}==================================================
+### Resources used ###
+None
+==================================================
+### Usage ###
+(#) Call 'message_queue_create' to create a message queue
+(#) Call 'message_queue_delete' to delete a message queue
+(#) Call 'message_queue_send' to send info to a task
+(#) Call 'message_queue_send_blocking' to send info to a task,
+    but the sending task can be blocked
+(#) Call 'message_queue_receive' to receive a message
+(#) Call 'message_queue_identifier_checking' to check the message queues identifier
+(#) Call 'message_queue_checking' to check the message queues
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}\label{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca} 
+\index{message\_queue.c@{message\_queue.c}!message\_queue\_checking@{message\_queue\_checking}}
+\index{message\_queue\_checking@{message\_queue\_checking}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_checking()}{message\_queue\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue }\end{DoxyParamCaption})}
+
+
+
+Checks whether a message queue is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer, which shall be checked for irregular structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00336}{336}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8c_a2308f343d4d76ed9932c92224e2e10c5}\label{message__queue_8c_a2308f343d4d76ed9932c92224e2e10c5} 
+\index{message\_queue.c@{message\_queue.c}!message\_queue\_create@{message\_queue\_create}}
+\index{message\_queue\_create@{message\_queue\_create}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_create()}{message\_queue\_create()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{size\+\_\+t}]{message\+\_\+queue\+\_\+size,  }\item[{size\+\_\+t}]{element\+\_\+size,  }\item[{size\+\_\+t}]{id,  }\item[{char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates a message queue by its size, expected element size, id and name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to be initialized as a message queue \\
+\hline
+{\em queue\+\_\+size} & is the amount of data to be stored \\
+\hline
+{\em element\+\_\+size} & is the expected data size of an element \\
+\hline
+{\em id} & is a numeric identifier \\
+\hline
+{\em name} & is a string identifier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for these errors and component errors\+: MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for message queue MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+IDENTIFIER\+: unable to allocate memory for message queue identifier MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+RECEIVING\+\_\+\+LIST\+: unable to initialize receiving list MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+SENDING\+\_\+\+LIST\+: unable to initialize sending list 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00055}{55}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_a2308f343d4d76ed9932c92224e2e10c5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_a2308f343d4d76ed9932c92224e2e10c5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8c_a051e749f70d8ab8b4a8ed34fdb6b44d3}\label{message__queue_8c_a051e749f70d8ab8b4a8ed34fdb6b44d3} 
+\index{message\_queue.c@{message\_queue.c}!message\_queue\_delete@{message\_queue\_delete}}
+\index{message\_queue\_delete@{message\_queue\_delete}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_delete()}{message\_queue\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue }\end{DoxyParamCaption})}
+
+
+
+Deletes a message queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00099}{99}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_a051e749f70d8ab8b4a8ed34fdb6b44d3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_a051e749f70d8ab8b4a8ed34fdb6b44d3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8c_ae66a349dddbf73ee44edf7a25fee1682}\label{message__queue_8c_ae66a349dddbf73ee44edf7a25fee1682} 
+\index{message\_queue.c@{message\_queue.c}!message\_queue\_identifier\_checking@{message\_queue\_identifier\_checking}}
+\index{message\_queue\_identifier\_checking@{message\_queue\_identifier\_checking}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_identifier\_checking()}{message\_queue\_identifier\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+identifier\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue\+\_\+identifier }\end{DoxyParamCaption})}
+
+
+
+Checks whether a queue identifier is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue\+\_\+identifier} & is a \doxylink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t} pointer of pointer, which shall be checked for irregular structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info check for this error\+: MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+IDENTIFIER\+: message queue identifier is null 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00318}{318}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_ae66a349dddbf73ee44edf7a25fee1682_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8c_aaede9925afd52fbc4445d73517ddf2b5}\label{message__queue_8c_aaede9925afd52fbc4445d73517ddf2b5} 
+\index{message\_queue.c@{message\_queue.c}!message\_queue\_receive@{message\_queue\_receive}}
+\index{message\_queue\_receive@{message\_queue\_receive}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_receive()}{message\_queue\_receive()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{receiver\+\_\+task,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sender\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sender\+\_\+task,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message }\end{DoxyParamCaption})}
+
+
+
+Receive a message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to use for communication \\
+\hline
+{\em running\+\_\+task\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer to the current running source list, where the receiver task belongs \\
+\hline
+{\em running\+\_\+task\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer, which points to the receiver task \\
+\hline
+{\em receiver\+\_\+task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the receiver \\
+\hline
+{\em sender\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer to a blocked sender \\
+\hline
+{\em sender\+\_\+task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to a blocked task \\
+\hline
+{\em message} & is data to be received, it can be empty, which will need a retry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00251}{251}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_aaede9925afd52fbc4445d73517ddf2b5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_aaede9925afd52fbc4445d73517ddf2b5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8c_adad5b1beada3120a6e8639f95979b38d}\label{message__queue_8c_adad5b1beada3120a6e8639f95979b38d} 
+\index{message\_queue.c@{message\_queue.c}!message\_queue\_send@{message\_queue\_send}}
+\index{message\_queue\_send@{message\_queue\_send}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_send()}{message\_queue\_send()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task,  }\item[{void \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t}]{element\+\_\+size,  }\item[{bool}]{urgent }\end{DoxyParamCaption})}
+
+
+
+Sends a message to a task without blocking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to use for communication \\
+\hline
+{\em element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer to the receiver \\
+\hline
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the receiver \\
+\hline
+{\em message} & is data to be send \\
+\hline
+{\em element\+\_\+size} & is the amount of bytes to stored \\
+\hline
+{\em urgent} & is a bool, if set to true, the message queue becomes a lifo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00147}{147}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_adad5b1beada3120a6e8639f95979b38d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_adad5b1beada3120a6e8639f95979b38d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8c_a24a7ea0a1b2abb026b78348df2fcb2bb}\label{message__queue_8c_a24a7ea0a1b2abb026b78348df2fcb2bb} 
+\index{message\_queue.c@{message\_queue.c}!message\_queue\_send\_blocking@{message\_queue\_send\_blocking}}
+\index{message\_queue\_send\_blocking@{message\_queue\_send\_blocking}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_send\_blocking()}{message\_queue\_send\_blocking()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+send\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sender\+\_\+element,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{receiver\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{receiver\+\_\+task,  }\item[{void \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t}]{element\+\_\+size,  }\item[{bool}]{urgent }\end{DoxyParamCaption})}
+
+
+
+Sends a message to a task. The task can be blocked by insertion to the sending waiting list. Sending a message can fail, which will need a retry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to use for communication \\
+\hline
+{\em running\+\_\+task\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer to the current running source list, where the sender task belongs \\
+\hline
+{\em sender\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t to the sender \\
+\hline
+{\em receiver\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer to the receiver \\
+\hline
+{\em receiver\+\_\+task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the receiver \\
+\hline
+{\em message} & is data to be send \\
+\hline
+{\em element\+\_\+size} & is the amount of bytes to stored \\
+\hline
+{\em urgent} & is a bool, if set to true, the message queue becomes a lifo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00216}{216}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_a24a7ea0a1b2abb026b78348df2fcb2bb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c_a24a7ea0a1b2abb026b78348df2fcb2bb_icgraph}
+\end{center}
+\end{figure}

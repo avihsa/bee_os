@@ -1,0 +1,368 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/src/kernel/task.c File Reference}
+\hypertarget{task_8c}{}\label{task_8c}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/task.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/task.c}}
+
+
+\+: Module for creating and using tasks  
+
+
+{\ttfamily \#include "{}kernel/task.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for task.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{task_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{task_8c_ac96bf954d61c98cc9430ddd4b76f6d4f}{DEFAULT\+\_\+\+PSR}}~0x01000000
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{task_8c_a4b17855147c0cc7a3676e398b711bf09}{task\+\_\+create}} (\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task, size\+\_\+t(\texorpdfstring{$\ast$}{*}task\+\_\+main)(void), void(\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{src_2kernel_2kernel_8c_af0b12129cd39d874bfebcc424b723b5d}{kernel\+\_\+task\+\_\+terminate}})(void), uint8\+\_\+t u8\+\_\+task\+\_\+id, const char \texorpdfstring{$\ast$}{*}task\+\_\+name, uint8\+\_\+t u8\+\_\+task\+\_\+priority, size\+\_\+t time\+\_\+quantum, size\+\_\+t wanted\+\_\+events, void(\texorpdfstring{$\ast$}{*}notification\+\_\+conditions)(size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t), size\+\_\+t timeout)
+\begin{DoxyCompactList}\small\item\em Creates a task and fills the its structure with all of the necessary control information. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{task_8c_aba2c0017fce23775355c8c24f4c1bf96}{task\+\_\+delete}} (\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Deletes an existing task. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{task_8c_adda51d8ef0b37521b25acb7d883a01c4}{task\+\_\+set\+\_\+state}} (\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task, \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\+\_\+e\+Tast\+States\+\_\+t}} task\+\_\+state)
+\begin{DoxyCompactList}\small\item\em Sets a tasks state. Most useful for tracking multiple tasks in SEGGER System\+View. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{task_8c_a94e3f7f4c880c9c2d6d6799a137117cc}{task\+\_\+reset\+\_\+time\+\_\+quantum\+\_\+remaining}} (\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Resets a tasks remaining time quantum back to its maximum value. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{task_8c_a86c610c32b85a985b4e626192a4ad6dc}{task\+\_\+set\+\_\+priority}} (\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task, uint8\+\_\+t u8\+\_\+task\+\_\+priority)
+\begin{DoxyCompactList}\small\item\em Sets a tasks priority. Note that a lower value signifies a higher priority. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{task_8c_a993e35de544bf050671e5de34a227697}{task\+\_\+set\+\_\+blocked\+\_\+info}} (\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}blocked\+\_\+timeout\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}blocked\+\_\+timeout\+\_\+list\+\_\+element)
+\begin{DoxyCompactList}\small\item\em Sets a tasks current blocked information, showing which list it belongs to. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{task_8c_a01484528b00ba93895b706ea4a029302}{task\+\_\+checking}} (\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Checks whether a task is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for creating and using tasks 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+May 9, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  None
+==================================================
+  ### Usage ###
+  (#) Call 'task_create' to create a task
+  (#) Call 'task_set_state' to set a tasks state
+  (#) Call 'task_set_time_quantum_remaining' to set the
+      remaining time quantum of a task
+  (#) Call 'task_set_priority' to set a tasks priority
+  (#) Call 'task_set_blocked_info' to set a tasks current
+      blocked information of which list it belongs to
+  (#) All functions call 'task_checking' to validate
+      proper task structure. Refer to this function
+      for potential error codes not documented in each
+      function.
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{task_8c_ac96bf954d61c98cc9430ddd4b76f6d4f}\label{task_8c_ac96bf954d61c98cc9430ddd4b76f6d4f} 
+\index{task.c@{task.c}!DEFAULT\_PSR@{DEFAULT\_PSR}}
+\index{DEFAULT\_PSR@{DEFAULT\_PSR}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_PSR}{DEFAULT\_PSR}}
+{\footnotesize\ttfamily \#define DEFAULT\+\_\+\+PSR~0x01000000}
+
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00035}{35}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{task_8c_a01484528b00ba93895b706ea4a029302}\label{task_8c_a01484528b00ba93895b706ea4a029302} 
+\index{task.c@{task.c}!task\_checking@{task\_checking}}
+\index{task\_checking@{task\_checking}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{task\_checking()}{task\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t task\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Checks whether a task is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the task to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TASK\+\_\+\+SUCCESS on success or unequal TASK\+\_\+\+SUCCESS for an error @info On error check for these errors and component errors\+: TASK\+\_\+\+NO\+\_\+\+MEMORY\+: task is null TASK\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: task\+\_\+data is null 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00254}{254}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{task_8c_a01484528b00ba93895b706ea4a029302_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{task_8c_a4b17855147c0cc7a3676e398b711bf09}\label{task_8c_a4b17855147c0cc7a3676e398b711bf09} 
+\index{task.c@{task.c}!task\_create@{task\_create}}
+\index{task\_create@{task\_create}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{task\_create()}{task\_create()}}
+{\footnotesize\ttfamily size\+\_\+t task\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task,  }\item[{size\+\_\+t(\texorpdfstring{$\ast$}{*})(void)}]{task\+\_\+main,  }\item[{void(\texorpdfstring{$\ast$}{*})(void)}]{kernel\+\_\+task\+\_\+terminate,  }\item[{uint8\+\_\+t}]{u8\+\_\+task\+\_\+id,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{task\+\_\+name,  }\item[{uint8\+\_\+t}]{u8\+\_\+task\+\_\+priority,  }\item[{size\+\_\+t}]{time\+\_\+quantum,  }\item[{size\+\_\+t}]{wanted\+\_\+events,  }\item[{void(\texorpdfstring{$\ast$}{*})(size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t)}]{notification\+\_\+conditions,  }\item[{size\+\_\+t}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Creates a task and fills the its structure with all of the necessary control information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the created task \\
+\hline
+{\em task\+\_\+main} & is a function pointer with no arguments and size\+\_\+t return. It references the tasks main function. \\
+\hline
+{\em kernel\+\_\+task\+\_\+terminate} & is a function pointer with no arguments and no return. It references the tasks terminate function. \\
+\hline
+{\em u8\+\_\+task\+\_\+id} & is a uint8\+\_\+t, which is used as a key for fast access. \\
+\hline
+{\em task\+\_\+name} & is a const char pointer to the tasks name, which is displayed when recording in SEGGER System\+View \\
+\hline
+{\em u8\+\_\+task\+\_\+priority} & is a uint8\+\_\+t, which defines the tasks priority. A lower number specifies a higher priority \\
+\hline
+{\em time\+\_\+quantum} & is a size\+\_\+t, which defines a tasks time quantum, its potential maximum consecutive runtime in milliseconds \\
+\hline
+{\em wanted\+\_\+events} & is a size\+\_\+t, which defines which events the task expects to receive \\
+\hline
+{\em notification\+\_\+conditions} & is a function pointer with 2 arguments, a size\+\_\+t pointer and a size\+\_\+t, and no return. It references an optional function which can contain additional control of wanted events \\
+\hline
+{\em timeout} & is a size\+\_\+t, which defines the tasks timeout in millisecond when waiting for wanted events \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TASK\+\_\+\+SUCCESS on success or unequal TASK\+\_\+\+SUCCESS for an error @info On error check for these errors\+: TASK\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for task TASK\+\_\+\+DATA\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for task\+\_\+data 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00060}{60}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{task_8c_a4b17855147c0cc7a3676e398b711bf09_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{task_8c_a4b17855147c0cc7a3676e398b711bf09_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{task_8c_aba2c0017fce23775355c8c24f4c1bf96}\label{task_8c_aba2c0017fce23775355c8c24f4c1bf96} 
+\index{task.c@{task.c}!task\_delete@{task\_delete}}
+\index{task\_delete@{task\_delete}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{task\_delete()}{task\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t task\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Deletes an existing task. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the task to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TASK\+\_\+\+SUCCESS on success or unequal TASK\+\_\+\+SUCCESS for an error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00129}{129}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{task_8c_aba2c0017fce23775355c8c24f4c1bf96_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{task_8c_aba2c0017fce23775355c8c24f4c1bf96_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{task_8c_a94e3f7f4c880c9c2d6d6799a137117cc}\label{task_8c_a94e3f7f4c880c9c2d6d6799a137117cc} 
+\index{task.c@{task.c}!task\_reset\_time\_quantum\_remaining@{task\_reset\_time\_quantum\_remaining}}
+\index{task\_reset\_time\_quantum\_remaining@{task\_reset\_time\_quantum\_remaining}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{task\_reset\_time\_quantum\_remaining()}{task\_reset\_time\_quantum\_remaining()}}
+{\footnotesize\ttfamily size\+\_\+t task\+\_\+reset\+\_\+time\+\_\+quantum\+\_\+remaining (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Resets a tasks remaining time quantum back to its maximum value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer, which references the task of which to reset the time quantum \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TASK\+\_\+\+SUCCESS on success or unequal TASK\+\_\+\+SUCCESS for an error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00195}{195}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{task_8c_a94e3f7f4c880c9c2d6d6799a137117cc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{task_8c_a94e3f7f4c880c9c2d6d6799a137117cc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{task_8c_a993e35de544bf050671e5de34a227697}\label{task_8c_a993e35de544bf050671e5de34a227697} 
+\index{task.c@{task.c}!task\_set\_blocked\_info@{task\_set\_blocked\_info}}
+\index{task\_set\_blocked\_info@{task\_set\_blocked\_info}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{task\_set\_blocked\_info()}{task\_set\_blocked\_info()}}
+{\footnotesize\ttfamily size\+\_\+t task\+\_\+set\+\_\+blocked\+\_\+info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{blocked\+\_\+timeout\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{blocked\+\_\+timeout\+\_\+list\+\_\+element }\end{DoxyParamCaption})}
+
+
+
+Sets a tasks current blocked information, showing which list it belongs to. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer, which references the task of which to set the corresponding blocked list \\
+\hline
+{\em blocked\+\_\+timeout\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer, which references the list the task currently belongs to \\
+\hline
+{\em blocked\+\_\+timeout\+\_\+list\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer, which references the linked list element containing the task \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TASK\+\_\+\+SUCCESS on success or unequal TASK\+\_\+\+SUCCESS for an error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00234}{234}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{task_8c_a993e35de544bf050671e5de34a227697_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{task_8c_a993e35de544bf050671e5de34a227697_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{task_8c_a86c610c32b85a985b4e626192a4ad6dc}\label{task_8c_a86c610c32b85a985b4e626192a4ad6dc} 
+\index{task.c@{task.c}!task\_set\_priority@{task\_set\_priority}}
+\index{task\_set\_priority@{task\_set\_priority}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{task\_set\_priority()}{task\_set\_priority()}}
+{\footnotesize\ttfamily size\+\_\+t task\+\_\+set\+\_\+priority (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task,  }\item[{uint8\+\_\+t}]{u8\+\_\+task\+\_\+priority }\end{DoxyParamCaption})}
+
+
+
+Sets a tasks priority. Note that a lower value signifies a higher priority. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer, which references the task of which to set the priority \\
+\hline
+{\em u8\+\_\+task\+\_\+priority} & is a uint8\+\_\+t, which specifies the priority to set the task to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TASK\+\_\+\+SUCCESS on success or unequal TASK\+\_\+\+SUCCESS for an error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00212}{212}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{task_8c_a86c610c32b85a985b4e626192a4ad6dc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{task_8c_a86c610c32b85a985b4e626192a4ad6dc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{task_8c_adda51d8ef0b37521b25acb7d883a01c4}\label{task_8c_adda51d8ef0b37521b25acb7d883a01c4} 
+\index{task.c@{task.c}!task\_set\_state@{task\_set\_state}}
+\index{task\_set\_state@{task\_set\_state}!task.c@{task.c}}
+\doxysubsubsection{\texorpdfstring{task\_set\_state()}{task\_set\_state()}}
+{\footnotesize\ttfamily size\+\_\+t task\+\_\+set\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task,  }\item[{\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\+\_\+e\+Tast\+States\+\_\+t}}}]{task\+\_\+state }\end{DoxyParamCaption})}
+
+
+
+Sets a tasks state. Most useful for tracking multiple tasks in SEGGER System\+View. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the task to set the state of \\
+\hline
+{\em task\+\_\+state} & is a TCB\+\_\+e\+Tast\+States\+\_\+t, which defines the state being set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TASK\+\_\+\+SUCCESS on success or unequal TASK\+\_\+\+SUCCESS for an error @info On error check for these errors\+: TASK\+\_\+\+UNDEFINED\+\_\+\+STATE\+: received unexpected task\+\_\+state 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{task_8c_source_l00158}{158}} of file \mbox{\hyperlink{task_8c_source}{task.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{task_8c_adda51d8ef0b37521b25acb7d883a01c4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{task_8c_adda51d8ef0b37521b25acb7d883a01c4_icgraph}
+\end{center}
+\end{figure}

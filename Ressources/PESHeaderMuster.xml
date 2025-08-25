@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="false" context="org.eclipse.cdt.core.cHeader.contenttype_context" deleted="false" description="" enabled="true" name="PES_Header_Muster">/**
+**************************************************
+* @file ${file_name}
+* @author Sergej Ellenschläger, Ameline Seba
+* @version v1.0
+* @date ${date}
+* @brief: Module for using the periphery xyz
+**************************************************
+*/
+
+#ifndef ${include_guard_symbol}
+#define ${include_guard_symbol}
+/* Includes */
+${includes}
+
+/* Public Preprocessor defines */
+/* Public Preprocessor macros */
+/* Public type definitions */
+/* Public functions (prototypes) */
+${declarations}
+
+#endif /* ${include_guard_symbol} */</template></templates>

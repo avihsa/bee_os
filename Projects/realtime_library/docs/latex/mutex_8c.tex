@@ -1,0 +1,338 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/src/kernel/mutex.c File Reference}
+\hypertarget{mutex_8c}{}\label{mutex_8c}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/mutex.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/mutex.c}}
+
+
+\+: Module for creating and using mutexes  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}kernel/mutex.\+h"{}}\newline
+{\ttfamily \#include "{}kernel/semaphore.\+h"{}}\newline
+{\ttfamily \#include "{}utils/support.\+h"{}}\newline
+Include dependency graph for mutex.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{mutex_8c_ae84e714a92c7879c49da4dc3ae4d74f9}{mutex\+\_\+checking}} (\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mutex)
+\begin{DoxyCompactList}\small\item\em Checks whether a mutex is valid. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{mutex_8c_a9c2d6b9468d5acde3766668563fba4a4}{mutex\+\_\+create}} (\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mutex, size\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Creates a mutex with an id. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{mutex_8c_ad2cceaf0d82159fb4994b157bbe0ba42}{mutex\+\_\+delete}} (\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mutex)
+\begin{DoxyCompactList}\small\item\em Deletes a mutex. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{mutex_8c_afc9945ec990447198a76c8507eec17c3}{mutex\+\_\+acquire}} (\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mutex, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Attempts to a acquire a mutex. Waiting list is managed by semaphore\+\_\+acquire if needed. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{mutex_8c_a0ff8eddf876f3efbd8f5ccce5a81f5ea}{mutex\+\_\+release}} (\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mutex, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}}, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Attempts to a release a mutex. Task supply is managed by semaphore\+\_\+release if needed. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{mutex_8c_ad6c9e2dbb456757b716aabd6fe299500}{mutex\+\_\+acquire\+\_\+non\+\_\+blocking}} (\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mutex, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Attempts to a acquire a mutex. Does not move the running task to the waiting list on failure. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{mutex_8c_aa4559e7319ba40eaf91999b6b713e46c}{mutex\+\_\+release\+\_\+non\+\_\+blocking}} (\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}mutex, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Attempts to a release a mutex. Does not check the waiting list on success. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for creating and using mutexes 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Aug 3, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  None
+==================================================
+  ### Usage ###
+  (#) Call 'mutex_create' to create a mutex
+  (#) Call 'mutex_delete' to delete a mutex
+  (#) Call 'mutex_acquire' to acquire a mutex
+  (#) Call 'mutex_release' to release an acquired mutex
+  (#) Call 'mutex_acquire_non_blocking' to acquire a mutex
+  (#) Call 'mutex_release_non_blocking' to release an acquired mutex
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mutex_8c_afc9945ec990447198a76c8507eec17c3}\label{mutex_8c_afc9945ec990447198a76c8507eec17c3} 
+\index{mutex.c@{mutex.c}!mutex\_acquire@{mutex\_acquire}}
+\index{mutex\_acquire@{mutex\_acquire}!mutex.c@{mutex.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_acquire()}{mutex\_acquire()}}
+{\footnotesize\ttfamily size\+\_\+t mutex\+\_\+acquire (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mutex,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Attempts to a acquire a mutex. Waiting list is managed by semaphore\+\_\+acquire if needed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mutex} & is a pointer of pointer to the mutex to be acquired \\
+\hline
+{\em running\+\_\+task\+\_\+list} & is a pointer of pointer to the linked list of ready or running tasks \\
+\hline
+{\em running\+\_\+task\+\_\+element} & is a pointer of pointer to the linked list element containing the current running task \\
+\hline
+{\em task} & is a pointer of pointer to the current running task attempting to acquire the mutex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MUTEX\+\_\+\+SUCCESS on success, MUTEX\+\_\+\+OWNED\+\_\+\+BY\+\_\+\+OTHER\+\_\+\+TASK for unavailable mutex or unequal for an error @info On error check for these errors and component errors\+: MUTEX\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+ACQUIRE\+: unable to acquire due to semaphore error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mutex_8c_source_l00106}{106}} of file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_afc9945ec990447198a76c8507eec17c3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{mutex_8c_afc9945ec990447198a76c8507eec17c3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{mutex_8c_ad6c9e2dbb456757b716aabd6fe299500}\label{mutex_8c_ad6c9e2dbb456757b716aabd6fe299500} 
+\index{mutex.c@{mutex.c}!mutex\_acquire\_non\_blocking@{mutex\_acquire\_non\_blocking}}
+\index{mutex\_acquire\_non\_blocking@{mutex\_acquire\_non\_blocking}!mutex.c@{mutex.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_acquire\_non\_blocking()}{mutex\_acquire\_non\_blocking()}}
+{\footnotesize\ttfamily size\+\_\+t mutex\+\_\+acquire\+\_\+non\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mutex,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Attempts to a acquire a mutex. Does not move the running task to the waiting list on failure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mutex} & is a pointer of pointer to the semaphore to be acquired \\
+\hline
+{\em task} & is a pointer of pointer to the current running task attempting to acquire the mutex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MUTEX\+\_\+\+SUCCESS on success, MUTEX\+\_\+\+OWNED\+\_\+\+BY\+\_\+\+OTHER\+\_\+\+TASK for unavailable mutex or unequal for an error @info On error check for these errors and component errors\+: MUTEX\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+ACQUIRE\+: unable to acquire due to semaphore error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mutex_8c_source_l00178}{178}} of file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_ad6c9e2dbb456757b716aabd6fe299500_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_ad6c9e2dbb456757b716aabd6fe299500_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{mutex_8c_ae84e714a92c7879c49da4dc3ae4d74f9}\label{mutex_8c_ae84e714a92c7879c49da4dc3ae4d74f9} 
+\index{mutex.c@{mutex.c}!mutex\_checking@{mutex\_checking}}
+\index{mutex\_checking@{mutex\_checking}!mutex.c@{mutex.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_checking()}{mutex\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t mutex\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mutex }\end{DoxyParamCaption})}
+
+
+
+Checks whether a mutex is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mutex} & is a pointer of pointer to the mutex to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MUTEX\+\_\+\+SUCCESS on success or unequal MUTEX\+\_\+\+SUCCESS for an error @info On error check for these errors and component errors\+: MUTEX\+\_\+\+NO\+\_\+\+MEMORY\+: mutex is null MUTEX\+\_\+\+NO\+\_\+\+SEMAPHORE\+: error in mutexes binary semaphore MUTEX\+\_\+\+IRREGULAR\+\_\+\+STRUCTURE\+: invalid combination of owner and lock\+\_\+count 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mutex_8c_source_l00246}{246}} of file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_ae84e714a92c7879c49da4dc3ae4d74f9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_ae84e714a92c7879c49da4dc3ae4d74f9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{mutex_8c_a9c2d6b9468d5acde3766668563fba4a4}\label{mutex_8c_a9c2d6b9468d5acde3766668563fba4a4} 
+\index{mutex.c@{mutex.c}!mutex\_create@{mutex\_create}}
+\index{mutex\_create@{mutex\_create}!mutex.c@{mutex.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_create()}{mutex\_create()}}
+{\footnotesize\ttfamily size\+\_\+t mutex\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mutex,  }\item[{size\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Creates a mutex with an id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mutex} & is a pointer of pointer to be initialized as a mutex \\
+\hline
+{\em id} & is the unique id of the contained binary semaphore with which it is accessed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MUTEX\+\_\+\+SUCCESS on success or unequal MUTEX\+\_\+\+SUCCESS for an error @info On error check for these errors and component errors\+: MUTEX\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for mutex MUTEX\+\_\+\+NO\+\_\+\+SEMAPHORE\+: unable to initialize binary semaphore 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mutex_8c_source_l00048}{48}} of file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_a9c2d6b9468d5acde3766668563fba4a4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{mutex_8c_a9c2d6b9468d5acde3766668563fba4a4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{mutex_8c_ad2cceaf0d82159fb4994b157bbe0ba42}\label{mutex_8c_ad2cceaf0d82159fb4994b157bbe0ba42} 
+\index{mutex.c@{mutex.c}!mutex\_delete@{mutex\_delete}}
+\index{mutex\_delete@{mutex\_delete}!mutex.c@{mutex.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_delete()}{mutex\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t mutex\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mutex }\end{DoxyParamCaption})}
+
+
+
+Deletes a mutex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mutex} & is a pointer of pointer to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MUTEX\+\_\+\+SUCCESS on success or unequal MUTEX\+\_\+\+SUCCESS for an error @info On error check for these errors and component errors\+: MUTEX\+\_\+\+NO\+\_\+\+SEMAPHORE\+: unable to delete binary semaphore MUTEX\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+DELETE\+: unable to delete mutex 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mutex_8c_source_l00075}{75}} of file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_ad2cceaf0d82159fb4994b157bbe0ba42_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{mutex_8c_ad2cceaf0d82159fb4994b157bbe0ba42_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{mutex_8c_a0ff8eddf876f3efbd8f5ccce5a81f5ea}\label{mutex_8c_a0ff8eddf876f3efbd8f5ccce5a81f5ea} 
+\index{mutex.c@{mutex.c}!mutex\_release@{mutex\_release}}
+\index{mutex\_release@{mutex\_release}!mutex.c@{mutex.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_release()}{mutex\_release()}}
+{\footnotesize\ttfamily size\+\_\+t mutex\+\_\+release (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mutex,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Attempts to a release a mutex. Task supply is managed by semaphore\+\_\+release if needed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mutex} & is a pointer of pointer to the mutex to be released \\
+\hline
+{\em element} & is a pointer of pointer to a linked list element expecting the first element of the waiting list \\
+\hline
+{\em task} & is a pointer of pointer to a task expecting the data of the first element of the waiting list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MUTEX\+\_\+\+SUCCESS on success, MUTEX\+\_\+\+OWNED\+\_\+\+BY\+\_\+\+OTHER\+\_\+\+TASK for unavailable mutex or unequal for an error @info On error check for these errors and component errors\+: MUTEX\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+RELEASE\+: unable to release due to semaphore error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mutex_8c_source_l00146}{146}} of file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_a0ff8eddf876f3efbd8f5ccce5a81f5ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{mutex_8c_a0ff8eddf876f3efbd8f5ccce5a81f5ea_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{mutex_8c_aa4559e7319ba40eaf91999b6b713e46c}\label{mutex_8c_aa4559e7319ba40eaf91999b6b713e46c} 
+\index{mutex.c@{mutex.c}!mutex\_release\_non\_blocking@{mutex\_release\_non\_blocking}}
+\index{mutex\_release\_non\_blocking@{mutex\_release\_non\_blocking}!mutex.c@{mutex.c}}
+\doxysubsubsection{\texorpdfstring{mutex\_release\_non\_blocking()}{mutex\_release\_non\_blocking()}}
+{\footnotesize\ttfamily size\+\_\+t mutex\+\_\+release\+\_\+non\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmutex__t}{mutex\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{mutex,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Attempts to a release a mutex. Does not check the waiting list on success. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mutex} & is a pointer of pointer to the semaphore to be released \\
+\hline
+{\em task} & is a pointer of pointer to a task attempting to release the mutex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MUTEX\+\_\+\+SUCCESS on success, MUTEX\+\_\+\+OWNED\+\_\+\+BY\+\_\+\+OTHER\+\_\+\+TASK for unavailable mutex or unequal for an error @info On error check for these errors and component errors\+: MUTEX\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+RELEASE\+: unable to acquire due to semaphore error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mutex_8c_source_l00211}{211}} of file \mbox{\hyperlink{mutex_8c_source}{mutex.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_aa4559e7319ba40eaf91999b6b713e46c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mutex_8c_aa4559e7319ba40eaf91999b6b713e46c_icgraph}
+\end{center}
+\end{figure}

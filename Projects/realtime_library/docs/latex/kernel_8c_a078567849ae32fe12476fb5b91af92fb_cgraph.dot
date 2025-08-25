@@ -1,0 +1,19 @@
+digraph "kernel_message_queue_create"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="kernel_message_queue\l_create",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge6_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="dictionary_add",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dictionary_8c.html#a321141b73f775285802b071d56828758",tooltip="Adds or overwrites an entry to the dictionary."];
+  Node2 -> Node3 [id="edge7_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="dictionary_checking",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dictionary_8c.html#a9dca73eba5d9f022498c8e272bdd8967",tooltip=" "];
+  Node1 -> Node4 [id="edge8_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="message_queue_create",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$message__queue_8c.html#a71e472183f9f7cb429afc3de4acc5549",tooltip="Creates a message queue by its size, expected element size, id and name."];
+  Node4 -> Node5 [id="edge9_Node000004_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="linked_list_create",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$linked__list_8c.html#a74b0fafdf03170db2141f56359e3d84b",tooltip="Creates an empty linked list with no elements."];
+  Node4 -> Node6 [id="edge10_Node000004_Node000006",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="queue_create",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$queue_8c.html#a5b073bfe6fc756f7bc64372cf9f44a9e",tooltip="Creates a queue by its size and expected element size."];
+}

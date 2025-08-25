@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="" enabled="true" name="function">/**&#13;
+ * @brief Description&#13;
+ * @param a argDesc&#13;
+ * @param b argDesc&#13;
+ * @return returnDesc&#13;
+ */&#13;
+${return_type} ${file_base}_${enclosing_method}(${enclosing_method_arguments}) {&#13;
+	${cursor}&#13;
+}</template></templates>

@@ -1,0 +1,579 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/kernel/semaphore.h File Reference}
+\hypertarget{semaphore_8h}{}\label{semaphore_8h}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/semaphore.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/semaphore.h}}
+
+
+\+: Module for creating and using semaphores  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}utils/linked\+\_\+list.\+h"{}}\newline
+{\ttfamily \#include "{}kernel/task.\+h"{}}\newline
+Include dependency graph for semaphore.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em \texorpdfstring{$<$}{<} control information for a semaphore \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_ac23e043f8f6298da52cd02e08ee7a60a}{SEMAPHORE\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_ad784f65bb2ce5692e9b4bc32b91b725e}{SEMAPHORE\+\_\+\+NO\+\_\+\+MEMORY}}~1
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_a4f55194fa0cf1c54967f7ac6cfb87468}{SEMAPHORE\+\_\+\+NO\+\_\+\+TOKENS}}~2
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_a8dffa210e0497006a0ff830eff31bb07}{SEMAPHORE\+\_\+\+NO\+\_\+\+WAITING\+\_\+\+LIST}}~3
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_ad146a55c3e0da2c62faa7e68e8180a49}{SEMAPHORE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+ACQUIRE}}~4
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_ac99d15cd7c17b321b8e58c155148792a}{SEMAPHORE\+\_\+\+REACHED\+\_\+\+MAX\+\_\+\+TOKENS}}~5
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_a2473c5b4a4c6a83caf38f0c7887266ca}{SEMAPHORE\+\_\+\+TOKENS\+\_\+\+OVERFLOW}}~6
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_a3c8363e8a339d746fc573f04652b0aa7}{SEMAPHORE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+RELEASE}}~7
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_ac8548e0a8d5143cc7b1e137b5140ad61}{SEMAPHORE\+\_\+\+LENGTH}}~3
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_a90aa613fb9dd5ad368a25b974dcacd4c}{SEMAPHORE\+\_\+\+BINARY\+\_\+\+TOKEN}}~1
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_af3cf4a39dc2a7db7ea058f8d6b6478ab}{SEMAPHORE\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}}~\mbox{\hyperlink{semaphore_8h_ac8548e0a8d5143cc7b1e137b5140ad61}{SEMAPHORE\+\_\+\+LENGTH}}
+\item 
+\#define \mbox{\hyperlink{semaphore_8h_a9016e4372d48856aeb80df3e71d7096f}{SEMAPHORE\+\_\+\+TOKEN\+\_\+\+AVAILABILITY\+\_\+\+ERROR\+\_\+\+REGISTER}}~2
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_a946c03546b3b583d68e3886f3f1773df}{semaphore\+\_\+create}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore, size\+\_\+t id, size\+\_\+t token)
+\begin{DoxyCompactList}\small\item\em Creates a semaphore with an id and its maximum amount of tokens. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_aa7f90041bb84a47eea9c15fd496d72a5}{semaphore\+\_\+delete}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore)
+\begin{DoxyCompactList}\small\item\em Deletes a semaphore. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_ae192b4355be68c3e15a5063225ce018b}{semaphore\+\_\+acquire}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Attempts to a acquire a semaphore. Moves the running task to the waiting list on failure. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_aa571a1fad2e37f0b14b99260cd63f2c8}{semaphore\+\_\+release}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}}, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task)
+\begin{DoxyCompactList}\small\item\em Attempts to a release a semaphore. Supplies the first task in the waiting list on success. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_a04e62eb1d82d269d299397ca7ef9c979}{semaphore\+\_\+acquire\+\_\+non\+\_\+blocking}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore)
+\begin{DoxyCompactList}\small\item\em Attempts to a acquire a semaphore. Does not move the running task to the waiting list on failure. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_a8d50f46b59e703b91b4651f901fc0ac0}{semaphore\+\_\+release\+\_\+non\+\_\+blocking}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore)
+\begin{DoxyCompactList}\small\item\em Attempts to a release a semaphore. Does not check the waiting list on success. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_a0ac7e334a27eb11a5705859c03cffe85}{semaphore\+\_\+is\+\_\+available}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore)
+\begin{DoxyCompactList}\small\item\em Checks if a semaphore is avaialable for acquiring. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_a38be7377895b2476b10b7b17a2aecdb4}{semaphore\+\_\+flush}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore)
+\begin{DoxyCompactList}\small\item\em Deletes all entries from a semaphores waiting list. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{semaphore_8h_a5c45e2883e64a1e6512693b16d1f0052}{semaphore\+\_\+checking}} (\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}semaphore)
+\begin{DoxyCompactList}\small\item\em Checks whether a semaphore is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Module for creating and using semaphores 
+
+\begin{DoxyAuthor}{Author}
+Christopher-\/\+Marcel Klein, Ameline Seba 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+v1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Apr 21, 2025 \begin{DoxyVerb}==================================================
+  ### Resources used ###
+  None
+==================================================
+  ### Usage ###
+  (#) Call 'semaphore_create' to create a semaphore
+  (#) Call 'semaphore_delete' to delete a semaphore
+  (#) Call 'semaphore_acquire' to acquire a semaphore
+  (#) Call 'semaphore_release' to release an acquired
+      semaphore
+  (#) Call 'semaphore_acquire_non_blocking' to acquire
+      a semaphore
+  (#) Call 'semaphore_release_non_blocking' to release
+      an acquired semaphore
+  (#) Call 'semaphore_is_available' to check if an existing
+      semaphore is available
+  (#) Call 'semaphore_flush' to flush all waiting list
+      entries of a semaphore
+  (#) All functions call 'semaphore_checking' to validate
+      proper semaphore structure. Refer to this function
+      for potential error codes not documented in each
+      function.
+==================================================
+\end{DoxyVerb}
+ 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{semaphore_8h_a90aa613fb9dd5ad368a25b974dcacd4c}\label{semaphore_8h_a90aa613fb9dd5ad368a25b974dcacd4c} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_BINARY\_TOKEN@{SEMAPHORE\_BINARY\_TOKEN}}
+\index{SEMAPHORE\_BINARY\_TOKEN@{SEMAPHORE\_BINARY\_TOKEN}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_BINARY\_TOKEN}{SEMAPHORE\_BINARY\_TOKEN}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+BINARY\+\_\+\+TOKEN~1}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00056}{56}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_ac8548e0a8d5143cc7b1e137b5140ad61}\label{semaphore_8h_ac8548e0a8d5143cc7b1e137b5140ad61} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_LENGTH@{SEMAPHORE\_LENGTH}}
+\index{SEMAPHORE\_LENGTH@{SEMAPHORE\_LENGTH}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_LENGTH}{SEMAPHORE\_LENGTH}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+LENGTH~3}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00055}{55}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_af3cf4a39dc2a7db7ea058f8d6b6478ab}\label{semaphore_8h_af3cf4a39dc2a7db7ea058f8d6b6478ab} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_LINKED\_LIST\_ERROR\_REGISTER@{SEMAPHORE\_LINKED\_LIST\_ERROR\_REGISTER}}
+\index{SEMAPHORE\_LINKED\_LIST\_ERROR\_REGISTER@{SEMAPHORE\_LINKED\_LIST\_ERROR\_REGISTER}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_LINKED\_LIST\_ERROR\_REGISTER}{SEMAPHORE\_LINKED\_LIST\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER~\mbox{\hyperlink{semaphore_8h_ac8548e0a8d5143cc7b1e137b5140ad61}{SEMAPHORE\+\_\+\+LENGTH}}}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00058}{58}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_ad784f65bb2ce5692e9b4bc32b91b725e}\label{semaphore_8h_ad784f65bb2ce5692e9b4bc32b91b725e} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_NO\_MEMORY@{SEMAPHORE\_NO\_MEMORY}}
+\index{SEMAPHORE\_NO\_MEMORY@{SEMAPHORE\_NO\_MEMORY}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_NO\_MEMORY}{SEMAPHORE\_NO\_MEMORY}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+NO\+\_\+\+MEMORY~1}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00047}{47}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_a4f55194fa0cf1c54967f7ac6cfb87468}\label{semaphore_8h_a4f55194fa0cf1c54967f7ac6cfb87468} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_NO\_TOKENS@{SEMAPHORE\_NO\_TOKENS}}
+\index{SEMAPHORE\_NO\_TOKENS@{SEMAPHORE\_NO\_TOKENS}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_NO\_TOKENS}{SEMAPHORE\_NO\_TOKENS}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+NO\+\_\+\+TOKENS~2}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00048}{48}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_a8dffa210e0497006a0ff830eff31bb07}\label{semaphore_8h_a8dffa210e0497006a0ff830eff31bb07} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_NO\_WAITING\_LIST@{SEMAPHORE\_NO\_WAITING\_LIST}}
+\index{SEMAPHORE\_NO\_WAITING\_LIST@{SEMAPHORE\_NO\_WAITING\_LIST}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_NO\_WAITING\_LIST}{SEMAPHORE\_NO\_WAITING\_LIST}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+NO\+\_\+\+WAITING\+\_\+\+LIST~3}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00049}{49}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_ac99d15cd7c17b321b8e58c155148792a}\label{semaphore_8h_ac99d15cd7c17b321b8e58c155148792a} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_REACHED\_MAX\_TOKENS@{SEMAPHORE\_REACHED\_MAX\_TOKENS}}
+\index{SEMAPHORE\_REACHED\_MAX\_TOKENS@{SEMAPHORE\_REACHED\_MAX\_TOKENS}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_REACHED\_MAX\_TOKENS}{SEMAPHORE\_REACHED\_MAX\_TOKENS}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+REACHED\+\_\+\+MAX\+\_\+\+TOKENS~5}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00051}{51}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_ac23e043f8f6298da52cd02e08ee7a60a}\label{semaphore_8h_ac23e043f8f6298da52cd02e08ee7a60a} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_SUCCESS@{SEMAPHORE\_SUCCESS}}
+\index{SEMAPHORE\_SUCCESS@{SEMAPHORE\_SUCCESS}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_SUCCESS}{SEMAPHORE\_SUCCESS}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00046}{46}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_a9016e4372d48856aeb80df3e71d7096f}\label{semaphore_8h_a9016e4372d48856aeb80df3e71d7096f} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_TOKEN\_AVAILABILITY\_ERROR\_REGISTER@{SEMAPHORE\_TOKEN\_AVAILABILITY\_ERROR\_REGISTER}}
+\index{SEMAPHORE\_TOKEN\_AVAILABILITY\_ERROR\_REGISTER@{SEMAPHORE\_TOKEN\_AVAILABILITY\_ERROR\_REGISTER}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_TOKEN\_AVAILABILITY\_ERROR\_REGISTER}{SEMAPHORE\_TOKEN\_AVAILABILITY\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+TOKEN\+\_\+\+AVAILABILITY\+\_\+\+ERROR\+\_\+\+REGISTER~2}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00059}{59}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_a2473c5b4a4c6a83caf38f0c7887266ca}\label{semaphore_8h_a2473c5b4a4c6a83caf38f0c7887266ca} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_TOKENS\_OVERFLOW@{SEMAPHORE\_TOKENS\_OVERFLOW}}
+\index{SEMAPHORE\_TOKENS\_OVERFLOW@{SEMAPHORE\_TOKENS\_OVERFLOW}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_TOKENS\_OVERFLOW}{SEMAPHORE\_TOKENS\_OVERFLOW}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+TOKENS\+\_\+\+OVERFLOW~6}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00052}{52}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_ad146a55c3e0da2c62faa7e68e8180a49}\label{semaphore_8h_ad146a55c3e0da2c62faa7e68e8180a49} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_UNABLE\_TO\_ACQUIRE@{SEMAPHORE\_UNABLE\_TO\_ACQUIRE}}
+\index{SEMAPHORE\_UNABLE\_TO\_ACQUIRE@{SEMAPHORE\_UNABLE\_TO\_ACQUIRE}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_UNABLE\_TO\_ACQUIRE}{SEMAPHORE\_UNABLE\_TO\_ACQUIRE}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+ACQUIRE~4}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00050}{50}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+\Hypertarget{semaphore_8h_a3c8363e8a339d746fc573f04652b0aa7}\label{semaphore_8h_a3c8363e8a339d746fc573f04652b0aa7} 
+\index{semaphore.h@{semaphore.h}!SEMAPHORE\_UNABLE\_TO\_RELEASE@{SEMAPHORE\_UNABLE\_TO\_RELEASE}}
+\index{SEMAPHORE\_UNABLE\_TO\_RELEASE@{SEMAPHORE\_UNABLE\_TO\_RELEASE}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{SEMAPHORE\_UNABLE\_TO\_RELEASE}{SEMAPHORE\_UNABLE\_TO\_RELEASE}}
+{\footnotesize\ttfamily \#define SEMAPHORE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+RELEASE~7}
+
+
+
+Definition at line \mbox{\hyperlink{semaphore_8h_source_l00053}{53}} of file \mbox{\hyperlink{semaphore_8h_source}{semaphore.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{semaphore_8h_ae192b4355be68c3e15a5063225ce018b}\label{semaphore_8h_ae192b4355be68c3e15a5063225ce018b} 
+\index{semaphore.h@{semaphore.h}!semaphore\_acquire@{semaphore\_acquire}}
+\index{semaphore\_acquire@{semaphore\_acquire}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_acquire()}{semaphore\_acquire()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+acquire (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Attempts to a acquire a semaphore. Moves the running task to the waiting list on failure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to the semaphore to be acquired \\
+\hline
+{\em running\+\_\+task\+\_\+list} & is a pointer of pointer to the linked list of ready or running tasks \\
+\hline
+{\em running\+\_\+task\+\_\+element} & is a pointer of pointer to the linked list element containing the current running task \\
+\hline
+{\em task} & is a pointer of pointer to the current running task attempting to acquire the semaphore \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success, SEMAPHORE\+\_\+\+NO\+\_\+\+TOKENS for unavailable semaphore or unequal for an error @info On error check for these errors and component errors\+: SEMAPHORE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+ACQUIRE\+: unable to acquire due to linked list error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00111}{111}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_ae192b4355be68c3e15a5063225ce018b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_ae192b4355be68c3e15a5063225ce018b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_a04e62eb1d82d269d299397ca7ef9c979}\label{semaphore_8h_a04e62eb1d82d269d299397ca7ef9c979} 
+\index{semaphore.h@{semaphore.h}!semaphore\_acquire\_non\_blocking@{semaphore\_acquire\_non\_blocking}}
+\index{semaphore\_acquire\_non\_blocking@{semaphore\_acquire\_non\_blocking}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_acquire\_non\_blocking()}{semaphore\_acquire\_non\_blocking()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+acquire\+\_\+non\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore }\end{DoxyParamCaption})}
+
+
+
+Attempts to a acquire a semaphore. Does not move the running task to the waiting list on failure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to the semaphore to be acquired \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success, SEMAPHORE\+\_\+\+NO\+\_\+\+TOKENS for unavailable semaphore or unequal for an error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00176}{176}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a04e62eb1d82d269d299397ca7ef9c979_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a04e62eb1d82d269d299397ca7ef9c979_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_a5c45e2883e64a1e6512693b16d1f0052}\label{semaphore_8h_a5c45e2883e64a1e6512693b16d1f0052} 
+\index{semaphore.h@{semaphore.h}!semaphore\_checking@{semaphore\_checking}}
+\index{semaphore\_checking@{semaphore\_checking}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_checking()}{semaphore\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore }\end{DoxyParamCaption})}
+
+
+
+Checks whether a semaphore is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to the semaphore to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success or unequal SEMAPHORE\+\_\+\+SUCCESS for an error @info On error check for these errors and component errors\+: SEMAPHORE\+\_\+\+NO\+\_\+\+MEMORY\+: semaphore is null SEMAPHORE\+\_\+\+TOKENS\+\_\+\+OVERFLOW\+: semaphores tokens exceeded max tokens SEMAPHORE\+\_\+\+NO\+\_\+\+WAITING\+\_\+\+LIST\+: error in semaphores waiting list 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00255}{255}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a5c45e2883e64a1e6512693b16d1f0052_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a5c45e2883e64a1e6512693b16d1f0052_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_a946c03546b3b583d68e3886f3f1773df}\label{semaphore_8h_a946c03546b3b583d68e3886f3f1773df} 
+\index{semaphore.h@{semaphore.h}!semaphore\_create@{semaphore\_create}}
+\index{semaphore\_create@{semaphore\_create}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_create()}{semaphore\_create()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore,  }\item[{size\+\_\+t}]{id,  }\item[{size\+\_\+t}]{token }\end{DoxyParamCaption})}
+
+
+
+Creates a semaphore with an id and its maximum amount of tokens. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to be initialized as a semaphore \\
+\hline
+{\em id} & is the unique id of the semaphore with which it is accessed \\
+\hline
+{\em token} & is maximum amount of tokens, specifying how many times the semaphore can be acquired \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success or unequal SEMAPHORE\+\_\+\+SUCCESS for an error @info On error check for these errors and component errors\+: SEMAPHORE\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for semaphore SEMAPHORE\+\_\+\+NO\+\_\+\+WAITING\+\_\+\+LIST\+: unable to initialize waiting list 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00062}{62}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=325pt]{semaphore_8h_a946c03546b3b583d68e3886f3f1773df_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a946c03546b3b583d68e3886f3f1773df_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_aa7f90041bb84a47eea9c15fd496d72a5}\label{semaphore_8h_aa7f90041bb84a47eea9c15fd496d72a5} 
+\index{semaphore.h@{semaphore.h}!semaphore\_delete@{semaphore\_delete}}
+\index{semaphore\_delete@{semaphore\_delete}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_delete()}{semaphore\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore }\end{DoxyParamCaption})}
+
+
+
+Deletes a semaphore. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success or unequal SEMAPHORE\+\_\+\+SUCCESS for an error @info On error check for these errors and component errors\+: SEMAPHORE\+\_\+\+NO\+\_\+\+WAITING\+\_\+\+LIST\+: unable to delete waiting list 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00086}{86}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_aa7f90041bb84a47eea9c15fd496d72a5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_aa7f90041bb84a47eea9c15fd496d72a5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_a38be7377895b2476b10b7b17a2aecdb4}\label{semaphore_8h_a38be7377895b2476b10b7b17a2aecdb4} 
+\index{semaphore.h@{semaphore.h}!semaphore\_flush@{semaphore\_flush}}
+\index{semaphore\_flush@{semaphore\_flush}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_flush()}{semaphore\_flush()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+flush (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore }\end{DoxyParamCaption})}
+
+
+
+Deletes all entries from a semaphores waiting list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to the semaphore to be flushed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success or unequal for an error @info On error check for these errors and component errors\+: SEMAPHORE\+\_\+\+NO\+\_\+\+WAITING\+\_\+\+LIST\+: unable to flush waiting list 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00231}{231}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a38be7377895b2476b10b7b17a2aecdb4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_a0ac7e334a27eb11a5705859c03cffe85}\label{semaphore_8h_a0ac7e334a27eb11a5705859c03cffe85} 
+\index{semaphore.h@{semaphore.h}!semaphore\_is\_available@{semaphore\_is\_available}}
+\index{semaphore\_is\_available@{semaphore\_is\_available}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_is\_available()}{semaphore\_is\_available()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+is\+\_\+available (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore }\end{DoxyParamCaption})}
+
+
+
+Checks if a semaphore is avaialable for acquiring. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to the semaphore to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success, SEMAPHORE\+\_\+\+NO\+\_\+\+TOKENS for fully acquired semaphore or unequal for an error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00213}{213}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a0ac7e334a27eb11a5705859c03cffe85_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a0ac7e334a27eb11a5705859c03cffe85_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_aa571a1fad2e37f0b14b99260cd63f2c8}\label{semaphore_8h_aa571a1fad2e37f0b14b99260cd63f2c8} 
+\index{semaphore.h@{semaphore.h}!semaphore\_release@{semaphore\_release}}
+\index{semaphore\_release@{semaphore\_release}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_release()}{semaphore\_release()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+release (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task }\end{DoxyParamCaption})}
+
+
+
+Attempts to a release a semaphore. Supplies the first task in the waiting list on success. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to the semaphore to be released \\
+\hline
+{\em element} & is a pointer of pointer to a linked list element expecting the first element of the waiting list \\
+\hline
+{\em task} & is a pointer of pointer to a task expecting the data of the first element of the waiting list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success, SEMAPHORE\+\_\+\+REACHED\+\_\+\+MAX\+\_\+\+TOKENS for fully available semaphore or unequal for an error @info On error check for these errors and component errors\+: SEMAPHORE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+RELEASE\+: unable to release due to linked list error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00141}{141}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_aa571a1fad2e37f0b14b99260cd63f2c8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_aa571a1fad2e37f0b14b99260cd63f2c8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{semaphore_8h_a8d50f46b59e703b91b4651f901fc0ac0}\label{semaphore_8h_a8d50f46b59e703b91b4651f901fc0ac0} 
+\index{semaphore.h@{semaphore.h}!semaphore\_release\_non\_blocking@{semaphore\_release\_non\_blocking}}
+\index{semaphore\_release\_non\_blocking@{semaphore\_release\_non\_blocking}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_release\_non\_blocking()}{semaphore\_release\_non\_blocking()}}
+{\footnotesize\ttfamily size\+\_\+t semaphore\+\_\+release\+\_\+non\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{semaphore }\end{DoxyParamCaption})}
+
+
+
+Attempts to a release a semaphore. Does not check the waiting list on success. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semaphore} & is a pointer of pointer to the semaphore to be released \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SEMAPHORE\+\_\+\+SUCCESS on success, SEMAPHORE\+\_\+\+REACHED\+\_\+\+MAX\+\_\+\+TOKENS for fully available semaphore or unequal for an error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{semaphore_8c_source_l00194}{194}} of file \mbox{\hyperlink{semaphore_8c_source}{semaphore.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a8d50f46b59e703b91b4651f901fc0ac0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{semaphore_8h_a8d50f46b59e703b91b4651f901fc0ac0_icgraph}
+\end{center}
+\end{figure}

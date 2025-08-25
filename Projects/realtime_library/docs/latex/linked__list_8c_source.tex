@@ -1,0 +1,571 @@
+\doxysection{linked\+\_\+list.\+c}
+\hypertarget{linked__list_8c_source}{}\label{linked__list_8c_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/utils/linked\_list.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/utils/linked\_list.c}}
+\mbox{\hyperlink{linked__list_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00047}00047\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00048}00048\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00049}00049\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{linked__list_8h}{utils/linked\_list.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00051}00051\ \textcolor{comment}{/*\ Preprocessor\ defines\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00052}00052\ \textcolor{comment}{/*\ Preprocessor\ macros\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00053}00053\ \textcolor{comment}{/*\ Module\ intern\ type\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00054}00054\ \textcolor{comment}{/*\ Static\ module\ variables\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00055}00055\ \textcolor{comment}{/*\ Static\ module\ functions\ (prototypes)\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00056}00056\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00057}00057\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_accffb9a333558a87871e3836486be7b8}{linked\_list\_element\_checking}}(\mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00058}00058\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_ae863f20d04e10a1e73ee8984a5f1d2a2}{linked\_list\_element\_create}}(\mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,\ \textcolor{keywordtype}{void}\ **data);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00059}00059\ \textcolor{comment}{/*\ Public\ functions\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00068}\mbox{\hyperlink{linked__list_8c_ab84dc67b6f40f1f88c3b516453c0115e}{00068}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_ab84dc67b6f40f1f88c3b516453c0115e}{linked\_list\_create}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00070}00070\ \ \ \ \ \textcolor{comment}{//\ allocate\ memory\ and\ check\ for\ error}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00071}00071\ \ \ \ \ (*linked\_list)\ =\ (\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}*\ )\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}));}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a715ee695b06de7d60ddbee9fcf073326}{LINKED\_LIST\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00076}00076\ \ \ \ \ \textcolor{comment}{//\ default\ assignment}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00077}00077\ \ \ \ \ (*linked\_list)-\/>size\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00078}00078\ \ \ \ \ (*linked\_list)-\/>head\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00079}00079\ \ \ \ \ (*linked\_list)-\/>tail\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00082}00082\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00091}\mbox{\hyperlink{linked__list_8c_a157221397716f9d0d15a22242168d6d5}{00091}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a157221397716f9d0d15a22242168d6d5}{linked\_list\_delete}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00094}00094\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00095}00095\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//\ delete\ all\ linked\ list\ elements}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{while}\ ((*linked\_list)-\/>tail\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *tail\ =\ (*linked\_list)-\/>tail;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ (*linked\_list)-\/>tail-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ tail-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ free(tail);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ tail\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>size-\/-\/;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00107}00107\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00109}00109\ \ \ \ \ \textcolor{comment}{//\ check\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00110}00110\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac5c7be801ce06a03f4203716e38d592e}{LINKED\_LIST\_IRREGULAR\_STRUCTURE}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00112}00112\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00114}00114\ \ \ \ \ \textcolor{comment}{//\ delete\ linked\ list}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00115}00115\ \ \ \ \ free((*linked\_list));}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00116}00116\ \ \ \ \ (*linked\_list)\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00118}00118\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00119}00119\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00129}\mbox{\hyperlink{linked__list_8c_a662665a6582d64dd51944761e8734513}{00129}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a662665a6582d64dd51944761e8734513}{linked\_list\_push\_back}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list,\ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00131}00131\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00132}00132\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00135}00135\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00137}00137\ \ \ \ \ \textcolor{comment}{//\ create\ a\ new\ carrier\ and\ add\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00138}00138\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *\textcolor{keyword}{new}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00139}00139\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_ae863f20d04e10a1e73ee8984a5f1d2a2}{linked\_list\_element\_create}}(\&\textcolor{keyword}{new},\ data);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00140}00140\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce}{LINKED\_LIST\_ELEMENT\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00142}00142\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00144}00144\ \ \ \ \ \textcolor{comment}{//\ insert\ the\ linked\ list\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ first\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00147}00147\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00149}00149\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00150}00150\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ next\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}-\/>next\ =\ (*linked\_list)-\/>tail;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail-\/>previous\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00155}00155\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00157}00157\ \ \ \ \ \textcolor{comment}{//\ always\ increase\ the\ linked\ list\ size}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00158}00158\ \ \ \ \ (*linked\_list)-\/>size++;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00160}00160\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00161}00161\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00171}\mbox{\hyperlink{linked__list_8c_a654d7eeff8a471e7bd46d7b6cdbcce46}{00171}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a654d7eeff8a471e7bd46d7b6cdbcce46}{linked\_list\_pop\_front}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list,\ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00173}00173\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00174}00174\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00175}00175\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00177}00177\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00179}00179\ \ \ \ \ \textcolor{comment}{//\ obtain\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00180}00180\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *pop\ =\ (*linked\_list)-\/>head;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00181}00181\ \ \ \ \ \textcolor{keywordflow}{if}\ (pop\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a44e0310d0c1b3e27cdd8aaf24d151326}{LINKED\_LIST\_NO\_ELEMENT}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00183}00183\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00184}00184\ \ \ \ \ (*data)\ =\ pop-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00186}00186\ \ \ \ \ \textcolor{comment}{//\ remove\ data\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00187}00187\ \ \ \ \ (*linked\_list)-\/>size-\/-\/;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00188}00188\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0\ \&\&\ (*linked\_list)-\/>tail\ ==\ (*linked\_list)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ is\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00190}00190\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00192}00192\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0\ \&\&\ (*linked\_list)-\/>tail\ !=\ (*linked\_list)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ error}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00195}00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac5c7be801ce06a03f4203716e38d592e}{LINKED\_LIST\_IRREGULAR\_STRUCTURE}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00196}00196\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ head}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head\ =\ (*linked\_list)-\/>head-\/>previous;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00200}00200\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00202}00202\ \ \ \ \ \textcolor{comment}{//\ delete\ linked\ list\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00203}00203\ \ \ \ \ free(pop);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00204}00204\ \ \ \ \ pop\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00206}00206\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00207}00207\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00217}\mbox{\hyperlink{linked__list_8c_a7f37448c072984184d9c01df1fe6c473}{00217}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a7f37448c072984184d9c01df1fe6c473}{linked\_list\_pop\_back}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list,\ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00219}00219\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00220}00220\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00221}00221\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00223}00223\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00225}00225\ \ \ \ \ \textcolor{comment}{//\ obtain\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00226}00226\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *pop\ =\ (*linked\_list)-\/>tail;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00227}00227\ \ \ \ \ \textcolor{keywordflow}{if}\ (pop\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a44e0310d0c1b3e27cdd8aaf24d151326}{LINKED\_LIST\_NO\_ELEMENT}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00229}00229\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00230}00230\ \ \ \ \ (*data)\ =\ pop-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00232}00232\ \ \ \ \ \textcolor{comment}{//\ remove\ data\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00233}00233\ \ \ \ \ (*linked\_list)-\/>size-\/-\/;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00234}00234\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0\ \&\&\ (*linked\_list)-\/>tail\ ==\ (*linked\_list)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00236}00236\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00237}00237\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00238}00238\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0\ \&\&\ (*linked\_list)-\/>tail\ !=\ (*linked\_list)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ error}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac5c7be801ce06a03f4203716e38d592e}{LINKED\_LIST\_IRREGULAR\_STRUCTURE}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00241}00241\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00242}00242\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00243}00243\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ (*linked\_list)-\/>tail-\/>next;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00244}00244\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00246}00246\ \ \ \ \ \textcolor{comment}{//\ delete\ linked\ list\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00247}00247\ \ \ \ \ free(pop);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00248}00248\ \ \ \ \ pop\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00250}00250\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00251}00251\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00261}\mbox{\hyperlink{linked__list_8c_a33ada9c56ab9e6913088e439cc7cc5bb}{00261}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a33ada9c56ab9e6913088e439cc7cc5bb}{linked\_list\_push\_front}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list,\ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00263}00263\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00264}00264\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00265}00265\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00267}00267\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00269}00269\ \ \ \ \ \textcolor{comment}{//\ create\ a\ new\ carrier\ and\ add\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00270}00270\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *\textcolor{keyword}{new}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00271}00271\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_ae863f20d04e10a1e73ee8984a5f1d2a2}{linked\_list\_element\_create}}(\&\textcolor{keyword}{new},\ data);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00272}00272\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce}{LINKED\_LIST\_ELEMENT\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00274}00274\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00276}00276\ \ \ \ \ \textcolor{comment}{//\ insert\ the\ linked\ list\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00277}00277\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00278}00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ first\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00281}00281\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00282}00282\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ next\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00284}00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}-\/>previous\ =\ (*linked\_list)-\/>head;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head-\/>next\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00286}00286\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00287}00287\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00289}00289\ \ \ \ \ \textcolor{comment}{//\ always\ increase\ the\ linked\ list\ size}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00290}00290\ \ \ \ \ (*linked\_list)-\/>size++;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00292}00292\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00293}00293\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00304}\mbox{\hyperlink{linked__list_8c_a053903e57173e3bae503e9281be188c8}{00304}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a053903e57173e3bae503e9281be188c8}{linked\_list\_insert\_after}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,\ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00306}00306\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00307}00307\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00308}00308\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00309}00309\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00310}00310\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00312}00312\ \ \ \ \ \textcolor{comment}{//\ check\ if\ linked\ list\ is\ empty\ and\ use\ push\ front\ instead}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00313}00313\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>head\ ==\ NULL\ ||\ (*linked\_list)-\/>head-\/>next\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00314}00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8c_a33ada9c56ab9e6913088e439cc7cc5bb}{linked\_list\_push\_front}}(linked\_list,\ data);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00315}00315\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00316}00316\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00317}00317\ \ \ \ \ \textcolor{comment}{//\ create\ a\ new\ carrier\ and\ add\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00318}00318\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *\textcolor{keyword}{new}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00319}00319\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_ae863f20d04e10a1e73ee8984a5f1d2a2}{linked\_list\_element\_create}}(\&\textcolor{keyword}{new},\ data);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00320}00320\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce}{LINKED\_LIST\_ELEMENT\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00321}00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00322}00322\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00324}00324\ \ \ \ \ \textcolor{comment}{//\ insert\ carrier\ in\ between}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00325}00325\ \ \ \ \ \textcolor{keyword}{new}-\/>previous\ =\ *linked\_list\_element;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00326}00326\ \ \ \ \ \textcolor{keyword}{new}-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ (*linked\_list\_element)-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00327}00327\ \ \ \ \ (*linked\_list\_element)-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00328}00328\ \ \ \ \ (*linked\_list\_element)-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00329}00329\ \ \ \ \ (*linked\_list)-\/>size++;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00330}00330\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00331}00331\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00332}00332\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00344}\mbox{\hyperlink{linked__list_8c_a8d31d5289f5662e182f27f2e9dded40c}{00344}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a8d31d5289f5662e182f27f2e9dded40c}{linked\_list\_pop\_inner}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,\ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00346}00346\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00347}00347\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00348}00348\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00349}00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00350}00350\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00351}00351\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00352}00352\ \ \ \ \ \textcolor{comment}{//\ obtain\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00353}00353\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *pop\ =\ *linked\_list\_element;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00354}00354\ \ \ \ \ \textcolor{keywordflow}{if}\ (pop\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00355}00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a44e0310d0c1b3e27cdd8aaf24d151326}{LINKED\_LIST\_NO\_ELEMENT}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00356}00356\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00357}00357\ \ \ \ \ (*data)\ =\ pop-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00359}00359\ \ \ \ \ \textcolor{comment}{//\ remove\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00360}00360\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0\ \&\&\ (*linked\_list)-\/>tail\ ==\ (*linked\_list)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00361}00361\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ is\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00362}00362\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>tail\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00363}00363\ \ \ \ \ \ \ \ \ (*linked\_list)-\/>head\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00364}00364\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00365}00365\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>size\ ==\ 0\ \&\&\ (*linked\_list)-\/>tail\ !=\ (*linked\_list)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00366}00366\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ error}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00367}00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac5c7be801ce06a03f4203716e38d592e}{LINKED\_LIST\_IRREGULAR\_STRUCTURE}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00368}00368\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00369}00369\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00370}00370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*linked\_list\_element\ ==\ (*linked\_list)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ simplify\ with\ pop\ front}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8c_a654d7eeff8a471e7bd46d7b6cdbcce46}{linked\_list\_pop\_front}}(linked\_list,\ data);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00373}00373\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00374}00374\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (*linked\_list\_element\ ==\ (*linked\_list)-\/>tail)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ simplify\ with\ pop\ back}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8c_a7f37448c072984184d9c01df1fe6c473}{linked\_list\_pop\_back}}(linked\_list,\ data);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00377}00377\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00378}00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ remove\ element\ in\ between}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_element)-\/>next-\/>previous\ =\ (*linked\_list\_element)-\/>previous;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_element)-\/>previous-\/>next\ =\ (*linked\_list\_element)-\/>next;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00382}00382\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00383}00383\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00385}00385\ \ \ \ \ \textcolor{comment}{//\ decrease\ size,\ when\ the\ element\ was\ remove\ in\ between\ and\ not\ by\ pop}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00386}00386\ \ \ \ \ (*linked\_list)-\/>size-\/-\/;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00388}00388\ \ \ \ \ \textcolor{comment}{//\ delete\ linked\ list\ element}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00389}00389\ \ \ \ \ free(pop);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00390}00390\ \ \ \ \ pop\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00391}00391\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00392}00392\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00393}00393\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00403}\mbox{\hyperlink{linked__list_8c_a675d3ea9d5c7b8305486c56b9dfd7925}{00403}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a675d3ea9d5c7b8305486c56b9dfd7925}{linked\_list\_peek\_back}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list,\ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00405}00405\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00406}00406\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00407}00407\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00408}00408\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00409}00409\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00410}00410\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00411}00411\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)-\/>tail\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00412}00412\ \ \ \ \ \ \ \ \ *data\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00413}00413\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_aec9a76866a7040d471faa40693d51b01}{LINKED\_LIST\_ELEMENT\_IS\_NULL}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00414}00414\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00416}00416\ \ \ \ \ *data\ =\ (*linked\_list)-\/>tail-\/>data;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00417}00417\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00418}00418\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00419}00419\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00421}00421\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00429}\mbox{\hyperlink{linked__list_8c_a2702c739a8aea4b12cdb348aecd87a89}{00429}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a2702c739a8aea4b12cdb348aecd87a89}{linked\_list\_transfer}}(}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00430}00430\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list\_destination,}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00431}00431\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list\_source,}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00432}00432\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00434}00434\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00435}00435\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list\_destination);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00436}00436\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00437}00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00438}00438\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00439}00439\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00440}00440\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00441}00441\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list\_source);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00442}00442\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00443}00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00444}00444\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00445}00445\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00446}00446\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ element\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00447}00447\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_accffb9a333558a87871e3836486be7b8}{linked\_list\_element\_checking}}(linked\_list\_element);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00448}00448\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00449}00449\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00450}00450\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00452}00452\ \ \ \ \ \textcolor{comment}{//\ abort\ transfer\ if\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00453}00453\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_source)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00454}00454\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a06bdf13c91120c4679a0817957dffc34}{LINKED\_LIST\_SOURCE\_IS\_EMPTY}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00455}00455\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00456}00456\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00457}00457\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00458}00458\ \ \ \ \ \textcolor{comment}{//\ remove\ linked\ list\ element\ from\ source}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00459}00459\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *linked\_list\_element\_tranfer\ =\ *linked\_list\_element;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00461}00461\ \ \ \ \ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer\ ==\ (*linked\_list\_source)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00462}00462\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ sources\ head}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00463}00463\ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>head\ =\ (*linked\_list\_source)-\/>head-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00464}00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_source)-\/>head\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ is\ not\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>head-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00467}00467\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00468}00468\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00469}00469\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00470}00470\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ between\ or\ tail}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00471}00471\ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00472}00472\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00473}00473\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00474}00474\ \ \ \ \ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer\ ==\ (*linked\_list\_source)-\/>tail)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00475}00475\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ sources\ tail}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00476}00476\ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>tail\ =\ (*linked\_list\_source)-\/>tail-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00477}00477\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_source)-\/>tail\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00478}00478\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ is\ not\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>tail-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00480}00480\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00481}00481\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00482}00482\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00483}00483\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ between\ or\ head}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00484}00484\ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00485}00485\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00486}00486\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00487}00487\ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ was\ removed}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00488}00488\ \ \ \ \ (*linked\_list\_source)-\/>size-\/-\/;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00489}00489\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00490}00490\ \ \ \ \ \textcolor{comment}{//\ set\ linked\ list\ element\ to\ default\ before\ insert\ in\ destination}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00491}00491\ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00492}00492\ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00494}00494\ \ \ \ \ \textcolor{comment}{//\ check\ if\ linked\ list\ destination\ is\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00495}00495\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_destination)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00496}00496\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>tail\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00497}00497\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>head\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00498}00498\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00499}00499\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00500}00500\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ destination\ is\ not\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00501}00501\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>head-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00502}00502\ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ (*linked\_list\_destination)-\/>head;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00503}00503\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>head\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00504}00504\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00506}00506\ \ \ \ \ (*linked\_list\_destination)-\/>size++;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00507}00507\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00508}00508\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00509}00509\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00519}\mbox{\hyperlink{linked__list_8c_ab75388c1349483ec16b0e2d64f794f2c}{00519}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_ab75388c1349483ec16b0e2d64f794f2c}{linked\_list\_transfer\_after}}(}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00520}00520\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list\_destination,}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00521}00521\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element\_destination\_after,}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00522}00522\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list\_source,}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00523}00523\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element\_moving)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00525}00525\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00526}00526\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list\_destination);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00527}00527\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00528}00528\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00529}00529\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00530}00530\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00531}00531\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00532}00532\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list\_source);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00533}00533\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00534}00534\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00535}00535\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00536}00536\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00537}00537\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ element\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00538}00538\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_accffb9a333558a87871e3836486be7b8}{linked\_list\_element\_checking}}(linked\_list\_element\_moving);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00539}00539\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00540}00540\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00541}00541\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00542}00542\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00543}00543\ \ \ \ \ \textcolor{comment}{//\ abort\ transfer\ if\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00544}00544\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_source)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00545}00545\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a06bdf13c91120c4679a0817957dffc34}{LINKED\_LIST\_SOURCE\_IS\_EMPTY}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00546}00546\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00547}00547\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00548}00548\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00549}00549\ \ \ \ \ \textcolor{comment}{//\ remove\ linked\ list\ element\ from\ source}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00550}00550\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *linked\_list\_element\_tranfer\ =\ *linked\_list\_element\_moving;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00551}00551\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00552}00552\ \ \ \ \ \textcolor{comment}{//\ remove\ linked\ list\ element\ from\ source}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00553}00553\ \ \ \ \ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer\ ==\ (*linked\_list\_source)-\/>head)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00554}00554\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ sources\ head}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00555}00555\ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>head\ =\ (*linked\_list\_source)-\/>head-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00556}00556\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_source)-\/>head\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ is\ not\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>head-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00559}00559\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00560}00560\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00561}00561\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00562}00562\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ between\ or\ tail}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00563}00563\ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00564}00564\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00565}00565\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00566}00566\ \ \ \ \ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer\ ==\ (*linked\_list\_source)-\/>tail)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00567}00567\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ sources\ tail}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00568}00568\ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>tail\ =\ (*linked\_list\_source)-\/>tail-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00569}00569\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_source)-\/>tail\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ source\ is\ not\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>tail-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00572}00572\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00573}00573\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00574}00574\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00575}00575\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ is\ between\ or\ tail}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00576}00576\ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00577}00577\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00578}00578\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00579}00579\ \ \ \ \ \textcolor{comment}{//\ linked\ list\ element\ was\ removed}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00580}00580\ \ \ \ \ (*linked\_list\_source)-\/>size-\/-\/;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00581}00581\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00582}00582\ \ \ \ \ \textcolor{comment}{//\ set\ linked\ list\ element\ to\ default\ before\ insert\ in\ destination}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00583}00583\ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00584}00584\ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00585}00585\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00586}00586\ \ \ \ \ \textcolor{comment}{//\ check\ if\ linked\ list\ destination\ is\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00587}00587\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_destination)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00588}00588\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>tail\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00589}00589\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>head\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00590}00590\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00591}00591\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00592}00592\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ linked\ list\ destination\ is\ not\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00593}00593\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_destination)-\/>head\ ==\ (*linked\_list\_element\_destination\_after))\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ at\ destinations\ head}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00595}00595\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>head-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00596}00596\ \ \ \ \ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ (*linked\_list\_destination)-\/>head;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00597}00597\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>head\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00598}00598\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00599}00599\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((*linked\_list\_element\_destination\_after)\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ before\ destinations\ tail}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ (*linked\_list\_destination)-\/>tail;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>tail-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00603}00603\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>tail\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00604}00604\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00605}00605\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00606}00606\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ at\ destinations\ tail}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00607}00607\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_element\_destination\_after)-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}-\/>\mbox{\hyperlink{structelement_abce5214d804268256bdbe35b1009c2c6}{previous}}\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ linked\_list\_element\_tranfer-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ (*linked\_list\_element\_destination\_after)-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ (*linked\_list\_element\_destination\_after)-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}}\ =\ linked\_list\_element\_tranfer;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00610}00610\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00611}00611\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00612}00612\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00613}00613\ \ \ \ \ (*linked\_list\_destination)-\/>size++;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00614}00614\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00615}00615\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00616}00616\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00617}00617\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00624}\mbox{\hyperlink{linked__list_8c_a00841e8f45c8c8ae67d894e1a90d3dcb}{00624}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_a00841e8f45c8c8ae67d894e1a90d3dcb}{linked\_list\_move\_linked\_list\_after}}(}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00625}00625\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list\_destination,}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00626}00626\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list\_source)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00627}00627\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00628}00628\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00629}00629\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list\_destination);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00630}00630\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00631}00631\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00632}00632\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00633}00633\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00634}00634\ \ \ \ \ \textcolor{comment}{//\ check\ linked\ list\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00635}00635\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(linked\_list\_source);}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00636}00636\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00637}00637\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00638}00638\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00639}00639\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00640}00640\ \ \ \ \ \textcolor{comment}{//\ abort\ transfer\ if\ empty}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00641}00641\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_source)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00642}00642\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a06bdf13c91120c4679a0817957dffc34}{LINKED\_LIST\_SOURCE\_IS\_EMPTY}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00643}00643\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00644}00644\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00645}00645\ \ \ \ \ \textcolor{comment}{//\ check\ where\ to\ move\ the\ source\ linked\ list\ to\ the\ destination\ linked\ list}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00646}00646\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_destination)-\/>size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00647}00647\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ destination\ linked\ list\ becomes\ the\ source\ linked\ list,\ without\ losing\ the\ source\ linked\ list\ content}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00648}00648\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>tail\ =\ (*linked\_list\_source)-\/>tail;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00649}00649\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00650}00650\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00651}00651\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ linked\ lists\ are\ being\ concatenated\ in\ linked\ list\ destination}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00652}00652\ \ \ \ \ \ \ \ \ (*linked\_list\_destination)-\/>head-\/>next\ =\ (*linked\_list\_source)-\/>tail;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00653}00653\ \ \ \ \ \ \ \ \ (*linked\_list\_source)-\/>tail-\/>previous\ =\ (*linked\_list\_destination)-\/>head;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00654}00654\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00655}00655\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00656}00656\ \ \ \ \ \textcolor{comment}{//\ update\ new\ head}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00657}00657\ \ \ \ \ (*linked\_list\_destination)-\/>head\ =\ (*linked\_list\_source)-\/>head;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00658}00658\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00659}00659\ \ \ \ \ \textcolor{comment}{//\ remove\ content\ from\ source\ and\ update\ each\ sizes}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00660}00660\ \ \ \ \ (*linked\_list\_source)-\/>tail\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00661}00661\ \ \ \ \ (*linked\_list\_source)-\/>head\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00662}00662\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00663}00663\ \ \ \ \ (*linked\_list\_destination)-\/>size\ +=\ (*linked\_list\_source)-\/>size;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00664}00664\ \ \ \ \ (*linked\_list\_source)-\/>size\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00665}00665\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00666}00666\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00667}00667\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00668}00668\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00675}\mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{00675}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **linked\_list)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00676}00676\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00677}00677\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list)\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00678}00678\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a715ee695b06de7d60ddbee9fcf073326}{LINKED\_LIST\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00679}00679\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00680}00680\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00681}00681\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00682}00682\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00683}00683\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00684}00684\ \textcolor{comment}{/*\ Static\ module\ functions\ (implementation)\ */}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00685}00685\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00692}\mbox{\hyperlink{linked__list_8c_accffb9a333558a87871e3836486be7b8}{00692}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_accffb9a333558a87871e3836486be7b8}{linked\_list\_element\_checking}}(\mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00693}00693\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00694}00694\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*linked\_list\_element)\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00695}00695\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a9464fc9d0e5132f8c8ea12f083b8d977}{LINKED\_LIST\_ELEMENT\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00696}00696\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00697}00697\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00698}00698\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce}{LINKED\_LIST\_ELEMENT\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00699}00699\ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00700}00700\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00709}\mbox{\hyperlink{linked__list_8c_ae863f20d04e10a1e73ee8984a5f1d2a2}{00709}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linked__list_8c_ae863f20d04e10a1e73ee8984a5f1d2a2}{linked\_list\_element\_create}}(\mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00710}00710\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **data)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00712}00712\ \ \ \ \ \textcolor{comment}{//\ allocate\ memory}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00713}00713\ \ \ \ \ *linked\_list\_element\ =\ (\mbox{\hyperlink{structelement}{linked\_list\_element\_t}}*\ )\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structelement}{linked\_list\_element\_t}}));}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00714}00714\ \ \ \ \ \textcolor{keywordflow}{if}\ (*linked\_list\_element\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00715}00715\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a9464fc9d0e5132f8c8ea12f083b8d977}{LINKED\_LIST\_ELEMENT\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00716}00716\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00717}00717\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00718}00718\ \ \ \ \ \textcolor{comment}{//\ default\ initialization\ with\ data}}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00719}00719\ \ \ \ \ (*linked\_list\_element)-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}}\ =\ *data;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00720}00720\ \ \ \ \ (*linked\_list\_element)-\/>previous\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00721}00721\ \ \ \ \ (*linked\_list\_element)-\/>next\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00722}00722\ }
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00723}00723\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{linked__list_8h_a62873b037fb5ea0d59890a0536f261ce}{LINKED\_LIST\_ELEMENT\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{linked__list_8c_source_l00724}00724\ \}}
+
+\end{DoxyCode}

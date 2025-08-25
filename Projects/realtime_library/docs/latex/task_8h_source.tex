@@ -1,0 +1,58 @@
+\doxysection{task.\+h}
+\hypertarget{task_8h_source}{}\label{task_8h_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/task.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/task.h}}
+\mbox{\hyperlink{task_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00030}00030\ \textcolor{preprocessor}{\#ifndef\ TASK\_TASK\_H\_}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00031}00031\ \textcolor{preprocessor}{\#define\ TASK\_TASK\_H\_}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00032}00032\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00033}00033\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{tcb_8h}{kernel/tcb.h}}>}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00034}00034\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{support_8h}{utils/support.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00036}00036\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00037}00037\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{linked__list_8h}{utils/linked\_list.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00039}00039\ \textcolor{comment}{/*\ Public\ Preprocessor\ defines\ */}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00040}\mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{00040}}\ \textcolor{preprocessor}{\#define\ TASK\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00041}\mbox{\hyperlink{task_8h_aa59922f1563c7ac35a48b41041e30ee5}{00041}}\ \textcolor{preprocessor}{\#define\ TASK\_NO\_MEMORY\ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00042}\mbox{\hyperlink{task_8h_a201f500c8e23ca81f57555c8ebb0aca0}{00042}}\ \textcolor{preprocessor}{\#define\ TASK\_DATA\_NO\_MEMORY\ \ \ \ \ 2}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00043}\mbox{\hyperlink{task_8h_aec8c7139a20c676cd9daf6f251ee2ec6}{00043}}\ \textcolor{preprocessor}{\#define\ TASK\_LENGTH\ \ \ \ \ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00044}\mbox{\hyperlink{task_8h_a2aa8bbd4f9a0f729fb99f062de8e9662}{00044}}\ \textcolor{preprocessor}{\#define\ TASK\_UNDEFINED\_STATE\ \ \ \ 4}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00045}\mbox{\hyperlink{task_8h_a3fe16c8f3d0c2cf422fa1097ad76accb}{00045}}\ \textcolor{preprocessor}{\#define\ TASK\_MAX\_PRIORITY\ \ \ \ \ \ \ (UINT8\_MAX\ /\ 4)}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00046}00046\ \textcolor{comment}{/*\ Public\ Preprocessor\ macros\ */}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00047}00047\ \textcolor{comment}{/*\ Public\ type\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00050}\mbox{\hyperlink{structevent__register__t}{00050}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00051}\mbox{\hyperlink{structevent__register__t_a0cce97ea104e155533c6c5011884b4f2}{00051}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structevent__register__t_a0cce97ea104e155533c6c5011884b4f2}{wanted\_events}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00052}\mbox{\hyperlink{structevent__register__t_af4abd82c1fc43110978e77ff3b2c4591}{00052}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structevent__register__t_af4abd82c1fc43110978e77ff3b2c4591}{received\_events}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00053}\mbox{\hyperlink{structevent__register__t_aaf68941f7d9974e32edb2a895d8ffec5}{00053}}\ \ \ \ \ void\ (*notification\_conditions)(\textcolor{keywordtype}{size\_t}\ *,\ size\_t);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00054}\mbox{\hyperlink{structevent__register__t_a8321c8d1dcb982b1a3a635e50ec7874f}{00054}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structevent__register__t_a8321c8d1dcb982b1a3a635e50ec7874f}{timeout}};\ }
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00055}00055\ \}\ \mbox{\hyperlink{structevent__register__t}{event\_register\_t}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00058}\mbox{\hyperlink{structtask__t}{00058}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00059}\mbox{\hyperlink{structtask__t_a1fb5ad058d827429ec22745171fcd22b}{00059}}\ \ \ \ \ \mbox{\hyperlink{structTCB__sctTCB__t}{TCB\_sctTCB\_t}}\ *\mbox{\hyperlink{structtask__t_a1fb5ad058d827429ec22745171fcd22b}{task\_data}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00060}\mbox{\hyperlink{structtask__t_aac779f34435b0ebc113dad6c9a2ca738}{00060}}\ \ \ \ \ size\_t\ (*task\_main)(void);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00061}\mbox{\hyperlink{structtask__t_ad71a0f2a2ca2992dfb95871802874673}{00061}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structtask__t_ad71a0f2a2ca2992dfb95871802874673}{time\_quantum}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00062}\mbox{\hyperlink{structtask__t_ad5050a747bac8c6fb50911822011e7f5}{00062}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structtask__t_ad5050a747bac8c6fb50911822011e7f5}{time\_quantum\_remaining}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{support_8h_a7dbe6bf2ffe620f7477225d3eb6f09e5}{SEGGER\_SYSVIEW\_TASKINFO\_DECLARE}}(info);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00064}\mbox{\hyperlink{structtask__t_a9824c1365d26881a21fc8400749b4db0}{00064}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structtask__t_a9824c1365d26881a21fc8400749b4db0}{cause}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00065}\mbox{\hyperlink{structtask__t_ad1758973357aa32cd3c60a266dc024a7}{00065}}\ \ \ \ \ \textcolor{keywordtype}{char}\ task\_name[32];}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00066}\mbox{\hyperlink{structtask__t_a44bbc6e0565f3bf548d4deeeaa294247}{00066}}\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structtask__t_a44bbc6e0565f3bf548d4deeeaa294247}{message}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00067}\mbox{\hyperlink{structtask__t_a4fc2623a3eb487b0620a8e5bebc9a8c9}{00067}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structtask__t_a4fc2623a3eb487b0620a8e5bebc9a8c9}{message\_set}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00068}\mbox{\hyperlink{structtask__t_a8db1884c2715f8ec274fe811f5f1fe59}{00068}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structtask__t_a8db1884c2715f8ec274fe811f5f1fe59}{delta\_time}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00069}\mbox{\hyperlink{structtask__t_a21c3a4ee7d6c63fdfaec962ed9bedcf4}{00069}}\ \ \ \ \ \mbox{\hyperlink{structevent__register__t}{event\_register\_t}}\ \mbox{\hyperlink{structtask__t_a21c3a4ee7d6c63fdfaec962ed9bedcf4}{event\_register}};\ }
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00070}\mbox{\hyperlink{structtask__t_a067b2eb2540e3ef6262bcc57a52034d8}{00070}}\ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ *\mbox{\hyperlink{structtask__t_a067b2eb2540e3ef6262bcc57a52034d8}{blocked\_timeout\_list}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00071}\mbox{\hyperlink{structtask__t_ab93d4d26491a69f1f649b94abb7e0c15}{00071}}\ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ *\mbox{\hyperlink{structtask__t_ab93d4d26491a69f1f649b94abb7e0c15}{blocked\_timeout\_list\_element}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00072}\mbox{\hyperlink{structtask__t_a9488fe0f991bb398e88d2a2379d0ba40}{00072}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structtask__t_a9488fe0f991bb398e88d2a2379d0ba40}{return\_value}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00073}00073\ \}\ \mbox{\hyperlink{structtask__t}{task\_t}};}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00074}00074\ \textcolor{comment}{/*\ Public\ functions\ (prototypes)\ */}}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00075}00075\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{task_8h_a4b17855147c0cc7a3676e398b711bf09}{task\_create}}(\mbox{\hyperlink{structtask__t}{task\_t}}\ **task,\ \textcolor{keywordtype}{size\_t}\ (*task\_main)(\textcolor{keywordtype}{void}),\ \textcolor{keywordtype}{void}\ (*\mbox{\hyperlink{src_2kernel_2kernel_8c_af0b12129cd39d874bfebcc424b723b5d}{kernel\_task\_terminate}})(\textcolor{keywordtype}{void}),\ uint8\_t\ u8\_task\_id,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *task\_name,\ uint8\_t\ u8\_task\_priority,\ \textcolor{keywordtype}{size\_t}\ time\_quantum,\ \textcolor{keywordtype}{size\_t}\ wanted\_events,\ \textcolor{keywordtype}{void}\ (*notification\_conditions)(\textcolor{keywordtype}{size\_t}\ *,\ \textcolor{keywordtype}{size\_t}),\ \textcolor{keywordtype}{size\_t}\ timeout);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00076}00076\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{task_8h_aba2c0017fce23775355c8c24f4c1bf96}{task\_delete}}(\mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00077}00077\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{task_8h_a4dfb4abd1636dfbd293d9fc16cb303a0}{task\_set\_state}}(\mbox{\hyperlink{structtask__t}{task\_t}}\ **task,\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\_eTastStates\_t}}\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53}{TaskState\_Ready}});}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00078}00078\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{task_8h_a94e3f7f4c880c9c2d6d6799a137117cc}{task\_reset\_time\_quantum\_remaining}}(\mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00079}00079\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{task_8h_a86c610c32b85a985b4e626192a4ad6dc}{task\_set\_priority}}(\mbox{\hyperlink{structtask__t}{task\_t}}\ **task,\ uint8\_t\ u8\_task\_priority);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00080}00080\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{task_8h_a993e35de544bf050671e5de34a227697}{task\_set\_blocked\_info}}(\mbox{\hyperlink{structtask__t}{task\_t}}\ **task,\ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **blocked\_timeout\_list,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **blocked\_timeout\_list\_element);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00081}00081\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{task_8h_a01484528b00ba93895b706ea4a029302}{task\_checking}}(\mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{task_8h_source_l00082}00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ TASK\_TASK\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,277 @@
+\doxysection{message\+\_\+queue.\+c}
+\hypertarget{message__queue_8c_source}{}\label{message__queue_8c_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/message\_queue.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/src/kernel/message\_queue.c}}
+\mbox{\hyperlink{message__queue_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00026}00026\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{message__queue_8h}{kernel/message\_queue.h}}>}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00028}00028\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00029}00029\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00030}00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{linked__list_8h}{utils/linked\_list.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00031}00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{support_8h}{utils/support.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00033}00033\ \textcolor{comment}{/*\ Preprocessor\ defines\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00034}00034\ \textcolor{comment}{/*\ Preprocessor\ macros\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00035}00035\ \textcolor{comment}{/*\ Module\ intern\ type\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00036}00036\ \textcolor{comment}{/*\ Static\ module\ variables\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00037}00037\ \textcolor{comment}{/*\ Static\ module\ functions\ (prototypes)\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00038}00038\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}{message\_queue\_checking}}(\mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}\ **message\_queue);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00039}00039\ \textcolor{comment}{/*\ Public\ functions\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00055}\mbox{\hyperlink{message__queue_8c_a2308f343d4d76ed9932c92224e2e10c5}{00055}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_a2308f343d4d76ed9932c92224e2e10c5}{message\_queue\_create}}(\mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}\ **message\_queue,\ \textcolor{keywordtype}{size\_t}\ message\_queue\_size,\ \textcolor{keywordtype}{size\_t}\ element\_size,\ \textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{char}\ *name)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00057}00057\ \ \ \ \ \textcolor{comment}{//\ allocate\ memory\ and\ return\ to\ error}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00058}00058\ \ \ \ \ (*message\_queue)\ =\ (\mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}*)\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}));}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*message\_queue)\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_aac67dcdfd01c58cde4f35f83a7804e99}{MESSAGE\_QUEUE\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00063}00063\ \ \ \ \ \textcolor{comment}{//\ assign\ identifier\ for\ id\ and\ name}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00064}00064\ \ \ \ \ (*message\_queue)-\/>message\_queue\_identifier\ =\ (\mbox{\hyperlink{structmessage__queue__identifier__t}{message\_queue\_identifier\_t}}*)\ malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmessage__queue__identifier__t}{message\_queue\_identifier\_t}}));}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*message\_queue)-\/>message\_queue\_identifier\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a6058c45ab2e0ff4e693d3231123e5d7e}{MESSAGE\_QUEUE\_NO\_IDENTIFIER}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00069}00069\ \ \ \ \ (*message\_queue)-\/>message\_queue\_identifier-\/>id\ =\ id;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00070}00070\ \ \ \ \ (*message\_queue)-\/>message\_queue\_identifier-\/>name\ =\ name;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00072}00072\ \ \ \ \ \textcolor{comment}{//\ create\ queue\ for\ message\ queue}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{queue_8c_aecf9808026639fc79ee6fe2eb07648b7}{queue\_create}}(\&(*message\_queue)-\/>qcb,\ message\_queue\_size,\ element\_size);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{queue_8h_aadf7b47be7974de8116013d95b0077ab}{QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_af28fdf1096d3c8011073ae5b2b041bcd}{MESSAGE\_QUEUE\_NO\_QUEUE}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00078}00078\ \ \ \ \ \textcolor{comment}{//\ create\ receiving\ task\ linked\ list}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00079}00079\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_ab84dc67b6f40f1f88c3b516453c0115e}{linked\_list\_create}}(\&(*message\_queue)-\/>receiving\_task\_list);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9}{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_ac026e11b147d1f07531db0a2119b49f0}{MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00082}00082\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00084}00084\ \ \ \ \ \textcolor{comment}{//\ create\ sending\ task\ linked\ list}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00085}00085\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_ab84dc67b6f40f1f88c3b516453c0115e}{linked\_list\_create}}(\&(*message\_queue)-\/>sending\_task\_list);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_aad50d09c68572a9e32183f7d0b9b8e02}{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_a4a7cabbeadfc6df02a5e5657c5de198b}{MESSAGE\_QUEUE\_NO\_SENDING\_LIST}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00088}00088\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00099}\mbox{\hyperlink{message__queue_8c_a051e749f70d8ab8b4a8ed34fdb6b44d3}{00099}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_a051e749f70d8ab8b4a8ed34fdb6b44d3}{message\_queue\_delete}}(\mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}\ **message\_queue)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00101}00101\ \ \ \ \ \textcolor{comment}{//\ check\ message\ queue\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00102}00102\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}{message\_queue\_checking}}(message\_queue);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00107}00107\ \ \ \ \ \textcolor{comment}{//\ delete\ queue}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00108}00108\ \ \ \ \ status\ =\ \mbox{\hyperlink{queue_8c_abf48187bca1ed7880dd1026805564159}{queue\_delete}}(\&(*message\_queue)-\/>qcb);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{queue_8h_aadf7b47be7974de8116013d95b0077ab}{QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_ab87da95d5b21d89a30ba866fe0cc43b3}{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00111}00111\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00113}00113\ \ \ \ \ \textcolor{comment}{//\ delete\ receiving\ task\ list}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00114}00114\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_a157221397716f9d0d15a22242168d6d5}{linked\_list\_delete}}(\&(*message\_queue)-\/>receiving\_task\_list);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{queue_8h_aadf7b47be7974de8116013d95b0077ab}{QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9}{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_ab87da95d5b21d89a30ba866fe0cc43b3}{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00119}00119\ \ \ \ \ \textcolor{comment}{//\ delete\ sending\ task\ list}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00120}00120\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_a157221397716f9d0d15a22242168d6d5}{linked\_list\_delete}}(\&(*message\_queue)-\/>sending\_task\_list);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{queue_8h_aadf7b47be7974de8116013d95b0077ab}{QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_aad50d09c68572a9e32183f7d0b9b8e02}{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_ab87da95d5b21d89a30ba866fe0cc43b3}{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00123}00123\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00125}00125\ \ \ \ \ \textcolor{comment}{//\ delete\ identifier}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00126}00126\ \ \ \ \ free(\&(*message\_queue)-\/>message\_queue\_identifier);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00127}00127\ \ \ \ \ (*message\_queue)-\/>message\_queue\_identifier\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00129}00129\ \ \ \ \ \textcolor{comment}{//\ delete\ message\ queue}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00130}00130\ \ \ \ \ free(*message\_queue);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00131}00131\ \ \ \ \ *message\_queue\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00134}00134\ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00147}\mbox{\hyperlink{message__queue_8c_adad5b1beada3120a6e8639f95979b38d}{00147}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_adad5b1beada3120a6e8639f95979b38d}{message\_queue\_send}}(}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}\ **message\_queue,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **\mbox{\hyperlink{structelement}{element}},}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *message,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ element\_size,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ urgent)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00155}00155\ \ \ \ \ \textcolor{comment}{//\ check\ message\ queue\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00156}00156\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}{message\_queue\_checking}}(message\_queue);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00157}00157\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00159}00159\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00161}00161\ \ \ \ \ \textcolor{comment}{//\ before\ a\ message\ is\ queued,\ check\ for\ available\ tasks}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00162}00162\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*message\_queue)-\/>receiving\_task\_list-\/>size\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ assign\ return\ values}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ (*element)\ =\ (*message\_queue)-\/>receiving\_task\_list-\/>tail;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ (*task)\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}*)\ (*element)-\/>data;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ task\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{task_8c_a01484528b00ba93895b706ea4a029302}{task\_checking}}(task);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{TASK\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_a6fdca86acbe79bdb949d7b37d072014e}{MESSAGE\_QUEUE\_INVALID\_TASK\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_a3e0013a7a2444bae6a19fde4ad9d0298}{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ copy\ message}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *destination\ =\ memcpy((*task)-\/>message,\ message,\ element\_size);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (destination\ !=\ (*task)-\/>message)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a3e0013a7a2444bae6a19fde4ad9d0298}{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ signal\ task\ on\ next\ receive\ a\ message\ was\ stored}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ (*task)-\/>message\_set\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00184}00184\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00186}00186\ \ \ \ \ \textcolor{comment}{//\ determine\ where\ a\ message\ shall\ be\ inserted\ based\ on\ urgency}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00187}00187\ \ \ \ \ \textcolor{keywordflow}{if}\ (urgent)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00188}00188\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{queue_8c_a0070240d710fb922bcd20de7e8913bb3}{queue\_push\_back}}(\&(*message\_queue)-\/>qcb,\ message,\ element\_size);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00189}00189\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{queue_8c_a426a95ba49b994cd29278dc361dba5e1}{queue\_push\_front}}(\&(*message\_queue)-\/>qcb,\ message,\ element\_size);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00192}00192\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00194}00194\ \ \ \ \ \textcolor{comment}{//\ check\ queue\ for\ errors}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00195}00195\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{queue_8h_aadf7b47be7974de8116013d95b0077ab}{QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_a160c65b8fe8dda9f95f660642c5c7baa}{MESSAGE\_QUEUE\_LENGTH}},\ \mbox{\hyperlink{message__queue_8h_a3e0013a7a2444bae6a19fde4ad9d0298}{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00197}00197\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00200}00200\ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00216}\mbox{\hyperlink{message__queue_8c_a24a7ea0a1b2abb026b78348df2fcb2bb}{00216}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_a24a7ea0a1b2abb026b78348df2fcb2bb}{message\_queue\_send\_blocking}}(}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}\ **message\_queue,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **running\_task\_list,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **sender\_element,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **receiver\_element,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structtask__t}{task\_t}}\ **receiver\_task,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *message,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ element\_size,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ urgent)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00226}00226\ \ \ \ \ \textcolor{comment}{//\ solve\ blocked\ sending\ by\ checking\ on\ failure\ for\ send\ messages}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00227}00227\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{message__queue_8c_adad5b1beada3120a6e8639f95979b38d}{message\_queue\_send}}(message\_queue,\ receiver\_element,\ receiver\_task,\ message,\ element\_size,\ urgent);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00229}00229\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sending\ a\ message\ has\ failed\ and\ the\ sender\ is\ being\ inserted}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00231}00231\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_a2702c739a8aea4b12cdb348aecd87a89}{linked\_list\_transfer}}(\&(*message\_queue)-\/>sending\_task\_list,\ running\_task\_list,\ sender\_element);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_aad50d09c68572a9e32183f7d0b9b8e02}{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_a3e0013a7a2444bae6a19fde4ad9d0298}{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00233}00233\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00235}00235\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00236}00236\ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00251}\mbox{\hyperlink{message__queue_8c_aaede9925afd52fbc4445d73517ddf2b5}{00251}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_aaede9925afd52fbc4445d73517ddf2b5}{message\_queue\_receive}}(}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}\ **message\_queue,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00253}00253\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **running\_task\_list,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00254}00254\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **running\_task\_element,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00255}00255\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structtask__t}{task\_t}}\ **receiver\_task,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **sender\_element,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structtask__t}{task\_t}}\ **sender\_task,}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **message)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00260}00260\ \ \ \ \ \textcolor{comment}{//\ check\ message\ queue\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00261}00261\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}{message\_queue\_checking}}(message\_queue);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00262}00262\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00264}00264\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00266}00266\ \ \ \ \ \textcolor{comment}{//\ check\ task\ for\ irregular\ structure}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00267}00267\ \ \ \ \ status\ =\ \mbox{\hyperlink{task_8c_a01484528b00ba93895b706ea4a029302}{task\_checking}}(receiver\_task);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00268}00268\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{TASK\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_a2250867a179401ff0ea1d74a086a1dd6}{MESSAGE\_QUEUE\_TASK\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_accf774052a382c5192305ad60ae90f32}{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00270}00270\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00272}00272\ \ \ \ \ \textcolor{comment}{//\ check\ if\ a\ message\ was\ stored\ at\ a\ task}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*receiver\_task)-\/>message\_set)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ parked\ message\ can\ be\ used}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ signal\ mechanic}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ (*receiver\_task)-\/>message\_set\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ (*message)\ =\ (*receiver\_task)-\/>message;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00278}00278\ \ \ \ \ \ \ \ \ (*receiver\_task)-\/>message\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ try\ to\ obtain\ blocked\ sending\ task}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((*message\_queue)-\/>sending\_task\_list-\/>size\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ (*sender\_element)\ =\ (*message\_queue)-\/>sending\_task\_list-\/>tail;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ (*sender\_task)\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}*)\ (*sender\_element)-\/>data;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00286}00286\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00288}00288\ \ \ \ \ \textcolor{comment}{//\ a\ message\ was\ not\ parked\ to\ a\ task}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00289}00289\ \ \ \ \ status\ =\ \mbox{\hyperlink{queue_8c_a616336fd81fef2a9acf4e4aa2784592c}{queue\_read}}(\&(*message\_queue)-\/>qcb,\ message);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00290}00290\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ ==\ \mbox{\hyperlink{queue_8h_ae471a6d414c32317bee7de06a9ec661c}{QUEUE\_NO\_ELEMENT}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00291}00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ message\ found\ and\ the\ task\ about\ to\ block}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00292}00292\ \ \ \ \ \ \ \ \ (*receiver\_task)-\/>message\ =\ (*message);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00293}00293\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_a2702c739a8aea4b12cdb348aecd87a89}{linked\_list\_transfer}}(\&(*message\_queue)-\/>receiving\_task\_list,\ running\_task\_list,\ running\_task\_element);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00294}00294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_a3de794fed55a53c7713797670beb0c50}{MESSAGE\_QUEUE\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_accf774052a382c5192305ad60ae90f32}{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00296}00296\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00298}00298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_accf774052a382c5192305ad60ae90f32}{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00299}00299\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00301}00301\ \ \ \ \ \textcolor{comment}{//\ a\ message\ was\ assigned}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00302}00302\ \ \ \ \ \textcolor{comment}{//\ try\ to\ obtain\ blocked\ sending\ task}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00303}00303\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*message\_queue)-\/>sending\_task\_list-\/>size\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00304}00304\ \ \ \ \ \ \ \ \ (*sender\_element)\ =\ (*message\_queue)-\/>sending\_task\_list-\/>tail;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00305}00305\ \ \ \ \ \ \ \ \ (*sender\_task)\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}*)\ (*sender\_element)-\/>data;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00306}00306\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00308}00308\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00309}00309\ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00318}\mbox{\hyperlink{message__queue_8c_ae66a349dddbf73ee44edf7a25fee1682}{00318}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_ae66a349dddbf73ee44edf7a25fee1682}{message\_queue\_identifier\_checking}}(\mbox{\hyperlink{structmessage__queue__identifier__t}{message\_queue\_identifier\_t}}\ **message\_queue\_identifier)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00320}00320\ \ \ \ \ \textcolor{comment}{//\ check\ for\ invalid\ identifier}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00321}00321\ \ \ \ \ \textcolor{keywordflow}{if}\ (message\_queue\_identifier\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00322}00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a6058c45ab2e0ff4e693d3231123e5d7e}{MESSAGE\_QUEUE\_NO\_IDENTIFIER}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00323}00323\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00325}00325\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a1734a13d5bfd51afa67eaa70b55a1cbe}{MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00326}00326\ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00328}00328\ \textcolor{comment}{/*\ Static\ module\ functions\ (implementation)\ */}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00336}\mbox{\hyperlink{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}{00336}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{message__queue_8c_ab45eb39be82ec8a774bd35df59392dca}{message\_queue\_checking}}(\mbox{\hyperlink{structmessage__queue__t}{message\_queue\_t}}\ **message\_queue)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00338}00338\ \ \ \ \ \textcolor{comment}{//\ check\ main\ component}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00339}00339\ \ \ \ \ \textcolor{keywordflow}{if}\ (*message\_queue\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00340}00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_aac67dcdfd01c58cde4f35f83a7804e99}{MESSAGE\_QUEUE\_NO\_MEMORY}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00341}00341\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00343}00343\ \ \ \ \ \textcolor{comment}{//\ check\ each\ subcomponent\ for\ irregular\ data\ structure}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00344}00344\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{message__queue_8c_ae66a349dddbf73ee44edf7a25fee1682}{message\_queue\_identifier\_checking}}(\&(*message\_queue)-\/>message\_queue\_identifier);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00345}00345\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{message__queue_8h_a1734a13d5bfd51afa67eaa70b55a1cbe}{MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00346}00346\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00347}00347\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00349}00349\ \ \ \ \ status\ =\ \mbox{\hyperlink{queue_8c_a31eefde6e1da913661a56a92d15ce506}{queue\_checking}}(\&(*message\_queue)-\/>qcb);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00350}00350\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{queue_8h_aadf7b47be7974de8116013d95b0077ab}{QUEUE\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00351}00351\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00352}00352\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00354}00354\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(\&(*message\_queue)-\/>receiving\_task\_list);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00355}00355\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00356}00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9}{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_ac026e11b147d1f07531db0a2119b49f0}{MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00357}00357\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00359}00359\ \ \ \ \ status\ =\ \mbox{\hyperlink{linked__list_8c_af649002ac74929cfefc3b45488b4e459}{linked\_list\_checking}}(\&(*message\_queue)-\/>receiving\_task\_list);}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00360}00360\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00361}00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{message__queue_8h_aad50d09c68572a9e32183f7d0b9b8e02}{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}},\ \mbox{\hyperlink{message__queue_8h_a4a7cabbeadfc6df02a5e5657c5de198b}{MESSAGE\_QUEUE\_NO\_SENDING\_LIST}});}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00362}00362\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00364}00364\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\_QUEUE\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{message__queue_8c_source_l00365}00365\ \}}
+
+\end{DoxyCode}

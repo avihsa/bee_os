@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Standard für Init-Funktionen" enabled="true" name="initfunction">/**&#13;
+ * @brief Initializes the necessary ${todo} for this module&#13;
+ * @param None&#13;
+ * @return None&#13;
+ */&#13;
+void init_${enclosing_method}(void) {&#13;
+	/* Some code for initializing the necessary ${todo} */&#13;
+	${cursor}	&#13;
+}</template></templates>

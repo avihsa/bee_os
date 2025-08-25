@@ -1,0 +1,25 @@
+var semaphore_8h =
+[
+    [ "semaphore_t", "structsemaphore__t.html", "structsemaphore__t" ],
+    [ "SEMAPHORE_BINARY_TOKEN", "semaphore_8h.html#a90aa613fb9dd5ad368a25b974dcacd4c", null ],
+    [ "SEMAPHORE_LENGTH", "semaphore_8h.html#ac8548e0a8d5143cc7b1e137b5140ad61", null ],
+    [ "SEMAPHORE_LINKED_LIST_ERROR_REGISTER", "semaphore_8h.html#af3cf4a39dc2a7db7ea058f8d6b6478ab", null ],
+    [ "SEMAPHORE_NO_MEMORY", "semaphore_8h.html#ad784f65bb2ce5692e9b4bc32b91b725e", null ],
+    [ "SEMAPHORE_NO_TOKENS", "semaphore_8h.html#a4f55194fa0cf1c54967f7ac6cfb87468", null ],
+    [ "SEMAPHORE_NO_WAITING_LIST", "semaphore_8h.html#a8dffa210e0497006a0ff830eff31bb07", null ],
+    [ "SEMAPHORE_REACHED_MAX_TOKENS", "semaphore_8h.html#ac99d15cd7c17b321b8e58c155148792a", null ],
+    [ "SEMAPHORE_SUCCESS", "semaphore_8h.html#ac23e043f8f6298da52cd02e08ee7a60a", null ],
+    [ "SEMAPHORE_TOKEN_AVAILABILITY_ERROR_REGISTER", "semaphore_8h.html#a9016e4372d48856aeb80df3e71d7096f", null ],
+    [ "SEMAPHORE_TOKENS_OVERFLOW", "semaphore_8h.html#a2473c5b4a4c6a83caf38f0c7887266ca", null ],
+    [ "SEMAPHORE_UNABLE_TO_ACQUIRE", "semaphore_8h.html#ad146a55c3e0da2c62faa7e68e8180a49", null ],
+    [ "SEMAPHORE_UNABLE_TO_RELEASE", "semaphore_8h.html#a3c8363e8a339d746fc573f04652b0aa7", null ],
+    [ "semaphore_acquire", "semaphore_8h.html#ae192b4355be68c3e15a5063225ce018b", null ],
+    [ "semaphore_acquire_non_blocking", "semaphore_8h.html#a04e62eb1d82d269d299397ca7ef9c979", null ],
+    [ "semaphore_checking", "semaphore_8h.html#a5c45e2883e64a1e6512693b16d1f0052", null ],
+    [ "semaphore_create", "semaphore_8h.html#a946c03546b3b583d68e3886f3f1773df", null ],
+    [ "semaphore_delete", "semaphore_8h.html#aa7f90041bb84a47eea9c15fd496d72a5", null ],
+    [ "semaphore_flush", "semaphore_8h.html#a38be7377895b2476b10b7b17a2aecdb4", null ],
+    [ "semaphore_is_available", "semaphore_8h.html#a0ac7e334a27eb11a5705859c03cffe85", null ],
+    [ "semaphore_release", "semaphore_8h.html#aa571a1fad2e37f0b14b99260cd63f2c8", null ],
+    [ "semaphore_release_non_blocking", "semaphore_8h.html#a8d50f46b59e703b91b4651f901fc0ac0", null ]
+];

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="es muss alles groß geschrieben werden und bei mehreren Wörtern mit &quot;_&quot;" enabled="true" name="defineFunc">#define ${todo}(${var}) (${var})</template></templates>

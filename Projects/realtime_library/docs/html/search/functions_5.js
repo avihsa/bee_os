@@ -1,0 +1,10 @@
+var searchData=
+[
+  ['queue_5fchecking_0',['queue_checking',['../queue_8c.html#a31eefde6e1da913661a56a92d15ce506',1,'queue_checking(queue_t **queue):&#160;queue.c'],['../queue_8h.html#a31eefde6e1da913661a56a92d15ce506',1,'queue_checking(queue_t **queue):&#160;queue.c']]],
+  ['queue_5fcreate_1',['queue_create',['../queue_8c.html#aecf9808026639fc79ee6fe2eb07648b7',1,'queue_create(queue_t **queue, size_t queue_size, size_t element_size):&#160;queue.c'],['../queue_8h.html#aecf9808026639fc79ee6fe2eb07648b7',1,'queue_create(queue_t **queue, size_t queue_size, size_t element_size):&#160;queue.c']]],
+  ['queue_5fdelete_2',['queue_delete',['../queue_8c.html#abf48187bca1ed7880dd1026805564159',1,'queue_delete(queue_t **queue):&#160;queue.c'],['../queue_8h.html#abf48187bca1ed7880dd1026805564159',1,'queue_delete(queue_t **queue):&#160;queue.c']]],
+  ['queue_5fpeek_3',['queue_peek',['../queue_8c.html#adfad9c8321db7f1dcb188b03762ecbcb',1,'queue_peek(queue_t **queue, void *element):&#160;queue.c'],['../queue_8h.html#adfad9c8321db7f1dcb188b03762ecbcb',1,'queue_peek(queue_t **queue, void *element):&#160;queue.c']]],
+  ['queue_5fpush_5fback_4',['queue_push_back',['../queue_8c.html#a0070240d710fb922bcd20de7e8913bb3',1,'queue_push_back(queue_t **queue, void *element, size_t element_size):&#160;queue.c'],['../queue_8h.html#a0070240d710fb922bcd20de7e8913bb3',1,'queue_push_back(queue_t **queue, void *element, size_t element_size):&#160;queue.c']]],
+  ['queue_5fpush_5ffront_5',['queue_push_front',['../queue_8c.html#a426a95ba49b994cd29278dc361dba5e1',1,'queue_push_front(queue_t **queue, void *element, size_t element_size):&#160;queue.c'],['../queue_8h.html#a426a95ba49b994cd29278dc361dba5e1',1,'queue_push_front(queue_t **queue, void *element, size_t element_size):&#160;queue.c']]],
+  ['queue_5fread_6',['queue_read',['../queue_8c.html#a616336fd81fef2a9acf4e4aa2784592c',1,'queue_read(queue_t **queue, void **element):&#160;queue.c'],['../queue_8h.html#a616336fd81fef2a9acf4e4aa2784592c',1,'queue_read(queue_t **queue, void **element):&#160;queue.c']]]
+];

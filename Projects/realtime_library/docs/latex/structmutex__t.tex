@@ -1,0 +1,87 @@
+\doxysection{mutex\+\_\+t Struct Reference}
+\hypertarget{structmutex__t}{}\label{structmutex__t}\index{mutex\_t@{mutex\_t}}
+
+
+control information for a mutex  
+
+
+
+
+{\ttfamily \#include $<$mutex.\+h$>$}
+
+
+
+Collaboration diagram for mutex\+\_\+t\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structmutex__t__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structmutex__t_a1f98447d6499761302bced3bffa03c12}{binary\+\_\+semaphore}}
+\begin{DoxyCompactList}\small\item\em mutexes binary semaphore \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structmutex__t_a4cbaf1b1b9ad513ced9f57bb92c88823}{owner}}
+\begin{DoxyCompactList}\small\item\em mutexes task owner \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structmutex__t_ab6acf02187698d3c24bf4aca6f29fc2b}{lock\+\_\+count}}
+\begin{DoxyCompactList}\small\item\em mutexes lock count \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+control information for a mutex 
+
+Definition at line \mbox{\hyperlink{mutex_8h_source_l00051}{51}} of file \mbox{\hyperlink{mutex_8h_source}{mutex.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{structmutex__t_a1f98447d6499761302bced3bffa03c12}\label{structmutex__t_a1f98447d6499761302bced3bffa03c12} 
+\index{mutex\_t@{mutex\_t}!binary\_semaphore@{binary\_semaphore}}
+\index{binary\_semaphore@{binary\_semaphore}!mutex\_t@{mutex\_t}}
+\doxysubsubsection{\texorpdfstring{binary\_semaphore}{binary\_semaphore}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structsemaphore__t}{semaphore\+\_\+t}}\texorpdfstring{$\ast$}{*} binary\+\_\+semaphore}
+
+
+
+mutexes binary semaphore 
+
+
+
+Definition at line \mbox{\hyperlink{mutex_8h_source_l00052}{52}} of file \mbox{\hyperlink{mutex_8h_source}{mutex.\+h}}.
+
+\Hypertarget{structmutex__t_ab6acf02187698d3c24bf4aca6f29fc2b}\label{structmutex__t_ab6acf02187698d3c24bf4aca6f29fc2b} 
+\index{mutex\_t@{mutex\_t}!lock\_count@{lock\_count}}
+\index{lock\_count@{lock\_count}!mutex\_t@{mutex\_t}}
+\doxysubsubsection{\texorpdfstring{lock\_count}{lock\_count}}
+{\footnotesize\ttfamily size\+\_\+t lock\+\_\+count}
+
+
+
+mutexes lock count 
+
+
+
+Definition at line \mbox{\hyperlink{mutex_8h_source_l00054}{54}} of file \mbox{\hyperlink{mutex_8h_source}{mutex.\+h}}.
+
+\Hypertarget{structmutex__t_a4cbaf1b1b9ad513ced9f57bb92c88823}\label{structmutex__t_a4cbaf1b1b9ad513ced9f57bb92c88823} 
+\index{mutex\_t@{mutex\_t}!owner@{owner}}
+\index{owner@{owner}!mutex\_t@{mutex\_t}}
+\doxysubsubsection{\texorpdfstring{owner}{owner}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtask__t}{task\+\_\+t}}\texorpdfstring{$\ast$}{*} owner}
+
+
+
+mutexes task owner 
+
+
+
+Definition at line \mbox{\hyperlink{mutex_8h_source_l00053}{53}} of file \mbox{\hyperlink{mutex_8h_source}{mutex.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/kernel/\mbox{\hyperlink{mutex_8h}{mutex.\+h}}\end{DoxyCompactItemize}

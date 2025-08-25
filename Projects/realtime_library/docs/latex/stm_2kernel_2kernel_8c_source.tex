@@ -1,0 +1,499 @@
+\doxysection{kernel.\+c}
+\hypertarget{stm_2kernel_2kernel_8c_source}{}\label{stm_2kernel_2kernel_8c_source}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/stm/kernel/kernel.c@{/media/sf\_ezs\_ss25/Projects/realtime\_library/stm/kernel/kernel.c}}
+\mbox{\hyperlink{stm_2kernel_2kernel_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00039}00039\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{kernel_8h}{kernel/kernel.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00040}00040\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{semaphore_8h}{kernel/semaphore.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00041}00041\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dictionary_8h}{utils/dictionary.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00042}00042\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{support_8h}{utils/support.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00043}00043\ \textcolor{preprocessor}{\#include\ "{}stm32l4xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00044}00044\ \textcolor{preprocessor}{\#include\ "{}cmsis\_gcc.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00045}00045\ \textcolor{preprocessor}{\#include\ "{}string.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00047}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a16e4b03171fcde809ab05f29dbc533ce}{00047}}\ \textcolor{preprocessor}{\#define\ MSP\_PSP}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00049}00049\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a82d3d38923c236ae08d1e1171ef761db}{kernel\_start\_task}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}**\ priority\_group,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00050}00050\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a2572802acfcff0cee22b826a2b7eeed8}{kernel\_swap\_task}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}**\ priority\_group,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00051}00051\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2}{Kernel\_Status\_e}}\ status);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00052}00052\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a2e52dedad3cf7d714060e64727c82aa6}{kernel\_set\_stack\_pointer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00054}00054\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac0574125de4d9f0106c455266d2f56a6}{kernel\_toggle\_critical\_section}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00057}\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{00057}}\ \mbox{\hyperlink{structtask__t}{task\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00058}\mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{00058}}\ \mbox{\hyperlink{structtask__t}{task\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\_running\_task\_next}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00059}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{00059}}\ \mbox{\hyperlink{structtask__t}{task\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}}\ \ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00060}\mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{00060}}\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2}{Kernel\_Status\_e}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a21102637a48009a9a61b1f85ee8f6ab2}{EN\_KERNEL\_NOT\_INITIALIZED}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00061}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a3a358a907ad8636916389d140060ecff}{00061}}\ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a3a358a907ad8636916389d140060ecff}{g\_task\_start\_time}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00063}\mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{00063}}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00064}\mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{00064}}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}}\ \ \ \ \ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00065}00065\ \textcolor{keyword}{extern}\ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00066}00066\ \textcolor{keyword}{extern}\ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac3165bd16367b2848c66446d60ee5762}{g\_task\_lowest\_priority}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00068}\mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{00068}}\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}\ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00069}\mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{00069}}\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}\ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00071}\mbox{\hyperlink{src_2kernel_2kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}{00071}}\ \mbox{\hyperlink{structdictionary__t}{dictionary\_t}}\ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}{g\_prioritized\_tasks}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00073}\mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{00073}}\ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}}\ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00074}\mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{00074}}\ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{g\_priority\_group\_next}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00076}00076\ \textcolor{keyword}{extern}\ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a7dc0730fdfa63247d899c6dae2681da0}{g\_terminated\_tasks\_list}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00079}00079\ \textcolor{keyword}{extern}\ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}{g\_kernel\_critical\_section\_active}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00080}00080\ \textcolor{keyword}{extern}\ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ \ \ *\mbox{\hyperlink{src_2kernel_2kernel_8c_a6e3a882f432c89fd5599f82167877100}{g\_delayed\_tasks}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00083}00083\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a303f92a941c5493399c334cdb3ee468d}{g\_available\_tasks}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00084}00084\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a472c4d53be91c685dd0f13bd44b548bc}{kernel\_reinsert\_task}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ **source,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **\mbox{\hyperlink{structelement}{element}},\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00085}\mbox{\hyperlink{stm_2kernel_2kernel_8c_af0b12129cd39d874bfebcc424b723b5d}{00085}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_af0b12129cd39d874bfebcc424b723b5d}{kernel\_task\_terminate}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00091}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a55b034b1a29761b9960d746db7e40636}{00091}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a55b034b1a29761b9960d746db7e40636}{kernel\_update}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//\ update\ system\ components}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00094}00094\ \ \ \ \ HAL\_IncTick();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00095}00095\ \ \ \ \ \textcolor{comment}{//\ exit\ immediately,\ if\ kernel\ is\ not\ running\ yet}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}\ ==\ NULL}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ ==\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a21102637a48009a9a61b1f85ee8f6ab2}{EN\_KERNEL\_NOT\_INITIALIZED}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ ==\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2ad755ce3207548b702da657732a7f1921}{EN\_KERNEL\_ERROR}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00102}00102\ \ \ \ \ \textcolor{comment}{//\ inform\ segger\ systick\ interrupt\ aka\ kernel\_update\ was\ entered}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00103}00103\ \ \ \ \ \mbox{\hyperlink{support_8h_ab4d8ddabf7d851175e7e7b8a0cf3d990}{SEGGER\_SYSVIEW\_RECORD\_ENTER\_ISR}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00105}00105\ \ \ \ \ \textcolor{comment}{//\ Return\ during\ critical\ section,\ but\ only\ after\ recording\ for\ SEGGER}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}{g\_kernel\_critical\_section\_active}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{support_8h_a50d98ba78cf211d4aa5d65c7e9d4a32f}{SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00111}00111\ \ \ \ \ \textcolor{comment}{//\ handle\ delta\ times\ in\ delayed\ task\ list}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00112}00112\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00113}00113\ \ \ \ \ \mbox{\hyperlink{structtask__t}{task\_t}}\ *task\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a6e3a882f432c89fd5599f82167877100}{g\_delayed\_tasks}}-\/>\mbox{\hyperlink{structlinked__list__t_a854352f53b148adc24983a58a1866d66}{size}}>0)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ task\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}\ *)\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a6e3a882f432c89fd5599f82167877100}{g\_delayed\_tasks}}-\/>\mbox{\hyperlink{structlinked__list__t_a387acc4799713fa6aa7614762928c785}{tail}}-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task-\/>\mbox{\hyperlink{structtask__t_a8db1884c2715f8ec274fe811f5f1fe59}{delta\_time}}==0)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reinsert\ task\ from\ delay\ list\ to\ its\ priority\ group}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a472c4d53be91c685dd0f13bd44b548bc}{kernel\_reinsert\_task}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a6e3a882f432c89fd5599f82167877100}{g\_delayed\_tasks}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a6e3a882f432c89fd5599f82167877100}{g\_delayed\_tasks}}-\/>\mbox{\hyperlink{structlinked__list__t_a387acc4799713fa6aa7614762928c785}{tail}},\ \&task);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00119}00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ decrement\ delta\ time}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ task-\/>\mbox{\hyperlink{structtask__t_a8db1884c2715f8ec274fe811f5f1fe59}{delta\_time}}-\/-\/;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00124}00124\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00127}00127\ \ \ \ \ \textcolor{comment}{//\ check\ if\ time\ quantum\ has\ elapsed\ and\ update\ kernel\ state}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00128}00128\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}-\/>\mbox{\hyperlink{structtask__t_ad5050a747bac8c6fb50911822011e7f5}{time\_quantum\_remaining}}\ ==\ 0}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ !\mbox{\hyperlink{src_2kernel_2kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}{g\_kernel\_critical\_section\_active}}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ !=\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a7bbd096755509bb8470171cbb4df302b}{EN\_KERNEL\_IDLE}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a82d3d38923c236ae08d1e1171ef761db}{kernel\_start\_task}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{g\_priority\_group\_next}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\_running\_task\_next}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00132}00132\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ ==\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a7bbd096755509bb8470171cbb4df302b}{EN\_KERNEL\_IDLE}}\ \&\&\ status\ ==\ \mbox{\hyperlink{kernel_8h_a4f747e7c4da2d7409b2123c387b048ab}{KERNEL\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ exit\ idle}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_acfb7631186d96136fc3ebe641ae2a8eb}{kernel\_exit\_idle}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00136}00136\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}-\/>\mbox{\hyperlink{structtask__t_ad5050a747bac8c6fb50911822011e7f5}{time\_quantum\_remaining}}\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ decrement\ time\ quantum}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}-\/>\mbox{\hyperlink{structtask__t_ad5050a747bac8c6fb50911822011e7f5}{time\_quantum\_remaining}}-\/-\/;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00142}00142\ \ \ \ \ \textcolor{comment}{//\ inform\ segger\ systick\ interrupt\ aka\ kernel\_update\ is\ about\ to\ exit}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00143}00143\ \ \ \ \ \mbox{\hyperlink{support_8h_a50d98ba78cf211d4aa5d65c7e9d4a32f}{SEGGER\_SYSVIEW\_RECORD\_EXIT\_ISR}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00144}00144\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00151}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a2804a023941a956288c32ad08b2cf59e}{00151}}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a2804a023941a956288c32ad08b2cf59e}{\_\_attribute\_\_}}((naked))}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00152}00152\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{kernel_8h_ab15ebdc1a687f1a48074573552657390}{kernel\_schedule\_task}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00154}00154\ \ \ \ \ \textcolor{comment}{//\ 1.\ PendSv\ pushes\ stack\ frame\ on\ stack}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00156}00156\ \ \ \ \ \textcolor{comment}{//\ 2.\ allocate\ stack\ memory\ for\ following\ operations\ and\ disable\ interrupts}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00157}00157\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}PUSH\ \{LR\}"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00158}00158\ \ \ \ \ \textcolor{comment}{//\ move\ stack\ pointer\ enough\ for\ variables}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00159}00159\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}SUB\ SP,\ SP,\ \#8"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00160}00160\ \ \ \ \ \textcolor{comment}{//\ after\ moving\ the\ stackpointer\ functions\ and\ everything\ else\ can\ be\ done}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00161}00161\ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_ad0710a90c578c112db22235646936a20}{kernel\_disable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00162}00162\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00163}00163\ \ \ \ \ uint32\_t\ psp;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00165}00165\ \ \ \ \ \textcolor{comment}{//\ 3.\ push\ R4-\/R11\ on\ stack}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00166}00166\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}PUSH\ \{R2\}"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00167}00167\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}MRS\ R2,\ PSP"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00168}00168\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}STMDB\ R2!,\ \{R4-\/R11\}"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00169}00169\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}MSR\ PSP,\ R2"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00171}00171\ \ \ \ \ \textcolor{comment}{//\ update\ system}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00172}00172\ \ \ \ \ \_\_ISB();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00174}00174\ \ \ \ \ \textcolor{comment}{//\ obtain\ psp}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00175}00175\ \ \ \ \ psp\ =\ \_\_get\_PSP();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00178}00178\ \ \ \ \ \textcolor{comment}{//\ 4.\ load\ next\ task\ by\ using\ its\ psp\ and\ move\ memory\ location}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00180}00180\ \ \ \ \ \mbox{\hyperlink{task_8c_a94e3f7f4c880c9c2d6d6799a137117cc}{task\_reset\_time\_quantum\_remaining}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00182}00182\ \ \ \ \ status\ =\ \mbox{\hyperlink{task_8c_a01484528b00ba93895b706ea4a029302}{task\_checking}}(\&\mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00183}00183\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ ==\ \mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{TASK\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ previous\ tasks\ psp\ and\ update\ segger\ stack\ usage}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}}-\/>\mbox{\hyperlink{structtask__t_a1fb5ad058d827429ec22745171fcd22b}{task\_data}}-\/>\mbox{\hyperlink{structTCB__sctTCB__t_a550895f7309b451760ea7240eecf068e}{u32TaskSP}}\ =\ psp;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{support_8h_a8a2bd3d919f89a3ad867a3304282a6c1}{SEGGER\_SET\_STACKPOINTER}}(\mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00187}00187\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00189}00189\ \ \ \ \ \textcolor{comment}{//\ get\ tasks\ psp\ and\ prepare\ for\ reentry}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00190}00190\ \ \ \ \ psp\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}-\/>\mbox{\hyperlink{structtask__t_a1fb5ad058d827429ec22745171fcd22b}{task\_data}}-\/>\mbox{\hyperlink{structTCB__sctTCB__t_a550895f7309b451760ea7240eecf068e}{u32TaskSP}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00191}00191\ \ \ \ \ \mbox{\hyperlink{task_8c_adda51d8ef0b37521b25acb7d883a01c4}{task\_set\_state}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}},\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570ace7df1fea4c86c0a61fad5a3ddc599bc}{TaskState\_Running}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00195}00195\ \ \ \ \ \_\_set\_PSP(psp);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00197}00197\ \ \ \ \ \textcolor{comment}{//\ check\ if\ critical\ section\ is\ still\ set}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00198}00198\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}{g\_kernel\_critical\_section\_active}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac0574125de4d9f0106c455266d2f56a6}{kernel\_toggle\_critical\_section}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00200}00200\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00202}00202\ \ \ \ \ \textcolor{comment}{//\ pop\ R4-\/R11\ from\ Stack\ in\ reverse\ order}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00204}00204\ \ \ \ \ \textcolor{comment}{//\_\_set\_CONTROL(\_\_get\_CONTROL()\ |\ (1\ <<\ 1));}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00205}00205\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}MRS\ R2,\ PSP"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00206}00206\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}LDMIA\ R2!,\ \{R4-\/R11\}"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00208}00208\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}MSR\ PSP,\ R2"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00209}00209\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}POP\ \{R2\}"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00210}00210\ \ \ \ \ \_\_ISB();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00213}00213\ \ \ \ \ \textcolor{comment}{//\ 5.\ enable\ interrupts}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00214}00214\ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a01d4886f9d86ae45f1194ce65a617c0f}{kernel\_enable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00215}00215\ \ \ \ \ \textcolor{comment}{//\ free\ up\ stack\ and\ undo\ changes}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00216}00216\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}ADD\ SP,\ SP,\ \#8"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00217}00217\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}POP\ \{LR\}"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00219}00219\ \ \ \ \ \textcolor{comment}{//\ 6.\ leave\ PendSv\ Routine}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00220}00220\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}BX\ LR"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00221}00221\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00231}\mbox{\hyperlink{src_2kernel_2kernel_8c_a2572802acfcff0cee22b826a2b7eeed8}{00231}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a2572802acfcff0cee22b826a2b7eeed8}{kernel\_swap\_task}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}**\ priority\_group,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00233}00233\ \ \ \ \ \textcolor{comment}{//\ set\ task\ to\ blocked\ and\ check\ for\ errors}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00234}00234\ \ \ \ \ \mbox{\hyperlink{structtask__t}{task\_t}}\ *task\_blocked\ =\ (*task);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00235}00235\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{task_8c_adda51d8ef0b37521b25acb7d883a01c4}{task\_set\_state}}(task,\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a}{TaskState\_Blocked}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00236}00236\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{TASK\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00237}00237\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2ad755ce3207548b702da657732a7f1921}{EN\_KERNEL\_ERROR}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{kernel_8h_aa7a514b60bddba6d757556f1a17b68dc}{KERNEL\_TASK\_ERROR\_REGISTER}},\ \mbox{\hyperlink{kernel_8h_a33c8712190861c0c2f0ddc2b310bbfaa}{KERNEL\_UNABLE\_TO\_SCHEDULE\_TASK}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00239}00239\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00241}00241\ \ \ \ \ \textcolor{comment}{//\ check\ if\ next\ task\ was\ set}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00242}00242\ \ \ \ \ \textcolor{keywordflow}{if}\ ((*priority\_group)-\/>size\ ==\ 0}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}\ ==\ NULL}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\_running\_task\_next}}\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00246}00246\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ determine\ next\ task}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ *next\_priority\_group\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{dictionary_8c_ac502288081c3e531a135c1aa7e46bdce}{dictionary\_get}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}{g\_prioritized\_tasks}},\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}},\ (\textcolor{keywordtype}{void}\ **)\ \&next\_priority\_group);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}}++;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (next\_priority\_group-\/>\mbox{\hyperlink{structlinked__list__t_a854352f53b148adc24983a58a1866d66}{size}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}}\ <\ \mbox{\hyperlink{kernel_8h_a6596b7c0820eb40a2a3038053e7d2643}{KERNEL\_MAX\_TASK}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (next\_priority\_group-\/>\mbox{\hyperlink{structlinked__list__t_a854352f53b148adc24983a58a1866d66}{size}}\ ==\ 0\ \&\&\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}}\ ==\ \mbox{\hyperlink{kernel_8h_a6596b7c0820eb40a2a3038053e7d2643}{KERNEL\_MAX\_TASK}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ unable\ to\ find\ executable\ task\ in\ any\ priority,\ enter\ idle\ mode}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a996d79a41eef101e37edd15fb423c1a6}{kernel\_enter\_idle}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ assume\ next\ task\ was\ set\ by\ reinsert}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ we\ are\ in\ a\ critical\ section}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{src_2kernel_2kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}{g\_kernel\_critical\_section\_active}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac0574125de4d9f0106c455266d2f56a6}{kernel\_toggle\_critical\_section}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ next\ task\ information}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{g\_priority\_group\_next}}\ =\ next\_priority\_group;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{g\_priority\_group\_next}}-\/>\mbox{\hyperlink{structlinked__list__t_a387acc4799713fa6aa7614762928c785}{tail}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\_running\_task\_next}}\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}\ *)\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00270}00270\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00272}00272\ \ \ \ \ \textcolor{comment}{//\ start\ next\ task\ and\ check\ for\ errors}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00273}00273\ \ \ \ \ status\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a82d3d38923c236ae08d1e1171ef761db}{kernel\_start\_task}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{g\_priority\_group\_next}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\_running\_task\_next}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00274}00274\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{kernel_8h_a4f747e7c4da2d7409b2123c387b048ab}{KERNEL\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{kernel_8h_aa7a514b60bddba6d757556f1a17b68dc}{KERNEL\_TASK\_ERROR\_REGISTER}},\ \mbox{\hyperlink{kernel_8h_aede61869c47d25639fe299539d0e7e3e}{KERNEL\_UNABLE\_TO\_SWAP}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00276}00276\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00278}00278\ \ \ \ \ \textcolor{comment}{//\ catch\ blocked\ task}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00279}00279\ \ \ \ \ \textcolor{keywordflow}{while}(task\_blocked-\/>\mbox{\hyperlink{structtask__t_a1fb5ad058d827429ec22745171fcd22b}{task\_data}}-\/>\mbox{\hyperlink{structTCB__sctTCB__t_ab010baa4ac75ac6c7af73de0da2774d0}{eTaskState}}\ ==\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a}{TaskState\_Blocked}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00280}00280\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{kernel_8h_a4f747e7c4da2d7409b2123c387b048ab}{KERNEL\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00281}00281\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00291}\mbox{\hyperlink{src_2kernel_2kernel_8c_a82d3d38923c236ae08d1e1171ef761db}{00291}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a82d3d38923c236ae08d1e1171ef761db}{kernel\_start\_task}}(\mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}**\ priority\_group,\ \mbox{\hyperlink{structelement}{linked\_list\_element\_t}}\ **linked\_list\_element,\ \mbox{\hyperlink{structtask__t}{task\_t}}\ **task)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00293}00293\ \ \ \ \ \textcolor{comment}{//\ update\ task\ state\ and\ check\ for\ errors}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00294}00294\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{task_8c_adda51d8ef0b37521b25acb7d883a01c4}{task\_set\_state}}(task,\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53}{TaskState\_Ready}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00295}00295\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{TASK\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00296}00296\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2ad755ce3207548b702da657732a7f1921}{EN\_KERNEL\_ERROR}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00297}00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{kernel_8h_aa7a514b60bddba6d757556f1a17b68dc}{KERNEL\_TASK\_ERROR\_REGISTER}},\ \mbox{\hyperlink{kernel_8h_a33c8712190861c0c2f0ddc2b310bbfaa}{KERNEL\_UNABLE\_TO\_SCHEDULE\_TASK}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00298}00298\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00300}00300\ \ \ \ \ \textcolor{comment}{//\ set\ time\ quantum}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00301}00301\ \ \ \ \ status\ =\ \mbox{\hyperlink{task_8c_a94e3f7f4c880c9c2d6d6799a137117cc}{task\_reset\_time\_quantum\_remaining}}(task);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00302}00302\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{TASK\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00303}00303\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2ad755ce3207548b702da657732a7f1921}{EN\_KERNEL\_ERROR}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00304}00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{kernel_8h_aa7a514b60bddba6d757556f1a17b68dc}{KERNEL\_TASK\_ERROR\_REGISTER}},\ \mbox{\hyperlink{kernel_8h_a33c8712190861c0c2f0ddc2b310bbfaa}{KERNEL\_UNABLE\_TO\_SCHEDULE\_TASK}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00305}00305\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00306}00306\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00308}00308\ \ \ \ \ \textcolor{comment}{//\ set\ previous\ task\ and\ set\ it\ to\ ready\ if\ not\ blocked}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00309}00309\ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00310}00310\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}}\ !=\ NULL\ \&\&\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}}-\/>\mbox{\hyperlink{structtask__t_a1fb5ad058d827429ec22745171fcd22b}{task\_data}}-\/>\mbox{\hyperlink{structTCB__sctTCB__t_ab010baa4ac75ac6c7af73de0da2774d0}{eTaskState}}\ !=\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a}{TaskState\_Blocked}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00311}00311\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{task_8c_adda51d8ef0b37521b25acb7d883a01c4}{task\_set\_state}}(\&\mbox{\hyperlink{stm_2kernel_2kernel_8c_a244a392f511d01989404650ca4f53538}{g\_running\_task\_previous}},\ \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53}{TaskState\_Ready}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00312}00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{task_8h_a4212f1199f698442e7ce6237b161f078}{TASK\_SUCCESS}}\ \&\&\ status\ !=\ \mbox{\hyperlink{task_8h_aa59922f1563c7ac35a48b41041e30ee5}{TASK\_NO\_MEMORY}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2ad755ce3207548b702da657732a7f1921}{EN\_KERNEL\_ERROR}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{kernel_8h_aa7a514b60bddba6d757556f1a17b68dc}{KERNEL\_TASK\_ERROR\_REGISTER}},\ \mbox{\hyperlink{kernel_8h_a33c8712190861c0c2f0ddc2b310bbfaa}{KERNEL\_UNABLE\_TO\_SCHEDULE\_TASK}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00315}00315\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00316}00316\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00319}00319\ \ \ \ \ \textcolor{comment}{//\ implements\ priority\ inheritance}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00320}00320\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00321}00321\ \textcolor{comment}{\ \ \ \ \ *\ Inheritance\ starts\ with\ lowest\ priority\ group}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00322}00322\ \textcolor{comment}{\ \ \ \ \ *\ and\ all\ tasks\ are\ moved\ higher\ at\ the\ same\ time.}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00323}00323\ \textcolor{comment}{\ \ \ \ \ *\ To\ prevent\ starvation\ for\ higher\ task\ a\ cool\ down\ is\ needed,}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00324}00324\ \textcolor{comment}{\ \ \ \ \ *\ because\ there\ can\ be\ more\ lower\ prioritized\ tasks.}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00325}00325\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00326}00326\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ inheritance\_cooldown\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00328}00328\ \ \ \ \ \textcolor{comment}{//\ lower\_priority\ might\ point\ to\ the\ last\ used\ priority\ group}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00329}00329\ \ \ \ \ \textcolor{comment}{//\ it\ needs\ to\ be\ prevented\ that\ the\ new\ priority\ group\ is\ being\ moved\ to\ a\ higher\ priority\ group\ by\ inheritance}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00330}00330\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}}\ <=\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00331}00331\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac3165bd16367b2848c66446d60ee5762}{g\_task\_lowest\_priority}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00332}00332\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00334}00334\ \ \ \ \ \textcolor{comment}{//\ move\ priority\ groups,\ if\ the\ current\ priority\ group\ is\ lower}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00335}00335\ \ \ \ \ \textcolor{keywordflow}{if}\ (inheritance\_cooldown\ ==\ 0\ \&\&\ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}}\ >\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00337}00337\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ obtain\ priority\ group\ and\ check\ for\ errors}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00338}00338\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ *lower\_priority\_group\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00339}00339\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{dictionary_8c_ac502288081c3e531a135c1aa7e46bdce}{dictionary\_get}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}{g\_prioritized\_tasks}},\ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}},\ (\textcolor{keywordtype}{void}\ **)\ \&lower\_priority\_group);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00340}00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{kernel_8h_a2a303d7e4d73d47f77d2bffdcb4081ac}{KERNEL\_DICTIONARY\_ERROR\_REGISTER}},\ \mbox{\hyperlink{kernel_8h_a33c8712190861c0c2f0ddc2b310bbfaa}{KERNEL\_UNABLE\_TO\_SCHEDULE\_TASK}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00342}00342\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00344}00344\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ obtain\ higher\ priority\ group\ and\ check\ for\ errors}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00345}00345\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}}-\/-\/;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00346}00346\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structlinked__list__t}{linked\_list\_t}}\ *higher\_priority\_group\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00347}00347\ \ \ \ \ \ \ \ \ status\ =\ \mbox{\hyperlink{dictionary_8c_ac502288081c3e531a135c1aa7e46bdce}{dictionary\_get}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}{g\_prioritized\_tasks}},\ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}},\ (\textcolor{keywordtype}{void}\ **)\ \&higher\_priority\_group);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00348}00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{dictionary_8h_aa6c25a3ad4071d9b0f0c5ad777dc29ae}{DICTIONARY\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{support_8h_ac4761c739aba1968a75152accb369dc2}{ERROR\_INFO}}(status,\ \mbox{\hyperlink{kernel_8h_a2a303d7e4d73d47f77d2bffdcb4081ac}{KERNEL\_DICTIONARY\_ERROR\_REGISTER}},\ \mbox{\hyperlink{kernel_8h_a33c8712190861c0c2f0ddc2b310bbfaa}{KERNEL\_UNABLE\_TO\_SCHEDULE\_TASK}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00350}00350\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00351}00351\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00352}00352\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ current\ priority\ group\ was\ reached\ and\ move\ priority\ group}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00353}00353\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ moved\_elements\ =\ lower\_priority\_group-\/>\mbox{\hyperlink{structlinked__list__t_a854352f53b148adc24983a58a1866d66}{size}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00354}00354\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00355}00355\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{linked__list_8c_a00841e8f45c8c8ae67d894e1a90d3dcb}{linked\_list\_move\_linked\_list\_after}}(\&higher\_priority\_group,\ \&lower\_priority\_group);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00357}00357\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}}\ ==\ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ inheritance\ and\ set\ cool\ down}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_af2a34ea23217c5e3ac0f09b2fe9802cd}{g\_task\_lower\_priority}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac3165bd16367b2848c66446d60ee5762}{g\_task\_lowest\_priority}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ inheritance\_cooldown\ =\ moved\_elements;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00361}00361\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00362}00362\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00364}00364\ \ \ \ \ \textcolor{comment}{//\ set\ current\ task\ information\ and\ preset\ next\ task}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00365}00365\ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}\ =\ *task;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00366}00366\ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}\ =\ *linked\_list\_element;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00367}00367\ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}}\ =\ *priority\_group;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00368}00368\ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{g\_priority\_group\_next}}\ =\ *priority\_group;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00370}00370\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00371}00371\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ next\ task}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00372}00372\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00373}00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ end\ of\ priority\ group\ and\ restart\ with\ first\ element}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}}-\/>\mbox{\hyperlink{structlinked__list__t_a387acc4799713fa6aa7614762928c785}{tail}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00376}00376\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00377}00377\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\_running\_task\_next}}\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}\ *)\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00378}00378\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}}\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00379}00379\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00380}00380\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}}-\/>\mbox{\hyperlink{structlinked__list__t_a854352f53b148adc24983a58a1866d66}{size}}\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00381}00381\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ jump\ to\ next\ priority\ group}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00382}00382\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{dictionary_8c_ac502288081c3e531a135c1aa7e46bdce}{dictionary\_get}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a8ad9817417ac78418fcc96c0b9ddb5e3}{g\_prioritized\_tasks}},\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}},\ (\textcolor{keywordtype}{void}\ **)\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00383}00383\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a269a52e775212b39ab9b36749e8c784f}{g\_priority\_group\_next}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00384}00384\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}}-\/>\mbox{\hyperlink{structlinked__list__t_a387acc4799713fa6aa7614762928c785}{tail}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00385}00385\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}\ *)\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00387}00387\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00388}00388\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00389}00389\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ end\ of\ priority\ group\ and\ restart\ with\ first\ element}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00390}00390\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}}-\/>\mbox{\hyperlink{structlinked__list__t_a387acc4799713fa6aa7614762928c785}{tail}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00391}00391\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}\ *)\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00392}00392\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}}-\/>\mbox{\hyperlink{structelement_ad6c8fbd54a667cc66ac1b130f0083081}{next}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00393}00393\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a7901950415e33fca551eaf4d1653ed13}{g\_running\_task\_next}}\ =\ (\mbox{\hyperlink{structtask__t}{task\_t}}\ *)\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a0af8b83c448299a32985cf85b970a9be}{g\_linked\_list\_task\_iterator\_next}}-\/>\mbox{\hyperlink{structelement_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00394}00394\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_a105788c2e945106a04bcc0ae7dada0e2}{g\_dictionary\_priority\_next}}\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a32c6a247d7774b1962eafa56fd521dd7}{g\_dictionary\_priority}}\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00395}00395\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00396}00396\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00397}00397\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ critical\ section\ end\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00398}00398\ \ \ \ \ SCB-\/>ICSR\ |=\ SCB\_ICSR\_PENDSVSET\_Msk;\ \textcolor{comment}{//\ set\ PendSV-\/Flag}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00400}00400\ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a01d4886f9d86ae45f1194ce65a617c0f}{kernel\_enable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00402}00402\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{kernel_8h_a4f747e7c4da2d7409b2123c387b048ab}{KERNEL\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00403}00403\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00410}\mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{00410}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2}{Kernel\_Status\_e}}\ status)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00412}00412\ \ \ \ \ \textcolor{comment}{//\ finite\ state\ machine\ for\ kernel\ states}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00413}00413\ \ \ \ \ \textcolor{comment}{//\ it\ blocks\ on\ wrong\ transition\ or\ on\ an\ error}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00414}00414\ \ \ \ \ \textcolor{keywordflow}{switch}\ (status)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00415}00415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a2185a5e4d0913f3dcf9ebc3f1c6a7bf3}{EN\_KERNEL\_STARTING}}:}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ !=\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a21102637a48009a9a61b1f85ee8f6ab2}{EN\_KERNEL\_NOT\_INITIALIZED}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00420}00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a92425f6b2d60450b04c70acddc6b9a59}{EN\_KERNEL\_RUNNING}}:}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!(\mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ ==\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a2185a5e4d0913f3dcf9ebc3f1c6a7bf3}{EN\_KERNEL\_STARTING}}\ ||\ \mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ ==\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a7bbd096755509bb8470171cbb4df302b}{EN\_KERNEL\_IDLE}}))\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00425}00425\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a7bbd096755509bb8470171cbb4df302b}{EN\_KERNEL\_IDLE}}:}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ !=\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a92425f6b2d60450b04c70acddc6b9a59}{EN\_KERNEL\_RUNNING}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00430}00430\ \ \ \ \ \ \ \ \ default\ :}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00432}00432\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00434}00434\ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ =\ status;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00435}00435\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00436}00436\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{kernel_8h_a4f747e7c4da2d7409b2123c387b048ab}{KERNEL\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00437}00437\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00443}\mbox{\hyperlink{src_2kernel_2kernel_8c_a2e52dedad3cf7d714060e64727c82aa6}{00443}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a2e52dedad3cf7d714060e64727c82aa6}{kernel\_set\_stack\_pointer}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00444}00444\ \ \ \ \ \_\_set\_PSP(\_\_get\_MSP());}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00445}00445\ \ \ \ \ \textcolor{comment}{//\ update\ memory\ and\ switch\ between\ msp\ for\ interrupts\ and\ psp\ for\ tasks}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00446}00446\ \ \ \ \ \_\_set\_CONTROL(\_\_get\_CONTROL()\ |\ (1\ <<\ 1));}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00448}00448\ \ \ \ \ \textcolor{comment}{//\ update\ and\ flush\ system}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00449}00449\ \ \ \ \ \_\_ISB();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00450}00450\ \ \ \ \ \_\_DSB();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00452}00452\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{kernel_8h_a4f747e7c4da2d7409b2123c387b048ab}{KERNEL\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00453}00453\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00455}00455\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00463}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a4ec0cc9cfe14f7ebe662eb8a7d9bbf4d}{00463}}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a2804a023941a956288c32ad08b2cf59e}{\_\_attribute\_\_}}((aligned(256)))}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00464}00464\ uint32\_t\ vector\_table[256];}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00465}00465\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_aecc1d7602ec2800fcdc0d31d35a7a379}{kernel\_set\_system\_functions}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00466}00466\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00467}00467\ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_ad0710a90c578c112db22235646936a20}{kernel\_disable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00468}00468\ \ \ \ \ \textcolor{comment}{//\ copy\ vector\ table\ to\ memory\ and\ point\ to\ the\ new\ vector\ table}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00469}00469\ \ \ \ \ memcpy(vector\_table,\ (\textcolor{keywordtype}{void}\ *)\ SCB-\/>VTOR,\ 96\ *\ \textcolor{keyword}{sizeof}(uint32\_t));}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00470}00470\ \ \ \ \ SCB-\/>VTOR\ =\ (uint32\_t)\ vector\_table;}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00472}00472\ \ \ \ \ \textcolor{comment}{//\ lower\ number\ means\ higher\ interrupt\ priority}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00473}00473\ \ \ \ \ \textcolor{comment}{//\ change\ priority\ if\ necessary}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00474}00474\ \ \ \ \ NVIC\_SetPriority(PendSV\_IRQn,\ 0xFF);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00475}00475\ \ \ \ \ \textcolor{comment}{//\ ensures\ same\ priority\ and\ makes\ use\ of\ interrupt\ tail\ chaining}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00476}00476\ \ \ \ \ NVIC\_SetPriority(SysTick\_IRQn,\ 0);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00477}00477\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00478}00478\ \ \ \ \ \textcolor{comment}{//\ replace\ functions\ and\ update\ memory}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00479}00479\ \ \ \ \ \_\_NVIC\_SetVector(PendSV\_IRQn,\ (uint32\_t)\ \mbox{\hyperlink{kernel_8h_ab15ebdc1a687f1a48074573552657390}{kernel\_schedule\_task}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00480}00480\ \ \ \ \ \_\_NVIC\_SetVector(SysTick\_IRQn,\ (uint32\_t)\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a55b034b1a29761b9960d746db7e40636}{kernel\_update}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00481}00481\ \ \ \ \ \_\_DSB();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00482}00482\ \ \ \ \ \_\_ISB();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00483}00483\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00484}00484\ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a01d4886f9d86ae45f1194ce65a617c0f}{kernel\_enable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00485}00485\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00486}00486\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00492}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a1189dd91eaac397089d6c6e132c2ab2f}{00492}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a1189dd91eaac397089d6c6e132c2ab2f}{kernel\_delay\_blocking}}(\textcolor{keywordtype}{size\_t}\ delay\_millisecods)\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00494}00494\ \ \ \ \ HAL\_Delay((uint32\_t)\ delay\_millisecods);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00495}00495\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00501}\mbox{\hyperlink{stm_2kernel_2kernel_8c_aa5e3860932c2e09e1265f23c31551720}{00501}}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_aa5e3860932c2e09e1265f23c31551720}{kernel\_get\_tick}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00502}00502\ \ \ \ \ \textcolor{keywordflow}{return}\ HAL\_GetTick();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00503}00503\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00509}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a996d79a41eef101e37edd15fb423c1a6}{00509}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a996d79a41eef101e37edd15fb423c1a6}{kernel\_enter\_idle}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00511}00511\ \ \ \ \ \textcolor{comment}{//\ set\ kernel\ to\ idle\ state\ to\ active\ block\ in\ debug\ session}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00512}00512\ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a7bbd096755509bb8470171cbb4df302b}{EN\_KERNEL\_IDLE}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00513}00513\ \ \ \ \ \mbox{\hyperlink{support_8h_a831ee55321681dbb10b927350a3306ba}{SEGGER\_SYSVIEW\_TASK\_SYSTEM\_IDLE}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00514}00514\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00515}00515\ \ \ \ \ \textcolor{comment}{//\ critical\ section\ cannot\ be\ active\ when\ idle}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00516}00516\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_af1eced3da5e3a09ad47574f9caae2d8a}{g\_kernel\_critical\_section\_active}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00517}00517\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac0574125de4d9f0106c455266d2f56a6}{kernel\_toggle\_critical\_section}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00518}00518\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00519}00519\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00520}00520\ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ interrupts\ are\ enabled\ to\ be\ able\ to\ recover\ from\ idle}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00521}00521\ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a01d4886f9d86ae45f1194ce65a617c0f}{kernel\_enable\_interrupts}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00522}00522\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00523}00523\ \ \ \ \ \textcolor{comment}{//\ when\ in\ debug\ session\ it\ can\ lead\ to\ unexpected\ behavior\ after\ sleep}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00524}00524\ \textcolor{preprocessor}{\#ifndef\ DEBUG}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00525}00525\ \ \ \ \ \textcolor{comment}{//\ put\ system\ to\ sleep}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00526}00526\ \ \ \ \ HAL\_DBGMCU\_EnableDBGSleepMode();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00527}00527\ \ \ \ \ HAL\_PWR\_EnableSleepOnExit();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00528}00528\ \ \ \ \ HAL\_PWR\_EnterSLEEPMode(PWR\_LOWPOWERREGULATOR\_ON,\ PWR\_SLEEPENTRY\_WFI);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00529}00529\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00530}00530\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00531}00531\ \ \ \ \ \textcolor{comment}{//\ catch\ kernel\ in\ idle}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00532}00532\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_ab7526169fb1376f757c464e93703a83e}{g\_kernel\_status}}\ ==\ \mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a7bbd096755509bb8470171cbb4df302b}{EN\_KERNEL\_IDLE}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00533}00533\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00539}\mbox{\hyperlink{stm_2kernel_2kernel_8c_acfb7631186d96136fc3ebe641ae2a8eb}{00539}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_acfb7631186d96136fc3ebe641ae2a8eb}{kernel\_exit\_idle}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00540}00540\ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2a92425f6b2d60450b04c70acddc6b9a59}{EN\_KERNEL\_RUNNING}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00542}00542\ \ \ \ \ \textcolor{comment}{//\ when\ in\ debug\ session\ it\ can\ lead\ to\ unexpected\ behavior}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00543}00543\ \textcolor{preprocessor}{\#ifndef\ DEBUG}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00544}00544\ \ \ \ \ HAL\_DBGMCU\_DisableDBGSleepMode();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00545}00545\ \ \ \ \ HAL\_PWR\_DisableSleepOnExit();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00546}00546\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00547}00547\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00548}00548\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00549}00549\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00554}\mbox{\hyperlink{stm_2kernel_2kernel_8c_ad0710a90c578c112db22235646936a20}{00554}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_ad0710a90c578c112db22235646936a20}{kernel\_disable\_interrupts}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00555}00555\ \ \ \ \ \_\_disable\_irq();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00556}00556\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00557}00557\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00562}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a01d4886f9d86ae45f1194ce65a617c0f}{00562}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a01d4886f9d86ae45f1194ce65a617c0f}{kernel\_enable\_interrupts}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00563}00563\ \ \ \ \ \_\_enable\_irq();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00564}00564\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00565}00565\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00570}00570\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a2804a023941a956288c32ad08b2cf59e}{\_\_attribute\_\_}}((naked))}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00571}00571\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{src_2kernel_2kernel_8c_af0b12129cd39d874bfebcc424b723b5d}{kernel\_task\_terminate}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00572}00572\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00573}00573\ \ \ \ \ \textcolor{comment}{//\ assign\ task\ return\ value\ to\ task}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00574}00574\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}MOV\ \%0,\ R0"{}}\ :\ \textcolor{stringliteral}{"{}=r"{}}(\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}}-\/>\mbox{\hyperlink{structtask__t_a9488fe0f991bb398e88d2a2379d0ba40}{return\_value}})\ :\ :);}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00576}00576\ \ \ \ \ \_\_asm\ \textcolor{keyword}{volatile}\ (\textcolor{stringliteral}{"{}SUB\ SP,\ SP,\ \#8"{}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00577}00577\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00578}00578\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ status\ =\ \mbox{\hyperlink{linked__list_8c_a2702c739a8aea4b12cdb348aecd87a89}{linked\_list\_transfer}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a7dc0730fdfa63247d899c6dae2681da0}{g\_terminated\_tasks\_list}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00579}00579\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{linked__list_8h_ac7e6ba5ba80b4bd6ebe13614af226ff2}{LINKED\_LIST\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00580}00580\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2ad755ce3207548b702da657732a7f1921}{EN\_KERNEL\_ERROR}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00581}00581\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00583}00583\ \ \ \ \ \textcolor{comment}{//\ check\ if\ all\ tasks\ terminated}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00584}00584\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{src_2kernel_2kernel_8c_a303f92a941c5493399c334cdb3ee468d}{g\_available\_tasks}}==\mbox{\hyperlink{src_2kernel_2kernel_8c_a7dc0730fdfa63247d899c6dae2681da0}{g\_terminated\_tasks\_list}}-\/>\mbox{\hyperlink{structlinked__list__t_a854352f53b148adc24983a58a1866d66}{size}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00585}00585\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a7cb1c3b06fb3bf038d21ed4394abe85a}{kernel\_shutdown}}();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00586}00586\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00587}00587\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00588}00588\ \ \ \ \ \textcolor{comment}{//\ switch\ to\ next\ task}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00589}00589\ \ \ \ \ status\ =\ \mbox{\hyperlink{src_2kernel_2kernel_8c_a2572802acfcff0cee22b826a2b7eeed8}{kernel\_swap\_task}}(\&\mbox{\hyperlink{src_2kernel_2kernel_8c_a19b0d9e91fa292e1c48d8fa95b77b928}{g\_priority\_group\_current}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a1ca4314a6412565954da7439e0aa13cc}{g\_linked\_list\_task\_iterator}},\ \&\mbox{\hyperlink{src_2kernel_2kernel_8c_a5cd10a094ccc1303513ef222e35bfec4}{g\_running\_task\_current}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00590}00590\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \mbox{\hyperlink{kernel_8h_a4f747e7c4da2d7409b2123c387b048ab}{KERNEL\_SUCCESS}})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00591}00591\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2kernel_2kernel_8c_ac27d4440da0880ea8d551dbf82a88a58}{kernel\_set\_status}}(\mbox{\hyperlink{kernel_8h_a6b9019e7f37f0cb8e9055d6b54a325c2ad755ce3207548b702da657732a7f1921}{EN\_KERNEL\_ERROR}});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00592}00592\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00593}00593\ \ \ \ \ \textcolor{comment}{//\ catch\ task\ on\ any\ error}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00594}00594\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00595}00595\ \}}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00596}00596\ }
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00601}\mbox{\hyperlink{stm_2kernel_2kernel_8c_a7cb1c3b06fb3bf038d21ed4394abe85a}{00601}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stm_2kernel_2kernel_8c_a7cb1c3b06fb3bf038d21ed4394abe85a}{kernel\_shutdown}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00602}00602\ \ \ \ \ HAL\_PWREx\_EnterSHUTDOWNMode();}
+\DoxyCodeLine{\Hypertarget{stm_2kernel_2kernel_8c_source_l00603}00603\ \}}
+
+\end{DoxyCode}

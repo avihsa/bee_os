@@ -1,0 +1,113 @@
+\chapter{EZS\+\_\+\+SS25}
+\hypertarget{index}{}\label{index}\index{EZS\_SS25@{EZS\_SS25}}
+\label{index_md__2media_2sf__ezs__ss25_2README}%
+\Hypertarget{index_md__2media_2sf__ezs__ss25_2README}%
+ \hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Import library}{Import library}}\label{index_autotoc_md1}
+
+\begin{DoxyItemize}
+\item load realtime\+\_\+library as project to workspace
+\begin{DoxyItemize}
+\item open \textquotesingle{}File -\/\texorpdfstring{$>$}{>} Open Projects from File System\textquotesingle{}
+\item import source choose directory containing the realtime library (not the realtime library directory)
+\item select realtime\+\_\+library
+\end{DoxyItemize}
+\item include and source
+\begin{DoxyItemize}
+\item includes
+\begin{DoxyItemize}
+\item open project properties
+\item open \textquotesingle{}C/\+C++ General -\/\texorpdfstring{$>$}{>} Paths and Symbols -\/\texorpdfstring{$>$}{>} Includes\textquotesingle{}
+\item add following files as workspace path
+\begin{DoxyItemize}
+\item \textquotesingle{}realtime\+\_\+library/include\textquotesingle{} =\texorpdfstring{$>$}{>} library
+\item \textquotesingle{}realtime\+\_\+library/test/test\+\_\+stm\textquotesingle{} =\texorpdfstring{$>$}{>} for demonstrating the library
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item sources
+\begin{DoxyItemize}
+\item open project properties
+\item open \textquotesingle{}C/\+C++ General -\/\texorpdfstring{$>$}{>} Paths and Symbols -\/\texorpdfstring{$>$}{>} Source Location\textquotesingle{}
+\item link following folders in the filesystem\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}realtime\+\_\+library/src\textquotesingle{} =\texorpdfstring{$>$}{>} library
+\item \textquotesingle{}realtime\+\_\+library/stm\textquotesingle{} =\texorpdfstring{$>$}{>} library
+\item \textquotesingle{}realtime\+\_\+library/test/test\+\_\+stm\textquotesingle{} =\texorpdfstring{$>$}{>} for demonstrating the library
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item segger
+\begin{DoxyItemize}
+\item define \textquotesingle{}\#define SEGGER\textquotesingle{} in \doxylink{support_8h}{support.\+h} or open \textquotesingle{}project properties -\/\texorpdfstring{$>$}{>} C/\+C++ General -\/\texorpdfstring{$>$}{>} Paths and Symbols -\/\texorpdfstring{$>$}{>} Symbols\textquotesingle{} and add SEGGER
+\item add following files as workspace path
+\begin{DoxyItemize}
+\item \textquotesingle{}realtime\+\_\+library/segger-\/sysview/\+Config
+\item \textquotesingle{}realtime\+\_\+library/segger-\/sysview/\+SEGGER
+\end{DoxyItemize}
+\item link following sources in the filesystem\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}realtime\+\_\+library/segger-\/sysview\textquotesingle{}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{index_autotoc_md2}{}\doxysection{\texorpdfstring{Architecture and Design Decision}{Architecture and Design Decision}}\label{index_autotoc_md2}
+The realtime library uses pointers for all data structure to allow to move them to different lists.
+
+The realtime\+\_\+library/src/kernel.\+c implements independent kernel functions from the stm32 while realtime\+\_\+library/stm/kernel.\+c implements depends on the stm32.
+
+We are using linked list to allow for an infinite amount for tasks. Tasks can be stored in so called priority groups, which are just linked list. It means multiple tasks can have same priority and it is easy to implement priority inheritance. A complete priority group is moved up on every task switch. The linked list is capable of moving elements from a list to another list, which allows for O(1) operations.
+
+The task struct acts as a layer to the task tcb struct, which contains contains control inforamtion, which helps to store necessary information for the kernel usage.
+
+Kernel obejct were implemented based of \href{https://www.taylorfrancis.com/books/mono/10.1201/9781482280821/real-time-concepts-embedded-systems-qing-li-caroline-yao}{\texttt{ Real-\/\+Time Concepts for Embedded Systems}}
+
+Normally all functions return an error code, which can be constructed based of subcomponents. It helps to see what problems occured and can be checked in their corresponding header file.
+
+The documentation can be built with doxygen in realtime\+\_\+library/docs. This requires the package \textquotesingle{}graphviz\textquotesingle{} to be installed.\hypertarget{index_autotoc_md3}{}\doxysection{\texorpdfstring{Testing}{Testing}}\label{index_autotoc_md3}
+To test basic subcompoents unit tests were created. To build unit tests you need \href{https://cmake.org/}{\texttt{ cmake}} and \href{https://criterion.readthedocs.io/en/master/intro.html}{\texttt{ criterion}} installed.
+
+If the \doxylink{support_8h}{support.\+h} contains \textquotesingle{}\#define SEGGER\textquotesingle{}, the build will fail.
+
+Build and run instructions\+: \begin{DoxyVerb}- cd realtime_library
+- mkdir build
+- cmake ..
+- cmake --build .
+- ./test --verbose
+\end{DoxyVerb}
+ Following result is expected\+: \begin{DoxyVerb}[----] Criterion v2.4.1
+[====] Running 2 tests from dictionary:
+[====] Running 6 tests from linked_list:
+[RUN ] dictionary::iteration
+[RUN ] dictionary::null_operations
+[PASS] dictionary::iteration: (0.00s)
+[PASS] dictionary::null_operations: (0.00s)
+[RUN ] linked_list::iteration
+[PASS] linked_list::iteration: (0.01s)
+[RUN ] linked_list::specified_element
+[RUN ] linked_list::move_linked_list_after
+[PASS] linked_list::specified_element: (0.00s)
+[PASS] linked_list::move_linked_list_after: (0.00s)
+[====] Running 3 tests from queue:
+[RUN ] linked_list::null_operations
+[RUN ] linked_list::transfer
+[PASS] linked_list::null_operations: (0.00s)
+[PASS] linked_list::transfer: (0.00s)
+[RUN ] linked_list::transfer_after
+[PASS] linked_list::transfer_after: (0.00s)
+[RUN ] queue::iteration
+[PASS] queue::iteration: (0.00s)
+[RUN ] queue::queue_operations
+[PASS] queue::queue_operations: (0.00s)
+[RUN ] queue::null_operations
+[PASS] queue::null_operations: (0.00s)
+[====] Synthesis: Tested: 11 | Passing: 11 | Failing: 0 | Crashing: 0
+\end{DoxyVerb}
+ Kernel test project\+:
+
+Import segger-\/test2 as a project into workspace like with realtime\+\_\+library.
+
+To test kernel functions enable or disable them in test\+\_\+task.\+h 1 for enable and 0 for disable. Set a breakpoint at \doxylink{src_2kernel_2kernel_8c_a162d941d58f7afe1f3202d798d6fdbac}{kernel\+\_\+start()} in test\+\_\+tasks.\+c. If it is not set, segger systemviewer can miss some signals or task names are incorrect.
+
+A monitoring task will update the stack usages roughly every second.
+
+When pressing the user button a message can be send to a task and if pressed often enough an event is sent to a task to turn off the system.
+
+More information can be found in realtime\+\_\+library/docs/html/index.\+html. 

@@ -1,0 +1,579 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/kernel/message\+\_\+queue.h File Reference}
+\hypertarget{message__queue_8h}{}\label{message__queue_8h}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/message\_queue.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/message\_queue.h}}
+{\ttfamily \#include $<$utils/queue.\+h$>$}\newline
+{\ttfamily \#include $<$kernel/task.\+h$>$}\newline
+{\ttfamily \#include $<$utils/linked\+\_\+list.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for message\+\_\+queue.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em control information the message queue identifier \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}{MESSAGE\+\_\+\+QUEUE\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a1734a13d5bfd51afa67eaa70b55a1cbe}{MESSAGE\+\_\+\+QUEUE\+\_\+\+IDENTIFIER\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_aac67dcdfd01c58cde4f35f83a7804e99}{MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+MEMORY}}~1
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_af28fdf1096d3c8011073ae5b2b041bcd}{MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+QUEUE}}~2
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a6058c45ab2e0ff4e693d3231123e5d7e}{MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+IDENTIFIER}}~3
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_ac026e11b147d1f07531db0a2119b49f0}{MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+RECEIVING\+\_\+\+LIST}}~4
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a4a7cabbeadfc6df02a5e5657c5de198b}{MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+SENDING\+\_\+\+LIST}}~5
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a3e0013a7a2444bae6a19fde4ad9d0298}{MESSAGE\+\_\+\+QUEUE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+SEND}}~6
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_accf774052a382c5192305ad60ae90f32}{MESSAGE\+\_\+\+QUEUE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+RECEIVE}}~7
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_abebc02a4d9c4b42e672189f73151a1ca}{MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+TASK\+\_\+\+WAITING\+\_\+\+LIST\+\_\+\+ELEMENT}}~8
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_ab87da95d5b21d89a30ba866fe0cc43b3}{MESSAGE\+\_\+\+QUEUE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+DELETE}}~9
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a3de794fed55a53c7713797670beb0c50}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}}~10
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a6fdca86acbe79bdb949d7b37d072014e}{MESSAGE\+\_\+\+QUEUE\+\_\+\+INVALID\+\_\+\+TASK\+\_\+\+REGISTER}}~11
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a160c65b8fe8dda9f95f660642c5c7baa}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LENGTH}}~4
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a3693316fa8cc36bd0df394a0cf3ae0ba}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LINK\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}}~\mbox{\hyperlink{message__queue_8h_a160c65b8fe8dda9f95f660642c5c7baa}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LENGTH}}
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}{MESSAGE\+\_\+\+QUEUE\+\_\+\+QUEUE\+\_\+\+ERROR\+\_\+\+REGISTER}}~\mbox{\hyperlink{message__queue_8h_a3693316fa8cc36bd0df394a0cf3ae0ba}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LINK\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{queue_8h_a055729a37bf543876e2ce9d57b95ab7b}{QUEUE\+\_\+\+LENGTH}}
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9}{MESSAGE\+\_\+\+QUEUE\+\_\+\+RECEIVING\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}}~\mbox{\hyperlink{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}{MESSAGE\+\_\+\+QUEUE\+\_\+\+QUEUE\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{linked__list_8h_aec306bdd8f7eb23518e6b50869e74243}{LINKED\+\_\+\+LIST\+\_\+\+LENGTH}}
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_aad50d09c68572a9e32183f7d0b9b8e02}{MESSAGE\+\_\+\+QUEUE\+\_\+\+SENDING\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}}~\mbox{\hyperlink{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9}{MESSAGE\+\_\+\+QUEUE\+\_\+\+RECEIVING\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{linked__list_8h_aec306bdd8f7eb23518e6b50869e74243}{LINKED\+\_\+\+LIST\+\_\+\+LENGTH}}
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a2250867a179401ff0ea1d74a086a1dd6}{MESSAGE\+\_\+\+QUEUE\+\_\+\+TASK\+\_\+\+ERROR\+\_\+\+REGISTER}}~\mbox{\hyperlink{message__queue_8h_a3693316fa8cc36bd0df394a0cf3ae0ba}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LINK\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{task_8h_aec8c7139a20c676cd9daf6f251ee2ec6}{TASK\+\_\+\+LENGTH}}
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_ab00c60ea9c1c5d973957c45967d97be8}{GET\+\_\+\+QUEUE\+\_\+\+ERROR}}(x)~((x) \& 0x111)
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_ae48b7373edb145c406b1be8aea7718c4}{GET\+\_\+\+MESSAGE\+\_\+\+QUEUE\+\_\+\+ERROR}}(x)~((x) $>$$>$ \mbox{\hyperlink{queue_8h_a6d234c36b84cecb746895dc4669fadbd}{QUEUE\+\_\+\+INFO\+\_\+\+REGISTER}})
+\item 
+\#define \mbox{\hyperlink{message__queue_8h_a95dfe7c9572556f711fb8cdb44f75bcf}{SET\+\_\+\+MESSAGE\+\_\+\+QUEUE\+\_\+\+ERROR}}(x)~((x) $<$$<$ \mbox{\hyperlink{queue_8h_a6d234c36b84cecb746895dc4669fadbd}{QUEUE\+\_\+\+INFO\+\_\+\+REGISTER}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8h_a2308f343d4d76ed9932c92224e2e10c5}{message\+\_\+queue\+\_\+create}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, size\+\_\+t message\+\_\+queue\+\_\+size, size\+\_\+t element\+\_\+size, size\+\_\+t id, char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Creates a message queue by its size, expected element size, id and name. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8h_a051e749f70d8ab8b4a8ed34fdb6b44d3}{message\+\_\+queue\+\_\+delete}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue)
+\begin{DoxyCompactList}\small\item\em Deletes a message queue. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8h_adad5b1beada3120a6e8639f95979b38d}{message\+\_\+queue\+\_\+send}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{structelement}{element}}, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}task, void \texorpdfstring{$\ast$}{*}message, size\+\_\+t element\+\_\+size, bool urgent)
+\begin{DoxyCompactList}\small\item\em Sends a message to a task without blocking. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8h_a24a7ea0a1b2abb026b78348df2fcb2bb}{message\+\_\+queue\+\_\+send\+\_\+blocking}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sender\+\_\+element, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}receiver\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}receiver\+\_\+task, void \texorpdfstring{$\ast$}{*}message, size\+\_\+t element\+\_\+size, bool urgent)
+\begin{DoxyCompactList}\small\item\em Sends a message to a task. The task can be blocked by insertion to the sending waiting list. Sending a message can fail, which will need a retry. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8h_aaede9925afd52fbc4445d73517ddf2b5}{message\+\_\+queue\+\_\+receive}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, \mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+list, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}running\+\_\+task\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}receiver\+\_\+task, \mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sender\+\_\+element, \mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sender\+\_\+task, void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message)
+\begin{DoxyCompactList}\small\item\em Receive a message. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8h_af02b832e459b5f27be4775591a331ed6}{message\+\_\+queue\+\_\+broadcast}} (\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue, void \texorpdfstring{$\ast$}{*}message)
+\item 
+size\+\_\+t \mbox{\hyperlink{message__queue_8h_ae66a349dddbf73ee44edf7a25fee1682}{message\+\_\+queue\+\_\+identifier\+\_\+checking}} (\mbox{\hyperlink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}message\+\_\+queue\+\_\+identifier)
+\begin{DoxyCompactList}\small\item\em Checks whether a queue identifier is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{message__queue_8h_ae48b7373edb145c406b1be8aea7718c4}\label{message__queue_8h_ae48b7373edb145c406b1be8aea7718c4} 
+\index{message\_queue.h@{message\_queue.h}!GET\_MESSAGE\_QUEUE\_ERROR@{GET\_MESSAGE\_QUEUE\_ERROR}}
+\index{GET\_MESSAGE\_QUEUE\_ERROR@{GET\_MESSAGE\_QUEUE\_ERROR}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{GET\_MESSAGE\_QUEUE\_ERROR}{GET\_MESSAGE\_QUEUE\_ERROR}}
+{\footnotesize\ttfamily \#define GET\+\_\+\+MESSAGE\+\_\+\+QUEUE\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x) $>$$>$ \mbox{\hyperlink{queue_8h_a6d234c36b84cecb746895dc4669fadbd}{QUEUE\+\_\+\+INFO\+\_\+\+REGISTER}})}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00065}{65}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_ab00c60ea9c1c5d973957c45967d97be8}\label{message__queue_8h_ab00c60ea9c1c5d973957c45967d97be8} 
+\index{message\_queue.h@{message\_queue.h}!GET\_QUEUE\_ERROR@{GET\_QUEUE\_ERROR}}
+\index{GET\_QUEUE\_ERROR@{GET\_QUEUE\_ERROR}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{GET\_QUEUE\_ERROR}{GET\_QUEUE\_ERROR}}
+{\footnotesize\ttfamily \#define GET\+\_\+\+QUEUE\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x) \& 0x111)}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00064}{64}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a1734a13d5bfd51afa67eaa70b55a1cbe}\label{message__queue_8h_a1734a13d5bfd51afa67eaa70b55a1cbe} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS@{MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS}}
+\index{MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS@{MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS}{MESSAGE\_QUEUE\_IDENTIFIER\_SUCCESS}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+IDENTIFIER\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00040}{40}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a6fdca86acbe79bdb949d7b37d072014e}\label{message__queue_8h_a6fdca86acbe79bdb949d7b37d072014e} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_INVALID\_TASK\_REGISTER@{MESSAGE\_QUEUE\_INVALID\_TASK\_REGISTER}}
+\index{MESSAGE\_QUEUE\_INVALID\_TASK\_REGISTER@{MESSAGE\_QUEUE\_INVALID\_TASK\_REGISTER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_INVALID\_TASK\_REGISTER}{MESSAGE\_QUEUE\_INVALID\_TASK\_REGISTER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+INVALID\+\_\+\+TASK\+\_\+\+REGISTER~11}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00051}{51}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a160c65b8fe8dda9f95f660642c5c7baa}\label{message__queue_8h_a160c65b8fe8dda9f95f660642c5c7baa} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_LENGTH@{MESSAGE\_QUEUE\_LENGTH}}
+\index{MESSAGE\_QUEUE\_LENGTH@{MESSAGE\_QUEUE\_LENGTH}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_LENGTH}{MESSAGE\_QUEUE\_LENGTH}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+LENGTH~4}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00053}{53}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a3693316fa8cc36bd0df394a0cf3ae0ba}\label{message__queue_8h_a3693316fa8cc36bd0df394a0cf3ae0ba} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_LINK\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_LINK\_LIST\_ERROR\_REGISTER}}
+\index{MESSAGE\_QUEUE\_LINK\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_LINK\_LIST\_ERROR\_REGISTER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_LINK\_LIST\_ERROR\_REGISTER}{MESSAGE\_QUEUE\_LINK\_LIST\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+LINK\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER~\mbox{\hyperlink{message__queue_8h_a160c65b8fe8dda9f95f660642c5c7baa}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LENGTH}}}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00056}{56}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a3de794fed55a53c7713797670beb0c50}\label{message__queue_8h_a3de794fed55a53c7713797670beb0c50} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_LINKED\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_LINKED\_LIST\_ERROR\_REGISTER}}
+\index{MESSAGE\_QUEUE\_LINKED\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_LINKED\_LIST\_ERROR\_REGISTER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_LINKED\_LIST\_ERROR\_REGISTER}{MESSAGE\_QUEUE\_LINKED\_LIST\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER~10}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00050}{50}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a6058c45ab2e0ff4e693d3231123e5d7e}\label{message__queue_8h_a6058c45ab2e0ff4e693d3231123e5d7e} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_NO\_IDENTIFIER@{MESSAGE\_QUEUE\_NO\_IDENTIFIER}}
+\index{MESSAGE\_QUEUE\_NO\_IDENTIFIER@{MESSAGE\_QUEUE\_NO\_IDENTIFIER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_NO\_IDENTIFIER}{MESSAGE\_QUEUE\_NO\_IDENTIFIER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+IDENTIFIER~3}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00043}{43}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_aac67dcdfd01c58cde4f35f83a7804e99}\label{message__queue_8h_aac67dcdfd01c58cde4f35f83a7804e99} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_NO\_MEMORY@{MESSAGE\_QUEUE\_NO\_MEMORY}}
+\index{MESSAGE\_QUEUE\_NO\_MEMORY@{MESSAGE\_QUEUE\_NO\_MEMORY}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_NO\_MEMORY}{MESSAGE\_QUEUE\_NO\_MEMORY}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+MEMORY~1}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00041}{41}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_af28fdf1096d3c8011073ae5b2b041bcd}\label{message__queue_8h_af28fdf1096d3c8011073ae5b2b041bcd} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_NO\_QUEUE@{MESSAGE\_QUEUE\_NO\_QUEUE}}
+\index{MESSAGE\_QUEUE\_NO\_QUEUE@{MESSAGE\_QUEUE\_NO\_QUEUE}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_NO\_QUEUE}{MESSAGE\_QUEUE\_NO\_QUEUE}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+QUEUE~2}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00042}{42}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_ac026e11b147d1f07531db0a2119b49f0}\label{message__queue_8h_ac026e11b147d1f07531db0a2119b49f0} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST@{MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST}}
+\index{MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST@{MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST}{MESSAGE\_QUEUE\_NO\_RECEIVING\_LIST}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+RECEIVING\+\_\+\+LIST~4}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00044}{44}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a4a7cabbeadfc6df02a5e5657c5de198b}\label{message__queue_8h_a4a7cabbeadfc6df02a5e5657c5de198b} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_NO\_SENDING\_LIST@{MESSAGE\_QUEUE\_NO\_SENDING\_LIST}}
+\index{MESSAGE\_QUEUE\_NO\_SENDING\_LIST@{MESSAGE\_QUEUE\_NO\_SENDING\_LIST}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_NO\_SENDING\_LIST}{MESSAGE\_QUEUE\_NO\_SENDING\_LIST}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+SENDING\+\_\+\+LIST~5}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00045}{45}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_abebc02a4d9c4b42e672189f73151a1ca}\label{message__queue_8h_abebc02a4d9c4b42e672189f73151a1ca} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_NO\_TASK\_WAITING\_LIST\_ELEMENT@{MESSAGE\_QUEUE\_NO\_TASK\_WAITING\_LIST\_ELEMENT}}
+\index{MESSAGE\_QUEUE\_NO\_TASK\_WAITING\_LIST\_ELEMENT@{MESSAGE\_QUEUE\_NO\_TASK\_WAITING\_LIST\_ELEMENT}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_NO\_TASK\_WAITING\_LIST\_ELEMENT}{MESSAGE\_QUEUE\_NO\_TASK\_WAITING\_LIST\_ELEMENT}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+TASK\+\_\+\+WAITING\+\_\+\+LIST\+\_\+\+ELEMENT~8}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00048}{48}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}\label{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}}
+\index{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}{MESSAGE\_QUEUE\_QUEUE\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+QUEUE\+\_\+\+ERROR\+\_\+\+REGISTER~\mbox{\hyperlink{message__queue_8h_a3693316fa8cc36bd0df394a0cf3ae0ba}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LINK\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{queue_8h_a055729a37bf543876e2ce9d57b95ab7b}{QUEUE\+\_\+\+LENGTH}}}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00057}{57}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9}\label{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER}}
+\index{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER}{MESSAGE\_QUEUE\_RECEIVING\_LINKED\_LIST\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+RECEIVING\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER~\mbox{\hyperlink{message__queue_8h_ac9705098d7d49946df4b4d7b795b6712}{MESSAGE\+\_\+\+QUEUE\+\_\+\+QUEUE\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{linked__list_8h_aec306bdd8f7eb23518e6b50869e74243}{LINKED\+\_\+\+LIST\+\_\+\+LENGTH}}}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00058}{58}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_aad50d09c68572a9e32183f7d0b9b8e02}\label{message__queue_8h_aad50d09c68572a9e32183f7d0b9b8e02} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}}
+\index{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}{MESSAGE\_QUEUE\_SENDING\_LINKED\_LIST\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+SENDING\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER~\mbox{\hyperlink{message__queue_8h_a15e7bdbbcbff6477105bd4222c0a66c9}{MESSAGE\+\_\+\+QUEUE\+\_\+\+RECEIVING\+\_\+\+LINKED\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{linked__list_8h_aec306bdd8f7eb23518e6b50869e74243}{LINKED\+\_\+\+LIST\+\_\+\+LENGTH}}}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00059}{59}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd}\label{message__queue_8h_a045f2447c86aa9a90db81b46b23258cd} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_SUCCESS@{MESSAGE\_QUEUE\_SUCCESS}}
+\index{MESSAGE\_QUEUE\_SUCCESS@{MESSAGE\_QUEUE\_SUCCESS}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_SUCCESS}{MESSAGE\_QUEUE\_SUCCESS}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00039}{39}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a2250867a179401ff0ea1d74a086a1dd6}\label{message__queue_8h_a2250867a179401ff0ea1d74a086a1dd6} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_TASK\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_TASK\_ERROR\_REGISTER}}
+\index{MESSAGE\_QUEUE\_TASK\_ERROR\_REGISTER@{MESSAGE\_QUEUE\_TASK\_ERROR\_REGISTER}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_TASK\_ERROR\_REGISTER}{MESSAGE\_QUEUE\_TASK\_ERROR\_REGISTER}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+TASK\+\_\+\+ERROR\+\_\+\+REGISTER~\mbox{\hyperlink{message__queue_8h_a3693316fa8cc36bd0df394a0cf3ae0ba}{MESSAGE\+\_\+\+QUEUE\+\_\+\+LINK\+\_\+\+LIST\+\_\+\+ERROR\+\_\+\+REGISTER}} + \mbox{\hyperlink{task_8h_aec8c7139a20c676cd9daf6f251ee2ec6}{TASK\+\_\+\+LENGTH}}}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00060}{60}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_ab87da95d5b21d89a30ba866fe0cc43b3}\label{message__queue_8h_ab87da95d5b21d89a30ba866fe0cc43b3} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE@{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE}}
+\index{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE@{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE}{MESSAGE\_QUEUE\_UNABLE\_TO\_DELETE}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+DELETE~9}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00049}{49}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_accf774052a382c5192305ad60ae90f32}\label{message__queue_8h_accf774052a382c5192305ad60ae90f32} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE@{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE}}
+\index{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE@{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE}{MESSAGE\_QUEUE\_UNABLE\_TO\_RECEIVE}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+RECEIVE~7}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00047}{47}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a3e0013a7a2444bae6a19fde4ad9d0298}\label{message__queue_8h_a3e0013a7a2444bae6a19fde4ad9d0298} 
+\index{message\_queue.h@{message\_queue.h}!MESSAGE\_QUEUE\_UNABLE\_TO\_SEND@{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}}
+\index{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND@{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}{MESSAGE\_QUEUE\_UNABLE\_TO\_SEND}}
+{\footnotesize\ttfamily \#define MESSAGE\+\_\+\+QUEUE\+\_\+\+UNABLE\+\_\+\+TO\+\_\+\+SEND~6}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00046}{46}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+\Hypertarget{message__queue_8h_a95dfe7c9572556f711fb8cdb44f75bcf}\label{message__queue_8h_a95dfe7c9572556f711fb8cdb44f75bcf} 
+\index{message\_queue.h@{message\_queue.h}!SET\_MESSAGE\_QUEUE\_ERROR@{SET\_MESSAGE\_QUEUE\_ERROR}}
+\index{SET\_MESSAGE\_QUEUE\_ERROR@{SET\_MESSAGE\_QUEUE\_ERROR}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{SET\_MESSAGE\_QUEUE\_ERROR}{SET\_MESSAGE\_QUEUE\_ERROR}}
+{\footnotesize\ttfamily \#define SET\+\_\+\+MESSAGE\+\_\+\+QUEUE\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x) $<$$<$ \mbox{\hyperlink{queue_8h_a6d234c36b84cecb746895dc4669fadbd}{QUEUE\+\_\+\+INFO\+\_\+\+REGISTER}})}
+
+
+
+Definition at line \mbox{\hyperlink{message__queue_8h_source_l00066}{66}} of file \mbox{\hyperlink{message__queue_8h_source}{message\+\_\+queue.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{message__queue_8h_af02b832e459b5f27be4775591a331ed6}\label{message__queue_8h_af02b832e459b5f27be4775591a331ed6} 
+\index{message\_queue.h@{message\_queue.h}!message\_queue\_broadcast@{message\_queue\_broadcast}}
+\index{message\_queue\_broadcast@{message\_queue\_broadcast}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_broadcast()}{message\_queue\_broadcast()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+broadcast (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{void \texorpdfstring{$\ast$}{*}}]{message }\end{DoxyParamCaption})}
+
+\Hypertarget{message__queue_8h_a2308f343d4d76ed9932c92224e2e10c5}\label{message__queue_8h_a2308f343d4d76ed9932c92224e2e10c5} 
+\index{message\_queue.h@{message\_queue.h}!message\_queue\_create@{message\_queue\_create}}
+\index{message\_queue\_create@{message\_queue\_create}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_create()}{message\_queue\_create()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{size\+\_\+t}]{message\+\_\+queue\+\_\+size,  }\item[{size\+\_\+t}]{element\+\_\+size,  }\item[{size\+\_\+t}]{id,  }\item[{char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates a message queue by its size, expected element size, id and name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to be initialized as a message queue \\
+\hline
+{\em queue\+\_\+size} & is the amount of data to be stored \\
+\hline
+{\em element\+\_\+size} & is the expected data size of an element \\
+\hline
+{\em id} & is a numeric identifier \\
+\hline
+{\em name} & is a string identifier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info On error check for these errors and component errors\+: MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+MEMORY\+: unable to allocate memory for message queue MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+IDENTIFIER\+: unable to allocate memory for message queue identifier MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+RECEIVING\+\_\+\+LIST\+: unable to initialize receiving list MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+SENDING\+\_\+\+LIST\+: unable to initialize sending list 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00055}{55}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_a2308f343d4d76ed9932c92224e2e10c5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_a2308f343d4d76ed9932c92224e2e10c5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8h_a051e749f70d8ab8b4a8ed34fdb6b44d3}\label{message__queue_8h_a051e749f70d8ab8b4a8ed34fdb6b44d3} 
+\index{message\_queue.h@{message\_queue.h}!message\_queue\_delete@{message\_queue\_delete}}
+\index{message\_queue\_delete@{message\_queue\_delete}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_delete()}{message\_queue\_delete()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue }\end{DoxyParamCaption})}
+
+
+
+Deletes a message queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00099}{99}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_a051e749f70d8ab8b4a8ed34fdb6b44d3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_a051e749f70d8ab8b4a8ed34fdb6b44d3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8h_ae66a349dddbf73ee44edf7a25fee1682}\label{message__queue_8h_ae66a349dddbf73ee44edf7a25fee1682} 
+\index{message\_queue.h@{message\_queue.h}!message\_queue\_identifier\_checking@{message\_queue\_identifier\_checking}}
+\index{message\_queue\_identifier\_checking@{message\_queue\_identifier\_checking}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_identifier\_checking()}{message\_queue\_identifier\_checking()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+identifier\+\_\+checking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue\+\_\+identifier }\end{DoxyParamCaption})}
+
+
+
+Checks whether a queue identifier is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue\+\_\+identifier} & is a \doxylink{structmessage__queue__identifier__t}{message\+\_\+queue\+\_\+identifier\+\_\+t} pointer of pointer, which shall be checked for irregular structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info check for this error\+: MESSAGE\+\_\+\+QUEUE\+\_\+\+NO\+\_\+\+IDENTIFIER\+: message queue identifier is null 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00318}{318}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_ae66a349dddbf73ee44edf7a25fee1682_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8h_aaede9925afd52fbc4445d73517ddf2b5}\label{message__queue_8h_aaede9925afd52fbc4445d73517ddf2b5} 
+\index{message\_queue.h@{message\_queue.h}!message\_queue\_receive@{message\_queue\_receive}}
+\index{message\_queue\_receive@{message\_queue\_receive}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_receive()}{message\_queue\_receive()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{receiver\+\_\+task,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sender\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sender\+\_\+task,  }\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message }\end{DoxyParamCaption})}
+
+
+
+Receive a message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to use for communication \\
+\hline
+{\em running\+\_\+task\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer to the current running source list, where the receiver task belongs \\
+\hline
+{\em running\+\_\+task\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer, which points to the receiver task \\
+\hline
+{\em receiver\+\_\+task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the receiver \\
+\hline
+{\em sender\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer to a blocked sender \\
+\hline
+{\em sender\+\_\+task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to a blocked task \\
+\hline
+{\em message} & is data to be received, it can be empty, which will need a retry \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00251}{251}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_aaede9925afd52fbc4445d73517ddf2b5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_aaede9925afd52fbc4445d73517ddf2b5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8h_adad5b1beada3120a6e8639f95979b38d}\label{message__queue_8h_adad5b1beada3120a6e8639f95979b38d} 
+\index{message\_queue.h@{message\_queue.h}!message\_queue\_send@{message\_queue\_send}}
+\index{message\_queue\_send@{message\_queue\_send}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_send()}{message\_queue\_send()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{task,  }\item[{void \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t}]{element\+\_\+size,  }\item[{bool}]{urgent }\end{DoxyParamCaption})}
+
+
+
+Sends a message to a task without blocking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to use for communication \\
+\hline
+{\em element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer to the receiver \\
+\hline
+{\em task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the receiver \\
+\hline
+{\em message} & is data to be send \\
+\hline
+{\em element\+\_\+size} & is the amount of bytes to stored \\
+\hline
+{\em urgent} & is a bool, if set to true, the message queue becomes a lifo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00147}{147}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_adad5b1beada3120a6e8639f95979b38d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_adad5b1beada3120a6e8639f95979b38d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{message__queue_8h_a24a7ea0a1b2abb026b78348df2fcb2bb}\label{message__queue_8h_a24a7ea0a1b2abb026b78348df2fcb2bb} 
+\index{message\_queue.h@{message\_queue.h}!message\_queue\_send\_blocking@{message\_queue\_send\_blocking}}
+\index{message\_queue\_send\_blocking@{message\_queue\_send\_blocking}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{message\_queue\_send\_blocking()}{message\_queue\_send\_blocking()}}
+{\footnotesize\ttfamily size\+\_\+t message\+\_\+queue\+\_\+send\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__queue__t}{message\+\_\+queue\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{message\+\_\+queue,  }\item[{\mbox{\hyperlink{structlinked__list__t}{linked\+\_\+list\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{running\+\_\+task\+\_\+list,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sender\+\_\+element,  }\item[{\mbox{\hyperlink{linked__list_8h_a0e6991840447d855ed7bb1efeef4c37c}{linked\+\_\+list\+\_\+element\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{receiver\+\_\+element,  }\item[{\mbox{\hyperlink{structtask__t}{task\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{receiver\+\_\+task,  }\item[{void \texorpdfstring{$\ast$}{*}}]{message,  }\item[{size\+\_\+t}]{element\+\_\+size,  }\item[{bool}]{urgent }\end{DoxyParamCaption})}
+
+
+
+Sends a message to a task. The task can be blocked by insertion to the sending waiting list. Sending a message can fail, which will need a retry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message\+\_\+queue} & is a \doxylink{structmessage__queue__t}{message\+\_\+queue\+\_\+t} pointer of pointer to use for communication \\
+\hline
+{\em running\+\_\+task\+\_\+list} & is a \doxylink{structlinked__list__t}{linked\+\_\+list\+\_\+t} pointer of pointer to the current running source list, where the sender task belongs \\
+\hline
+{\em sender\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t to the sender \\
+\hline
+{\em receiver\+\_\+element} & is a linked\+\_\+list\+\_\+element\+\_\+t pointer of pointer to the receiver \\
+\hline
+{\em receiver\+\_\+task} & is a \doxylink{structtask__t}{task\+\_\+t} pointer of pointer to the receiver \\
+\hline
+{\em message} & is data to be send \\
+\hline
+{\em element\+\_\+size} & is the amount of bytes to stored \\
+\hline
+{\em urgent} & is a bool, if set to true, the message queue becomes a lifo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success or greater 0 on error @info The return value is a concatenated status error code based of subcomponents. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{message__queue_8c_source_l00216}{216}} of file \mbox{\hyperlink{message__queue_8c_source}{message\+\_\+queue.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_a24a7ea0a1b2abb026b78348df2fcb2bb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8h_a24a7ea0a1b2abb026b78348df2fcb2bb_icgraph}
+\end{center}
+\end{figure}

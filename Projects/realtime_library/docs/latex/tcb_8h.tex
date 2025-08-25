@@ -1,0 +1,101 @@
+\doxysection{/media/sf\+\_\+ezs\+\_\+ss25/\+Projects/realtime\+\_\+library/include/kernel/tcb.h File Reference}
+\hypertarget{tcb_8h}{}\label{tcb_8h}\index{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/tcb.h@{/media/sf\_ezs\_ss25/Projects/realtime\_library/include/kernel/tcb.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for tcb.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{tcb_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcb_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structTCB__sctTCB__t}{TCB\+\_\+sct\+TCB\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure for the task control block (TCB) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tcb_8h_a8441e64e8343c3ee18dbc771bfb92c24}{TCB\+\_\+\+TASK\+\_\+\+STACK\+\_\+\+SIZE}}~( 128u )
+\begin{DoxyCompactList}\small\item\em Stack size of a single task. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\+\_\+e\+Tast\+States\+\_\+t}} \{ \newline
+\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a25f1eb0ebaef4580ce8a964e8dffac10}{Task\+State\+\_\+\+Created}} = 0U
+, \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53}{Task\+State\+\_\+\+Ready}}
+, \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570ace7df1fea4c86c0a61fad5a3ddc599bc}{Task\+State\+\_\+\+Running}}
+, \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a}{Task\+State\+\_\+\+Blocked}}
+, \newline
+\mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570ad8710cc7a70896664f0fd14eb6636dc4}{Task\+State\+\_\+\+Deleted}}
+, \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570a9394e302e84f3a380e68aa59958cf6d0}{Task\+State\+\_\+\+MAX\+\_\+\+STATE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum for task states. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tcb_8h_a8441e64e8343c3ee18dbc771bfb92c24}\label{tcb_8h_a8441e64e8343c3ee18dbc771bfb92c24} 
+\index{tcb.h@{tcb.h}!TCB\_TASK\_STACK\_SIZE@{TCB\_TASK\_STACK\_SIZE}}
+\index{TCB\_TASK\_STACK\_SIZE@{TCB\_TASK\_STACK\_SIZE}!tcb.h@{tcb.h}}
+\doxysubsubsection{\texorpdfstring{TCB\_TASK\_STACK\_SIZE}{TCB\_TASK\_STACK\_SIZE}}
+{\footnotesize\ttfamily \#define TCB\+\_\+\+TASK\+\_\+\+STACK\+\_\+\+SIZE~( 128u )}
+
+
+
+Stack size of a single task. 
+
+TODO\+: Must be adapted if a task requires a lot of stack! 
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00014}{14}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{tcb_8h_a528049fed79c5587395da2377d5d0570}\label{tcb_8h_a528049fed79c5587395da2377d5d0570} 
+\index{tcb.h@{tcb.h}!TCB\_eTastStates\_t@{TCB\_eTastStates\_t}}
+\index{TCB\_eTastStates\_t@{TCB\_eTastStates\_t}!tcb.h@{tcb.h}}
+\doxysubsubsection{\texorpdfstring{TCB\_eTastStates\_t}{TCB\_eTastStates\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{tcb_8h_a528049fed79c5587395da2377d5d0570}{TCB\+\_\+e\+Tast\+States\+\_\+t}}}
+
+
+
+Enum for task states. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TaskState\_Created@{TaskState\_Created}!tcb.h@{tcb.h}}\index{tcb.h@{tcb.h}!TaskState\_Created@{TaskState\_Created}}}\Hypertarget{tcb_8h_a528049fed79c5587395da2377d5d0570a25f1eb0ebaef4580ce8a964e8dffac10}\label{tcb_8h_a528049fed79c5587395da2377d5d0570a25f1eb0ebaef4580ce8a964e8dffac10} 
+Task\+State\+\_\+\+Created&\mbox{[}FUTURE\mbox{]} Indicates that a task is created \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TaskState\_Ready@{TaskState\_Ready}!tcb.h@{tcb.h}}\index{tcb.h@{tcb.h}!TaskState\_Ready@{TaskState\_Ready}}}\Hypertarget{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53}\label{tcb_8h_a528049fed79c5587395da2377d5d0570a598fa38161223df5b42408a475799a53} 
+Task\+State\+\_\+\+Ready&Indicates that a task is ready and could be selected by the scheduler. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TaskState\_Running@{TaskState\_Running}!tcb.h@{tcb.h}}\index{tcb.h@{tcb.h}!TaskState\_Running@{TaskState\_Running}}}\Hypertarget{tcb_8h_a528049fed79c5587395da2377d5d0570ace7df1fea4c86c0a61fad5a3ddc599bc}\label{tcb_8h_a528049fed79c5587395da2377d5d0570ace7df1fea4c86c0a61fad5a3ddc599bc} 
+Task\+State\+\_\+\+Running&Indicates that a task is currently running and using CPU resources. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TaskState\_Blocked@{TaskState\_Blocked}!tcb.h@{tcb.h}}\index{tcb.h@{tcb.h}!TaskState\_Blocked@{TaskState\_Blocked}}}\Hypertarget{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a}\label{tcb_8h_a528049fed79c5587395da2377d5d0570a45d1d7d5eff6bccd32412f16107b542a} 
+Task\+State\+\_\+\+Blocked&Indicates that a task is blocked and still not ready to be selected by scheduler. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TaskState\_Deleted@{TaskState\_Deleted}!tcb.h@{tcb.h}}\index{tcb.h@{tcb.h}!TaskState\_Deleted@{TaskState\_Deleted}}}\Hypertarget{tcb_8h_a528049fed79c5587395da2377d5d0570ad8710cc7a70896664f0fd14eb6636dc4}\label{tcb_8h_a528049fed79c5587395da2377d5d0570ad8710cc7a70896664f0fd14eb6636dc4} 
+Task\+State\+\_\+\+Deleted&\mbox{[}FUTURE\mbox{]} Indicates that a task was deleted and will never run again. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TaskState\_MAX\_STATE@{TaskState\_MAX\_STATE}!tcb.h@{tcb.h}}\index{tcb.h@{tcb.h}!TaskState\_MAX\_STATE@{TaskState\_MAX\_STATE}}}\Hypertarget{tcb_8h_a528049fed79c5587395da2377d5d0570a9394e302e84f3a380e68aa59958cf6d0}\label{tcb_8h_a528049fed79c5587395da2377d5d0570a9394e302e84f3a380e68aa59958cf6d0} 
+Task\+State\+\_\+\+MAX\+\_\+\+STATE&Used for validity checks. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{tcb_8h_source_l00017}{17}} of file \mbox{\hyperlink{tcb_8h_source}{tcb.\+h}}.
+
